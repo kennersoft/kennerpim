@@ -4,7 +4,7 @@
 
 ![anne](docs/_assets/zs_ft_19_01_2018_employee_eng2.png)
 
-KennerPim is an open-source product information management system (PIM), developed by [KenerSoft Service GmbH](https://kenersoft.de), which is based on [KennerCore](https://github.com/Kenner-Soft-Service-GmbH/kennercore) software platform and is developed by TreoLabs GmbH. KennerPim (as well as KennerCore) is distributed under GPLv3 License and is free. It has a lot of features right out-of-the-box and thus is an excellent tool for cost-effective and timely application development.
+KennerPim is an open-source product information management system (PIM), developed by [KenerSoft Service GmbH](https://kenersoft.de), which is based on [KennerCore](https://github.com/Kenner-Soft-Service-GmbH/kennercore) software platform and is developed by KenerSoft Service GmbH. KennerPim (as well as KennerCore) is distributed under GPLv3 License and is free. It has a lot of features right out-of-the-box and thus is an excellent tool for cost-effective and timely application development.
 
 KennerPim is a single page application (SPA) with an API-centric and service-oriented architecture (SOA). It has a flexible data model based on entities, entity attributes and relations of all kinds among them. KennerPim allows you to gather and store all your product content in one place, enrich it and spread it to several channels like own online shop, amazon, eBay, online shops of your distributors, on a tablet or mobile application. KennerPim will help you to structure and organize all your flexible data and get rid of excel mess. 
 
