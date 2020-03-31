@@ -72,9 +72,9 @@ Da das KennerPim PIM-System einen hohen Konfigurationsgrad aufweist, können vie
 
 Preise für unsere Connectoren zu anderen Systemen sind meistens niedriger als bei der Konkurrenz, außerdem sind diese vom Umfang der ausgetauschten Daten nicht abhängig.
 
-TreoLabs GmbH bietet zahlreiche günstige Module an, um die Funktionalität des Systems zu ergänzen oder zu ändern. Der Einsatz von bestehenden Modulen ist wesentlich günstiger als die Eigenentwicklung.
+KenerSoft Service GmbH bietet zahlreiche günstige Module an, um die Funktionalität des Systems zu ergänzen oder zu ändern. Der Einsatz von bestehenden Modulen ist wesentlich günstiger als die Eigenentwicklung.
 
-Dank dem Einsatz von Deutsch-Ukrainischen Teams bietet TreoLabs GmbH einen relativ günstigen Stundensatz für ein Projekt zur Implementierung eines PIM-Systems sowie für die anschließende Unterstützung.
+Dank dem Einsatz von Deutsch-Ukrainischen Teams bietet KenerSoft Service GmbH einen relativ günstigen Stundensatz für ein Projekt zur Implementierung eines PIM-Systems sowie für die anschließende Unterstützung.
 
 KennerPim ist eine ausgezeichnete Lösung für solche Unternehmen, die Probleme mit ihren Produktinformationen haben. Bisher waren einige von ihnen aufgrund der zu hohen Kosten nicht bereit, in eine Lösung zu investieren.
 
@@ -169,7 +169,7 @@ Dank dem hohen Konfigurierungsgrad von KennerPim können viele Kosten im Rahmen 
 
 Es gibt absolut keine Grenzen bei der Erweiterungsfähigkeit von KennerPim. Das System ist modular aufgebaut, ist erweiterbar mit offiziellen und selbst erstellten Modulen, denn der Quellcode von KennerPim ist offen und frei verfügbar.
 
-Es gibt viele Module für KennerPim, auch solche, die nicht unbedingt mit einem PIM-System zu tun haben. Jeder Anwender installiert nur die Module, die er wirklich braucht, für seine besonderen Aufgaben und Probleme. Falls ein benötigtes Modul nicht existiert, kann ein solches immer noch individuell programmiert werden, entweder von TreoLabs GmbH oder auch von sonstigen Entwicklern oder Agenturen.
+Es gibt viele Module für KennerPim, auch solche, die nicht unbedingt mit einem PIM-System zu tun haben. Jeder Anwender installiert nur die Module, die er wirklich braucht, für seine besonderen Aufgaben und Probleme. Falls ein benötigtes Modul nicht existiert, kann ein solches immer noch individuell programmiert werden, entweder von KenerSoft Service GmbH oder auch von sonstigen Entwicklern oder Agenturen.
 
 
 
@@ -193,7 +193,7 @@ Ja, es ist möglich, das Dashboard anzupassen. Es ist sogar möglich, mehr als e
 
 Die neuen Widgets können auch über die Installation von zusätzlichen Modulen hinzugefügt werden, wie z.B. durch die Installation des Completeness Moduls.
 
-Bei Bedarf ist es möglich, neue Widgets von TreoLabs GmbH oder sonstigen Entwicklern programmieren zu lassen.
+Bei Bedarf ist es möglich, neue Widgets von KenerSoft Service GmbH oder sonstigen Entwicklern programmieren zu lassen.
 
   
 
@@ -233,7 +233,7 @@ KennerPim Premium-Module werden verkauft, nicht vermietet. Nach dem Kauf können
 
 ## Was ist KennerCore?
 
-TreoСore ist eine Plattform für die Entwicklung von Business Applications. KennerCore schafft ein neues und modernes Software-Ökosystem und bildet die Grundlage für weitere Lösungen von TreoLabs GmbH.  
+TreoСore ist eine Plattform für die Entwicklung von Business Applications. KennerCore schafft ein neues und modernes Software-Ökosystem und bildet die Grundlage für weitere Lösungen von KenerSoft Service GmbH.  
 
 KennerPim ist eine Lösung, die auf der KennerCore Plattform basiert und hat somit alle Eigenschaften und Funktionen, die durch die Plattform bereitgestellt werden. Das sind die allgemeinen Funktionen, die für eine beliebige Business-Anwendung denkbar wären.
 

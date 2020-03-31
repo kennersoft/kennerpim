@@ -2,7 +2,7 @@
 
   
 
-## Welche Leistungen werden von TreoLabs GmbH angeboten?
+## Welche Leistungen werden von KenerSoft Service GmbH angeboten?
 
 Wir bieten eine breite Palette von Leistungen an, die mit der Einführung eines PIM-Systems direkt und indirekt zu tun haben, unter anderem:
 
@@ -53,7 +53,7 @@ Die Implementierung von KennerPim dauert ab zwei Wochen. Die Zeit hängt sehr st
 
 
 
-## Wie wird die Projektumsetzung bei TreoLabs GmbH organisiert?
+## Wie wird die Projektumsetzung bei KenerSoft Service GmbH organisiert?
 
 Wir spezialisieren uns seit 2010 auf E-Commerce und haben ein umfangreiches Know-how auf diesem Gebiet aufgebaut, das uns erlaubte, KennerPim zu entwickeln. Dank einem agilen Projekt-Ansatz stellen wir sicher, dass das Endergebnis den gesetzten Anforderungen voll und ganz entspricht.
 
@@ -70,7 +70,7 @@ So bleiben wir während des ganzen Projekts flexibel, agil und offen für neue E
 
 ## Welchen Support bieten Sie an?
 
-Wir, die TreoLabs GmbH sorgen dafür, dass Sie mit unseren Lösungen nicht ratlos bleiben und sorgen dafür, dass jeder Kunde eine ordentliche Unterstützung bekommt. Wir bieten drei Support-Pakete an:
+Wir, die KenerSoft Service GmbH sorgen dafür, dass Sie mit unseren Lösungen nicht ratlos bleiben und sorgen dafür, dass jeder Kunde eine ordentliche Unterstützung bekommt. Wir bieten drei Support-Pakete an:
 
 - **Basic** – für kleine Anwender.
 - **Premium** – für kleine Anwender mit einigen Sonderwünschen.
@@ -78,7 +78,7 @@ Wir, die TreoLabs GmbH sorgen dafür, dass Sie mit unseren Lösungen nicht ratlo
 
 Es ist auch möglich, mit uns einen SLA-Vertrag mit besonderen Bedingungen zu vereinbaren. Nehmen Sie dafür Kontakt mit uns auf.
 
-Natürlich können Sie auch kostenlosen Support über [unsere Community](https://community.treolabs.com) bekommen.
+Natürlich können Sie auch kostenlosen Support über [unsere Community](https://kenersoft.de) bekommen.
 
   
 
