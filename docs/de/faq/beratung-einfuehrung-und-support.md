@@ -7,9 +7,9 @@
 Wir bieten eine breite Palette von Leistungen an, die mit der Einführung eines PIM-Systems direkt und indirekt zu tun haben, unter anderem:
 
 - Beratung
-- Einführung von TreoPIM
+- Einführung von KennerPim
 - Migration von anderen PIM-Systemen
-- Integration von TreoPIM mit Drittsystemen
+- Integration von KennerPim mit Drittsystemen
 - Programmierung von zusätzlichen Funktionen und Modulen
 - Wartung und Support.
 
@@ -21,7 +21,7 @@ Sie können bei uns ein “Sorglos”-Paket erwerben, wir lassen Sie nie im Stic
 
 Wir können Ihnen ein kostenloses erstes Beratungsgespräch anbieten, nehmen Sie dafür Kontakt mit uns auf und wir vereinbaren einen Termin.
 
-Alternativ, wenn Sie Ihre Aufgaben und Probleme sowie die möglichen Lösungsalternativen mithilfe von TreoPIM detaillierter besprechen möchten, können wir Ihnen einen Workshop über Screen Sharing, bei uns oder bei Ihnen vor Ort anbieten.
+Alternativ, wenn Sie Ihre Aufgaben und Probleme sowie die möglichen Lösungsalternativen mithilfe von KennerPim detaillierter besprechen möchten, können wir Ihnen einen Workshop über Screen Sharing, bei uns oder bei Ihnen vor Ort anbieten.
 
 
 
@@ -47,20 +47,20 @@ Ja, der Ihrem Projekt zugewiesene Projektmanager wird Ihnen gerne per E-Mail und
 
   
 
-## Wie lange dauert eine Implementierung von TreoPIM?
+## Wie lange dauert eine Implementierung von KennerPim?
 
-Die Implementierung von TreoPIM dauert ab zwei Wochen. Die Zeit hängt sehr stark davon ab, wie viele individuelle Anforderungen und Besonderheiten Sie haben. Diese Frist hängt allerdings nicht nur von uns, sondern vielmehr von Ihnen ab, denn Sie müssen im Projekt mitwirken.
+Die Implementierung von KennerPim dauert ab zwei Wochen. Die Zeit hängt sehr stark davon ab, wie viele individuelle Anforderungen und Besonderheiten Sie haben. Diese Frist hängt allerdings nicht nur von uns, sondern vielmehr von Ihnen ab, denn Sie müssen im Projekt mitwirken.
 
 
 
 ## Wie wird die Projektumsetzung bei TreoLabs GmbH organisiert?
 
-Wir spezialisieren uns seit 2010 auf E-Commerce und haben ein umfangreiches Know-how auf diesem Gebiet aufgebaut, das uns erlaubte, TreoPIM zu entwickeln. Dank einem agilen Projekt-Ansatz stellen wir sicher, dass das Endergebnis den gesetzten Anforderungen voll und ganz entspricht.
+Wir spezialisieren uns seit 2010 auf E-Commerce und haben ein umfangreiches Know-how auf diesem Gebiet aufgebaut, das uns erlaubte, KennerPim zu entwickeln. Dank einem agilen Projekt-Ansatz stellen wir sicher, dass das Endergebnis den gesetzten Anforderungen voll und ganz entspricht.
 
 *Ein Projekt wird bei uns wie folgt umgesetzt:*
 
 1. Zunächst starten wir mit einem Kickoff-Meeting und besprechen mit Ihnen die Ziele und alle wichtigsten Aufgaben, die im Projekt umzusetzen sind.
-2. Dann besprechen wir Ihr Datenmodell und konfigurieren TreoPIM entsprechend.
+2. Dann besprechen wir Ihr Datenmodell und konfigurieren KennerPim entsprechend.
 3. Anschließend werden die Detailanforderungen formuliert und in die Sprints nach absteigender Wichtigkeit aufgeteilt. Die wichtigsten Anforderungen werden in den ersten Sprints und die weniger wichtigen in den nachfolgenden Sprints umgesetzt.
 4. Jeder Sprint wird vom Kunden separat abgenommen, und die daraus resultierenden Anmerkungen, Änderungen und Erweiterungen werden dann in dem nachfolgenden Sprint umgesetzt.
 

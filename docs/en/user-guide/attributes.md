@@ -23,7 +23,7 @@ The attribute entity comes with the following preconfigured fields; mandatory ar
 
 ## Available Attribute Types
 
-Attributes are automatically validated according to their type. The following attribute types are available in the [TreoPIM system](./what-is-treopim.md):
+Attributes are automatically validated according to their type. The following attribute types are available in the [KennerPim system](./what-is-treopim.md):
 
 ![Attribute types](../../_assets/attributes/attribute-types-list.jpg)
 
@@ -66,7 +66,7 @@ Once the [multi-languages](https://treopim.com/store/multi-languages#module-conf
 
 For details on multilingual attributes, please, visit [our store](https://treopim.com/store/multi-languages#multilingual-attributes).
 
-Alternatively, use the [quick create](./user-interface.md#quick-create) button on any TreoPIM page and fill in the required fields in the attribute creation pop-up that appears:
+Alternatively, use the [quick create](./user-interface.md#quick-create) button on any KennerPim page and fill in the required fields in the attribute creation pop-up that appears:
 
 ![Creation pop-up](../../_assets/attributes/creation-popup.jpg)
 

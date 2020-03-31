@@ -36,7 +36,7 @@ Click the `Save` button to finish the channel record creation or `Cancel` to abo
 
 If the channel code is not unique, the error message will appear notifying you about it.
 
-Alternatively, use the [quick create](./user-interface.md#quick-create) button on any TreoPIM page and fill in the required fields in the channel creation pop-up that appears:
+Alternatively, use the [quick create](./user-interface.md#quick-create) button on any KennerPim page and fill in the required fields in the channel creation pop-up that appears:
 
 ![Creation pop-up](../../_assets/channels/creation-popup.jpg)
 
@@ -155,4 +155,4 @@ To remove the product, select the `Remove` option from the single record actions
 
 To view the channel related product record from the `PRODUCTS` panel, click its name in the products list. The [detail view](./views-and-panels.md#detail-view) page of the given product record will open, where you can perform further actions according to your access rights, configured by the administrator. 
 
-*Please, note that you can get additional modules (e.g. ["Pricing"](https://treopim.com/store/pricing), ["Completeness"](https://treopim.com/store/completeness), ["Export Feeds"](https://treopim.com/store/export-feeds), ["Import Feeds"](https://treopim.com/store/import-feeds), etc.) to your TreoPIM system to extend the channels functionality. To learn more about the modules and their features available for you, please, visit [our store](https://treopim.com/store).*
+*Please, note that you can get additional modules (e.g. ["Pricing"](https://treopim.com/store/pricing), ["Completeness"](https://treopim.com/store/completeness), ["Export Feeds"](https://treopim.com/store/export-feeds), ["Import Feeds"](https://treopim.com/store/import-feeds), etc.) to your KennerPim system to extend the channels functionality. To learn more about the modules and their features available for you, please, visit [our store](https://treopim.com/store).*

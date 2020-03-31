@@ -1,6 +1,6 @@
 # Views and Panels
 
-The TreoPIM system comes with a user-friendly configurable [interface](./user-interface.md) that includes a number of views and panels, where **entity records** are displayed and managed. 
+The KennerPim system comes with a user-friendly configurable [interface](./user-interface.md) that includes a number of views and panels, where **entity records** are displayed and managed. 
 
 Views can be shown in the main or pop-up window. They consist of the panels, which can be configured by the administrator. Usually these are structured in a way to provide you with key information on the record management.
 
@@ -55,7 +55,7 @@ Mass actions are to be applied to several (or all) selected entity records, i.e.
 
 ![Select all option](../../_assets/views-and-panels/select-all-option.jpg)
 
-The following mass actions are available in the TreoPIM system: 
+The following mass actions are available in the KennerPim system: 
 
 ![Mass Actions](../../_assets/views-and-panels/mass-actions.jpg)
 
@@ -231,7 +231,7 @@ In all other cases, i.e. when the `+` button is used, you will be taken to the [
 
 ## Quick Create View
 
-The quick create view is shown in a pop-up window and uses the layout of the [quick detail view](#quick-detail-view-small-detail-view) page. It is usually applicable for creating records for the related entities or appears when the [quick create](./user-interface.md#quick-create) button is used on any TreoPIM page:
+The quick create view is shown in a pop-up window and uses the layout of the [quick detail view](#quick-detail-view-small-detail-view) page. It is usually applicable for creating records for the related entities or appears when the [quick create](./user-interface.md#quick-create) button is used on any KennerPim page:
 
 ![Quick create view](../../_assets/views-and-panels/quick-create-view.jpg)
 

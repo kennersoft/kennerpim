@@ -8,9 +8,9 @@ Sowohl beim Verkauf unserer Premium-Module als auch bei deren Wartung und Suppor
 
 
 
-## Was kostet die Implementierung von TreoPIM?
+## Was kostet die Implementierung von KennerPim?
 
-Diese Frage lässt sich pauschal nicht beantworten, denn jeder Anwender hat eigene Besonderheiten und Aufgaben, die mithilfe von TreoPIM zu lösen sind. Wir, die TreoLabs GmbH, nehmen Projekte mit einem Projektbudget ab EUR 10.000 netto inkl. Erwerb notwendiger Module an.
+Diese Frage lässt sich pauschal nicht beantworten, denn jeder Anwender hat eigene Besonderheiten und Aufgaben, die mithilfe von KennerPim zu lösen sind. Wir, die TreoLabs GmbH, nehmen Projekte mit einem Projektbudget ab EUR 10.000 netto inkl. Erwerb notwendiger Module an.
 
 
 
@@ -85,6 +85,6 @@ Ja. TreoLabs GmbH ist eine deutsche GmbH.
 
 
 
-## Muss ich mit monatlichen Gebühren für TreoPIM rechnen?
+## Muss ich mit monatlichen Gebühren für KennerPim rechnen?
 
-Nein, TreoPIM-Software ist kostenlos. Sie zahlen nur dann eine monatliche Gebühr, wenn Sie einen Wartungs- und Supportvertrag mit der TreoLabs GmbH abschließen. Die Höhe der Gebühren wird durch Ihre Bedürfnisse und Nutzungsintensität bestimmt, unabhängig von der Anzahl Ihrer Nutzer.
+Nein, KennerPim-Software ist kostenlos. Sie zahlen nur dann eine monatliche Gebühr, wenn Sie einen Wartungs- und Supportvertrag mit der TreoLabs GmbH abschließen. Die Höhe der Gebühren wird durch Ihre Bedürfnisse und Nutzungsintensität bestimmt, unabhängig von der Anzahl Ihrer Nutzer.

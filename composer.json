@@ -1,7 +1,7 @@
 {
   "name": "treolabs/pim",
-  "description": "TreoPIM. Open source PIM application.",
-  "homepage": "https://treopim.com",
+  "description": "KennerPim. Open source PIM application.",
+  "homepage": "https://kennerpim.de",
   "license": "GPL-3.0-only",
   "require": {
     "treolabs/treocore": "~3.25.15",

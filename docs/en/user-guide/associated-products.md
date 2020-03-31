@@ -28,7 +28,7 @@ Here fill in all the required fields for the entry being created. Select the `Bo
 
 > If a [backward association](./associations.md) is defined for the association entry within which the products are related, the `Both directions` checkbox will be selected by default with the backward association name displayed in the corresponding field.
 
-Alternatively, use `+` button on the `ASSOCIATED PRODUCTS` panel of the [product](./products.md#associated-products) detail view page or the [quick create](./user-interface.md#quick-create) button on any TreoPIM page and fill in the required fields in the associated product creation pop-up that appears. Please, note that the `ASSOCIATED PRODUCTS` panel of the product [detail view](./views-and-panels.md#detail-view) page displays which products are in relation with the currently opened product and within which association.
+Alternatively, use `+` button on the `ASSOCIATED PRODUCTS` panel of the [product](./products.md#associated-products) detail view page or the [quick create](./user-interface.md#quick-create) button on any KennerPim page and fill in the required fields in the associated product creation pop-up that appears. Please, note that the `ASSOCIATED PRODUCTS` panel of the product [detail view](./views-and-panels.md#detail-view) page displays which products are in relation with the currently opened product and within which association.
 
 ## Listing
 

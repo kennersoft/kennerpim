@@ -10,11 +10,11 @@ Categories make up a powerful tool that can be used not only to sort your conten
 
 **Subcategories** – all child categories, assigned to a certain category. Subcategories for category "Germany" may be "Berlin", "Munich", "Hannover" and so on.
 
-There can be many category trees in TreoPIM. Each category can have only one parent category. Each category may have a lot of subcategories. One category can be used in several category trees. Also many products can be assigned to one category, and each product can be assigned to more than one category in accordance with the catalog content.
+There can be many category trees in KennerPim. Each category can have only one parent category. Each category may have a lot of subcategories. One category can be used in several category trees. Also many products can be assigned to one category, and each product can be assigned to more than one category in accordance with the catalog content.
 
 ## One Category Tree vs Multiple Category Trees
 
-Each adopter of [TreoPIM](./what-is-treopim.md) may decide for himself what works better for him – setting up and supporting multiple category trees or just one. Irregardless of the choice, it is still possible to synchronize different content for products you want to supply. 
+Each adopter of [KennerPim](./what-is-treopim.md) may decide for himself what works better for him – setting up and supporting multiple category trees or just one. Irregardless of the choice, it is still possible to synchronize different content for products you want to supply. 
 
 ## Category Fields
 
@@ -44,7 +44,7 @@ If the category code is not unique, the error message will appear notifying you 
 
 The new record will be added to the categories list. You can configure it right away on the [detail view](./views-and-panels.md#detail-view) page that opens or return to it later.
 
-Alternatively, use the [quick create](./user-interface.md#quick-create)  button on any TreoPIM page and fill in the required fields in the category creation pop-up that appears:
+Alternatively, use the [quick create](./user-interface.md#quick-create)  button on any KennerPim page and fill in the required fields in the category creation pop-up that appears:
 
 ![Creation pop-up](../../_assets/categories/creation-popup.jpg)
 
@@ -136,7 +136,7 @@ Use the `Duplicate` option from the actions menu to go to the category creation 
 
 ## Category Tree
 
-TreoPIM offers you a dynamic display of all categories available in the system in a tree view. To see this, click the `Tree View` button on the categories list view:   
+KennerPim offers you a dynamic display of all categories available in the system in a tree view. To see this, click the `Tree View` button on the categories list view:   
            
 ![Tree view button](../../_assets/categories/tree-view-button.jpg)
 
@@ -146,7 +146,7 @@ In this view, parent–child relations are more explicit, and category trees are
 
 ## Working With Entities Related to Categories
 
-Relations to [products](./products.md#category-products) are available for all categories by default. For *root* categories, there is additionally the relation to [catalogs](#catalogs). Moreover, once the [TreoDAM module](https://treodam.com) is also installed in the TreoPIM system, [assets](#asset-relations) can also be related to categories. All the related entities records are displayed on the corresponding panels on the category [detail view](./views-and-panels.md#detail-view) page. 
+Relations to [products](./products.md#category-products) are available for all categories by default. For *root* categories, there is additionally the relation to [catalogs](#catalogs). Moreover, once the [TreoDAM module](https://treodam.com) is also installed in the KennerPim system, [assets](#asset-relations) can also be related to categories. All the related entities records are displayed on the corresponding panels on the category [detail view](./views-and-panels.md#detail-view) page. 
 
 > If any panel is missing, please, contact your administrator as to your access rights configuration. To be able to relate more entities to categories, please, also contact your administrator.
 
@@ -217,7 +217,7 @@ Catalogs linked to the given category record can be viewed, edited, unlinked, or
 
 ### Asset Relations
 
-> The `ASSET RELATIONS` panel is present on the category record detail view page only when the [TreoDAM module](https://treodam.com) is also installed in the TreoPIM system.
+> The `ASSET RELATIONS` panel is present on the category record detail view page only when the [TreoDAM module](https://treodam.com) is also installed in the KennerPim system.
 
 All the assets that are linked to the currently open category record are displayed on its [detail view](./views-and-panels.md#detail-view) page on the `ASSET RELATIONS` panel and include the following table columns:
 - Preview
@@ -253,7 +253,7 @@ By default, the defined asset has the `Global` scope, but you can change it to `
 
 ![Channel asset](../../_assets/categories/asset-channel.jpg)
 
-Select the `Private` checkbox to make the current asset record private, i.e. allow access to it only via the entry point. If the checkbox is not selected, TreoPIM users can reach the asset via the direct shared link to its storage place.
+Select the `Private` checkbox to make the current asset record private, i.e. allow access to it only via the entry point. If the checkbox is not selected, KennerPim users can reach the asset via the direct shared link to its storage place.
 
 Additionally, it is possible to assign a role to the asset record being created by clicking the corresponding field and selecting the desired option from the list:
 

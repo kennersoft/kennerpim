@@ -2,11 +2,11 @@
 
 **Product** – the item in physical, virtual or cyber form as well as a service offered for sale. Every product is made at a cost and sold at a price. 
 
-There are several [types](#product-types) of products in the TreoPIM system, and each product, irregardless of its type, can be assigned to a certain [product family](./product-families.md), which will define the attributes to be set for this product. A product can be assigned to several [categories](./categories.md), be of a certain [brand](./brands.md), described in several languages and be prepared for selling via different [channels](./channels.md). A product can be in [association](./associations.md) of a certain type with some other product, and thus within different associations and with different products. It is possible to set different [attribute](./attributes.md) values for different channels. 
+There are several [types](#product-types) of products in the KennerPim system, and each product, irregardless of its type, can be assigned to a certain [product family](./product-families.md), which will define the attributes to be set for this product. A product can be assigned to several [categories](./categories.md), be of a certain [brand](./brands.md), described in several languages and be prepared for selling via different [channels](./channels.md). A product can be in [association](./associations.md) of a certain type with some other product, and thus within different associations and with different products. It is possible to set different [attribute](./attributes.md) values for different channels. 
 
-Moreover, once the [TreoDAM module](https://treodam.com) is also installed in the TreoPIM system, there is also the ability to manage [asset relations](#asset-relations) for your product records. Learn more about TreoDAM [here](https://treodam.com/features).
+Moreover, once the [TreoDAM module](https://treodam.com) is also installed in the KennerPim system, there is also the ability to manage [asset relations](#asset-relations) for your product records. Learn more about TreoDAM [here](https://treodam.com/features).
 
-There are several [types](#product-types) of products in the TreoPIM system, and each product, irregardless of its type, can be assigned to a certain [product family](./product-families.md), which will define the attributes to be set for this product. A product can be assigned to several [categories](./categories.md), be of a certain [brand](./brands.md), described in several languages and be prepared for selling via different [channels](./channels.md). A product can be in [association](./associations.md) of a certain type with some other product, and thus within different associations and with different products. It is possible to set different [attribute](./attributes.md) values for different channels and upload product images.
+There are several [types](#product-types) of products in the KennerPim system, and each product, irregardless of its type, can be assigned to a certain [product family](./product-families.md), which will define the attributes to be set for this product. A product can be assigned to several [categories](./categories.md), be of a certain [brand](./brands.md), described in several languages and be prepared for selling via different [channels](./channels.md). A product can be in [association](./associations.md) of a certain type with some other product, and thus within different associations and with different products. It is possible to set different [attribute](./attributes.md) values for different channels and upload product images.
 <!-- MENTION DAM HERE???-->
 
 ## Product Fields
@@ -30,7 +30,7 @@ If the [multi-languages](https://treopim.com/store/multi-languages#module-config
 
 ## Product Types
 
-The only type of products available in the TreoPIM system by default is **Simple Product** – a standalone physical item or service sold as one piece. 
+The only type of products available in the KennerPim system by default is **Simple Product** – a standalone physical item or service sold as one piece. 
 
 The list of products may be extended along with the installation of additional modules to your system. To learn more about available modules and their features, please, visit our [store](https://treopim.com/store). 
 
@@ -54,7 +54,7 @@ Here enter the desired name and SKU value for the product record being created a
 
 Click the `Save` button to finish the product record creation and get redirected to the product [editing page](#editing), described below, or `Cancel` to abort the process.
 
-Alternatively, use the [quick create](./user-interface.md#quick-create) button on any TreoPIM page and fill in the required fields in the product creation pop-up that appears or click the `Full Form` button to get to the common creation page:
+Alternatively, use the [quick create](./user-interface.md#quick-create) button on any KennerPim page and fill in the required fields in the product creation pop-up that appears or click the `Full Form` button to get to the common creation page:
 
 ![Creation pop-up](../../_assets/products/product-create.jpg)
 
@@ -185,7 +185,7 @@ Use the `Duplicate` option from the actions menu to go to the product [creation 
 
 ## Working With Entities Related to Products
 
-In the TreoPIM system, the following entities are related to products:
+In the KennerPim system, the following entities are related to products:
 - [product attributes](#product-attributes);
 - [product categories](#product-categories);
 - [channels](#channels);
@@ -233,7 +233,7 @@ Use the `Select` option from the actions menu located in the upper right corner 
 
 In the "Attributes" pop-up that appears, choose the desired attribute (or attributes) from the list and press the `Select` button to link the item(s) to the product record. The linked attributes have the `Global` scope by default.
 
-TreoPIM supports linking to products not only separate attributes, but also [attribute groups](./attribute-groups.md). For this, use the `Select Attribute Group` option from the actions menu, and in the "Attribute Groups" pop-up that appears, select the desired groups from the list of available attribute group records.
+KennerPim supports linking to products not only separate attributes, but also [attribute groups](./attribute-groups.md). For this, use the `Select Attribute Group` option from the actions menu, and in the "Attribute Groups" pop-up that appears, select the desired groups from the list of available attribute group records.
 
 Please, note that attributes linked to products are arranged by attribute groups correspondingly. Their placement depends on the configuration and [sort order](./attribute-groups.md#sort-order) value of the attribute group to which they belong.
 
@@ -291,7 +291,7 @@ Product category records can be viewed, edited, or removed via the corresponding
 
 ![Channels panel](../../_assets/products/channels-panel.jpg)
 
-Irregardless of the activity state of the product record in the TreoPIM system, you can activate it for a separate channel, which is linked to it. To do this, select the `Active for channel` checkbox for the desired channel record present on the `CHANNELS` panel:
+Irregardless of the activity state of the product record in the KennerPim system, you can activate it for a separate channel, which is linked to it. To do this, select the `Active for channel` checkbox for the desired channel record present on the `CHANNELS` panel:
 
 ![Active for channel](../../_assets/products/active-for-channel.jpg)
 
@@ -327,7 +327,7 @@ Products that are linked to the currently open product record through the [assoc
 
 ![AP panel](../../_assets/products/ap-panel.jpg)
 
-When the [TreoDAM module](https://treodam.com) is also installed in your TreoPIM system, there is also the `Related Product Image` column additionally on this panel:
+When the [TreoDAM module](https://treodam.com) is also installed in your KennerPim system, there is also the `Related Product Image` column additionally on this panel:
 
 ![AP panel with DAM](../../_assets/products/ap-panel-with-dam.jpg)
 
@@ -343,7 +343,7 @@ Associated product records can be edited or removed via the corresponding option
 
 ### Asset Relations
 
-> The `ASSET RELATIONS` panel is present on the product record detail view page only when the [TreoDAM module](https://treodam.com) is also installed in the TreoPIM system.
+> The `ASSET RELATIONS` panel is present on the product record detail view page only when the [TreoDAM module](https://treodam.com) is also installed in the KennerPim system.
 
 All the assets that are linked to the currently open product record are displayed on its [detail view](./views-and-panels.md#detail-view) page on the `ASSET RELATIONS` panel and include the following table columns:
 - Preview
@@ -379,7 +379,7 @@ By default, the defined asset has the `Global` scope, but you can change it to `
 
 ![Channel asset](../../_assets/products/asset-channel.jpg)
 
-Select the `Private` checkbox to make the current asset record private, i.e. allow access to it only via the entry point. If the checkbox is not selected, TreoPIM users can reach the asset via the direct shared link to its storage place.
+Select the `Private` checkbox to make the current asset record private, i.e. allow access to it only via the entry point. If the checkbox is not selected, KennerPim users can reach the asset via the direct shared link to its storage place.
 
 Additionally, it is possible to assign a role to the asset record being created by clicking the corresponding field and selecting the desired option from the list:
 
