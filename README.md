@@ -1,8 +1,8 @@
-![treopim_h80](docs/_assets/treopim_h80.png)
+![kenner_pim_logo](docs/_assets/kenner_pim_logo.png)
 
 ## What Is KennerPim?
 
-![anne](docs/_assets/zs_ft_19_01_2018_employee_eng2.png)
+![anne](docs/_assets/kenner_pim_banner_employee_eng2.png)
 
 KennerPim is an open-source product information management system (PIM), developed by [KenerSoft Service GmbH](https://kenersoft.de), which is based on [KennerCore](https://github.com/Kenner-Soft-Service-GmbH/kennercore) software platform and is developed by KenerSoft Service GmbH. KennerPim (as well as KennerCore) is distributed under GPLv3 License and is free. It has a lot of features right out-of-the-box and thus is an excellent tool for cost-effective and timely application development.
 
@@ -23,7 +23,7 @@ KennerPim is a single page application (SPA) with an API-centric and service-ori
 
 KennerPim is an effective solution for storing, processing and managing your product information. All product data are extracted from different sources, classified, translated and enriched. KennerPim helps you publish the relevant data on different sales channels with minimum efforts. 
 
-![unctions_banne](docs/_assets/how_it_works_scheme_en.png)
+![unctions_banne](docs/_assets/kenner_pim_how_it_works_scheme_en.png)
 
 ## Features
 
@@ -85,8 +85,8 @@ Please, [ask](https://treopim.com/contact), if you want to know more.
 
 ### Configuration Instructions Based on Your Server
 
-* [Apache server configuration](https://github.com/treolabs/treocore/blob/master/docs/en/administration/apache-server-configuration.md)
-* [Nginx server configuration](https://github.com/treolabs/treocore/blob/master/docs/en/administration/nginx-server-configuration.md)
+* [Apache server configuration](https://github.com/Kenner-Soft-Service-GmbH/kennerpim/blob/master/docs/en/administration/apache-server-configuration.md)
+* [Nginx server configuration](https://github.com/Kenner-Soft-Service-GmbH/kennerpim/blob/master/docs/en/administration/nginx-server-configuration.md)
 
 ### Installation
 
