@@ -71,7 +71,7 @@ Queue Manager is opened in the pop-up window for each operation executed display
 
 ![Queue Manager](../../_assets/user-interface/queue-manager.jpg)
 
-In the Queue Manager, you will see the most recent KennerPim operations, which were executed in the background mode. Additionally, the information on the data export and import performed with the help of export / import feeds correspondingly is shown in the Queue Manager pop-up. To learn more about the ["Export Feeds"](https://treopim.com/store/export-feeds) and ["Import Feeds"](https://treopim.com/store/import-feeds) modules, please, visit our store.
+In the Queue Manager, you will see the most recent KennerPim operations, which were executed in the background mode. Additionally, the information on the data export and import performed with the help of export / import feeds correspondingly is shown in the Queue Manager pop-up. To learn more about the "Export Feeds" and "Import Feeds" modules, please, visit our store.
 
 To view the details of the performed operations, click `View List` in the upper right corner of the Queue Manager. 
 

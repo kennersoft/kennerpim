@@ -1,6 +1,6 @@
 # CATALOGS
 
-**Catalog** – a container for your [products](./products.md) arranged by certain criteria, i.e. it is a set of data at a given time compiled to be transferred via certain [channels](./channels.md). Catalog's content may be modified whenever needed within the [KennerPim system](./what-is-treopim.md).
+**Catalog** – a container for your [products](./products.md) arranged by certain criteria, i.e. it is a set of data at a given time compiled to be transferred via certain [channels](./channels.md). Catalog's content may be modified whenever needed within the [KennerPim system](./what-is-kennerpim.md).
 
 Catalogs, as well as channels, form the basis of the multichannel publication of your products data. They allow you to manage your range of products and carry out your multichannel strategy in the most flexible manner.
 

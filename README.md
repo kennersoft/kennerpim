@@ -51,7 +51,7 @@ KennerPim is based on TreoPIM and uses PHP7, backbone.js, composer and some Zend
 
 ![Technology_schem](docs/_assets/technologie_scheme_eng.png)
 
-Want to know more about KennerPim technology? Please, visit [our website](http://treopim.com/technology)!
+Want to know more about KennerPim technology? Please, visit [our website](http://kennerpim.de)!
 
 ## Integrations
 

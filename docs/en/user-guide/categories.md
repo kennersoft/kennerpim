@@ -14,7 +14,7 @@ There can be many category trees in KennerPim. Each category can have only one p
 
 ## One Category Tree vs Multiple Category Trees
 
-Each adopter of [KennerPim](./what-is-treopim.md) may decide for himself what works better for him – setting up and supporting multiple category trees or just one. Irregardless of the choice, it is still possible to synchronize different content for products you want to supply. 
+Each adopter of [KennerPim](./what-is-kennerpim.md) may decide for himself what works better for him – setting up and supporting multiple category trees or just one. Irregardless of the choice, it is still possible to synchronize different content for products you want to supply. 
 
 ## Category Fields
 

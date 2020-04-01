@@ -23,7 +23,7 @@ The attribute entity comes with the following preconfigured fields; mandatory ar
 
 ## Available Attribute Types
 
-Attributes are automatically validated according to their type. The following attribute types are available in the [KennerPim system](./what-is-treopim.md):
+Attributes are automatically validated according to their type. The following attribute types are available in the [KennerPim system](./what-is-kennerpim.md):
 
 ![Attribute types](../../_assets/attributes/attribute-types-list.jpg)
 
