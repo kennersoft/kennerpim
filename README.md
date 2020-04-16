@@ -130,6 +130,6 @@ KennerPim is published under the GNU GPLv3 [license](LICENSE.txt).
 
 ## Support
 
-- KennerPim is developed and supported by [KenerSoft Service GmbH](https://kenersoft.de).
-- Feel free to joing our [Community](https://kenersoft.de).
+- KennerPim is developed and supported by [KenerSoft Service GmbH](https://kennersoft.de).
+- Feel free to joing our [Community](https://kennersoft.de).
 - To contact us, please visit [KennerPim Website](https://kennerpim.de).
