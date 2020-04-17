@@ -78,7 +78,7 @@ Wir, die KennerSoft Service GmbH sorgen dafür, dass Sie mit unseren Lösungen n
 
 Es ist auch möglich, mit uns einen SLA-Vertrag mit besonderen Bedingungen zu vereinbaren. Nehmen Sie dafür Kontakt mit uns auf.
 
-Natürlich können Sie auch kostenlosen Support über [unsere Community](https://kenersoft.de) bekommen.
+Natürlich können Sie auch kostenlosen Support über [unsere Community](https://kennersoft.de) bekommen.
 
   
 
