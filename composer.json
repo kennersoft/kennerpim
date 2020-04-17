@@ -1,15 +1,15 @@
 {
-  "name": "treolabs/pim",
-  "description": "TreoPIM. Open source PIM application.",
-  "homepage": "https://treopim.com",
+  "name": "kennersoft/pim",
+  "description": "KennerPim. Open source PIM application.",
+  "homepage": "https://kennerpim.de",
   "license": "GPL-3.0-only",
   "require": {
-    "treolabs/treocore": "~3.25.2",
-    "treolabs/colored-fields": "~1.7.13",
-    "treolabs/multi-languages": "~1.14.0",
-    "treolabs/import-feeds-common": "~1.4.0",
-    "treolabs/treodam-common": "~1.0.0",
-    "treolabs/completeness-common": "~1.0.1"
+    "kennersoft/kennercore": "~3.25.2",
+    "kennersoft/colored-fields": "~1.7.13",
+    "kennersoft/multi-languages": "~1.14.0",
+    "kennersoft/import-feeds-common": "~1.4.0",
+    "kennersoft/kennerdam-common": "~1.0.0",
+    "kennersoft/completeness-common": "~1.0.1"
   },
   "autoload": {
     "psr-4": {
@@ -23,7 +23,7 @@
       "default": "PIM"
     },
     "description": {
-      "default": "PIM module for Treo Core."
+      "default": "PIM module for KennerCore."
     }
   }
 }
