@@ -106,4 +106,4 @@ Ja, wenn eingestellt, kann der Administrator alle Handlungen von allen Nutzern i
 
 Um die Konsistenz des Systems nicht zu gefährden, werden in KennerPim keine Einträge gelöscht. Diese erhalten nur eine Eigenschaft “isDeleted”, damit das System weiß, dass dieser Eintrag den Nutzern nicht mehr anzuzeigen ist.
 
-Somit ist es möglich, die “gelöschten” Daten wiederherzustellen. Das sollte am besten von KenerSoft Service GmbH oder von Ihren KennerPim-Entwicklern erfolgen.
+Somit ist es möglich, die “gelöschten” Daten wiederherzustellen. Das sollte am besten von KennerSoft Service GmbH oder von Ihren KennerPim-Entwicklern erfolgen.

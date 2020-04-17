@@ -2,7 +2,7 @@
 
 KennerPim is a single page application (SPA) with an API-centric architecture and flexible data model based on entities, entity attributes and relations of all kinds among them. KennerPim allows you to gather and store all your product content in one place, enrich it and spread it to several channels like own online shop, Amazon, eBay, online shops of your distributors, on a tablet or mobile application. KennerPim will help your to structure and organize all you flexible data and get rid of the Excel mess.
 
-KennerPim is developed and supported by [KenerSoft Service GmbH](https://kenersoft.de).
+KennerPim is developed and supported by [KennerSoft Service GmbH](https://kenersoft.de).
 
 ## Main Definitions
 

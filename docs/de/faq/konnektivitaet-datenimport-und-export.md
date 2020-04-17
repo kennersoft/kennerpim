@@ -60,7 +60,7 @@ Ja, der vollautomatische Datenaustausch mit dem KennerPim-System ist möglich. D
 
 ## Wer ist berechtigt, Daten aus KennerPim zu exportieren?
 
-Jeder Nutzer ist berechtigt, alle Einträge, auf die er Zugriff hat, zu exportieren. Es ist möglich, die Exportfunktion auf Programmebene zu verbieten. Kontaktieren Sie dafür KenerSoft Service GmbH oder Ihre KennerPim-Entwickler.
+Jeder Nutzer ist berechtigt, alle Einträge, auf die er Zugriff hat, zu exportieren. Es ist möglich, die Exportfunktion auf Programmebene zu verbieten. Kontaktieren Sie dafür KennerSoft Service GmbH oder Ihre KennerPim-Entwickler.
 
 
 
