@@ -8,7 +8,7 @@
     "kennersoft/colored-fields": "~1.7.13",
     "kennersoft/multi-languages": "~1.14.0",
     "kennersoft/import-feeds-common": "~1.4.0",
-    "kennersoft/kennerdam-common": "~1.0.0",
+    "kennersoft/kennerdam-common": "~1.1.0",
     "kennersoft/completeness-common": "~1.0.1"
   },
   "autoload": {
