@@ -47,7 +47,7 @@ Want to know more about KennerPim functions and its advantages for you? Please, 
 
 ## Technology
 
-KennerPim is based on TreoPIM and uses PHP7, backbone.js, composer and some Zend Framework 3 libraries.
+KennerPim is based on KennerPim and uses PHP7, backbone.js, composer and some Zend Framework 3 libraries.
 
 ![Technology_schem](docs/_assets/technologie_scheme_eng.png)
 
