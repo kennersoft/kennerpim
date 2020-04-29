@@ -52,6 +52,11 @@ class ProductHandler extends AbstractHandler
     /**
      * @var array
      */
+    protected $attributeValues = [];
+
+    /**
+     * @var array
+     */
     protected $attributes = [];
 
     /**
@@ -166,7 +171,7 @@ class ProductHandler extends AbstractHandler
                 }
 
                 // prepare product attributes
-                $this->attributes = $entity->get('productAttributeValues');
+                $this->attributeValues = $entity->get('productAttributeValues');
 
                 foreach ($additionalFields as $value) {
                     if (isset($value['item']['attributeId'])) {
@@ -241,7 +246,7 @@ class ProductHandler extends AbstractHandler
         }
         $row = $data['row'];
 
-        foreach ($this->attributes as $item) {
+        foreach ($this->attributeValues as $item) {
             if ($item->get('attributeId') == $conf['attributeId'] && $item->get('scope') == $conf['scope']) {
                 if ($conf['scope'] == 'Global') {
                     $inputRow->id = $item->get('id');
@@ -280,7 +285,7 @@ class ProductHandler extends AbstractHandler
             }
 
             $entity = $service->createEntity($inputRow);
-            $this->attributes[] = $entity;
+            $this->attributeValues[] = $entity;
 
             $this->saveRestoreRow('created', $entityType, $entity->get('id'));
 
