@@ -4,7 +4,7 @@
 
 ![anne](docs/_assets/kenner_pim_banner_employee_eng2.png)
 
-KennerPim is an open-source product information management system (PIM), developed by [KennerSoft Service GmbH](https://kennersoft.de), which is based on [KennerCore](https://github.com/Kenner-Soft-Service-GmbH/kennercore) software platform and is developed by KennerSoft Service GmbH. KennerPim (as well as KennerCore) is distributed under GPLv3 License and is free. It has a lot of features right out-of-the-box and thus is an excellent tool for cost-effective and timely application development.
+KennerPim is an open-source product information management system (PIM), developed by [Kenner Soft Service GmbH](https://kennersoft.de), which is based on [KennerCore](https://github.com/kennersoft/kennercore) software platform and is developed by Kenner Soft Service GmbH. KennerPim (as well as KennerCore) is distributed under GPLv3 License and is free. It has a lot of features right out-of-the-box and thus is an excellent tool for cost-effective and timely application development.
 
 KennerPim is a single page application (SPA) with an API-centric and service-oriented architecture (SOA). It has a flexible data model based on entities, entity attributes and relations of all kinds among them. KennerPim allows you to gather and store all your product content in one place, enrich it and spread it to several channels like own online shop, amazon, eBay, online shops of your distributors, on a tablet or mobile application. KennerPim will help you to structure and organize all your flexible data and get rid of excel mess. 
 
@@ -17,7 +17,7 @@ KennerPim is a single page application (SPA) with an API-centric and service-ori
 - Responsive and user friendly UI;
 - Configurable (entities, relations, layouts, labels, navigation, dashboards);
 - Extensible with modules;
-- Includes the advantages of [KennerCore](https://github.com/Kenner-Soft-Service-GmbH/kennercore).
+- Includes the advantages of [KennerCore](https://github.com/kennersoft/kennercore).
 
 ## How Does It Work?
 
@@ -51,7 +51,7 @@ KennerPim is based on KennerPim and uses PHP7, backbone.js, composer and some Ze
 
 ![Technology_schem](docs/_assets/technologie_scheme_eng.png)
 
-Want to know more about KennerPim technology? Please, visit [our website](http://kennerpim.de)!
+Want to know more about KennerPim technology? Please, visit [our website](https://kennerpim.de)!
 
 ## Integrations
 
@@ -69,7 +69,7 @@ We offer following integrations:
 - OXID eShop 6
 - and others.
 
-Please, [ask](https://treopim.com/contact), if you want to know more.
+Please, [ask](https://kennerpim.de/contact), if you want to know more.
 
 ## Documentation
 
@@ -79,14 +79,14 @@ Please, [ask](https://treopim.com/contact), if you want to know more.
 
 ### Requirements
 
-* Unix-based system. Linux Mint is recommended.
-* PHP 7.1 or above (with pdo_mysql, openssl, json, zip, gd, mbstring, xml, curl, exif extensions).
+* Unix-based system.
+* PHP 7.1 or above (with pdo_mysql, openssl, json, zip, gd, mbstring, xml, curl, exif, mailparse extensions).
 * MySQL 5.5.3 or above.
 
 ### Configuration Instructions Based on Your Server
 
-* [Apache server configuration](https://github.com/Kenner-Soft-Service-GmbH/kennerpim/blob/master/docs/en/administration/apache-server-configuration.md)
-* [Nginx server configuration](https://github.com/Kenner-Soft-Service-GmbH/kennerpim/blob/master/docs/en/administration/nginx-server-configuration.md)
+* [Apache server configuration](https://github.com/kennersoft/kennerpim/blob/master/docs/en/administration/apache-server-configuration.md)
+* [Nginx server configuration](https://github.com/kennersoft/kennerpim/blob/master/docs/en/administration/nginx-server-configuration.md)
 
 ### Installation
 
@@ -98,11 +98,11 @@ To create your new KennerPim application, first make sure you are using PHP 7.1 
 
    If you don't need the demo data, run:
    ```
-   composer create-project treolabs/skeleton-pim my-kennerpim-project
+   composer create-project kennersoft/skeleton-pim my-kennerpim-project
    ```
    If you need the demo data, run:
     ```
-   composer create-project treolabs/skeleton-pim-demo my-kennerpim-project
+   composer create-project kennersoft/skeleton-pim-demo my-kennerpim-project
    ```   
 
 2. Change recursively the user and group ownership for project files: 
@@ -130,6 +130,6 @@ KennerPim is published under the GNU GPLv3 [license](LICENSE.txt).
 
 ## Support
 
-- KennerPim is developed and supported by [KennerSoft Service GmbH](https://kennersoft.de).
+- KennerPim is developed and supported by [Kenner Soft Service GmbH](https://kennersoft.de).
 - Feel free to joing our [Community](https://kennersoft.de).
 - To contact us, please visit [KennerPim Website](https://kennerpim.de).
