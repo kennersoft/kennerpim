@@ -1,6 +1,6 @@
 <div class="page-header">{{{header}}}</div>
 <div class="search-container">{{{search}}}</div>
-<div style="display: flex;">
+<div class="product-list-container">
 {{#if isCatalogTreePanel}}<div class="catalog-tree-panel col-xs-12 col-lg-3">{{{catalogTreePanel}}}</div>{{/if}}
 <div class="list-container {{#if isCatalogTreePanel}}col-xs-12 col-lg-9{{/if}}">{{{list}}}</div>
 </div>
