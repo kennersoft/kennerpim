@@ -41,7 +41,7 @@ Espo.define('pim:views/product/list', ['pim:views/list', 'search-manager'],
 
         setupCatalogTreePanel() {
             this.createView('catalogTreePanel', 'pim:views/product/record/catalog-tree-panel', {
-                el: '#main > .catalog-tree-panel',
+                el: '#main .catalog-tree-panel',
                 scope: this.scope
             }, view => {
                 view.listenTo(view, 'select-category', data => this.sortCollectionWithCatalogTree(data));
