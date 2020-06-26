@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * The interactive user interfaces in modified source and object code versions
  * of this program must display Appropriate Legal Notices, as required under
@@ -32,7 +32,7 @@ Espo.define('pim:views/login', 'class-replace!pim:views/login',
         getLogoSrc: function () {
             const companyLogoId = this.getConfig().get('companyLogoId');
             if (!companyLogoId) {
-                return this.getBasePath() + 'client/modules/pim/img/kenner_pim_logo.svg';
+                return this.getBasePath() + 'client/modules/pim/img/kenner_pim_logo_white.png';
             }
             return this.getBasePath() + '?entryPoint=LogoImage&id='+companyLogoId+'&t=' + companyLogoId;
         }
