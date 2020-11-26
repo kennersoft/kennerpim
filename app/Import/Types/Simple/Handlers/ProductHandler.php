@@ -317,7 +317,12 @@ class ProductHandler extends AbstractHandler
             $delimiter = ',';
         }
 
-        $exists = $this->getExists('Category', $field, explode($delimiter, $categories));
+        $categoriesList = explode($delimiter, $categories);
+        if (!$categoriesList && empty($delimiter) && !empty($categories)) {
+            $categoriesList = [$categories];
+        }
+
+        $exists = $this->getExists('Category', $field, $categoriesList);
 
         foreach ($exists as $exist) {
             $inputRow = new \stdClass();
