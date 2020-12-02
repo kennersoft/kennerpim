@@ -47,8 +47,14 @@ Espo.define('pim:views/category/record/list-tree', ['view', 'lib!JsTree'], funct
         },
 
         fetchCategoriesList(callback) {
-            this.collection.fetch({remove: false, more: true}).then(response => {
-                if (this.collection.total > this.collection.length) {
+            this.listenToOnce(this.collection, 'update', (collection, o) => {
+                if (o.changes.merged.length) {
+                    this.collection.lengthCorrection += o.changes.merged.length;
+                }
+            });
+
+            this.collection.fetch({remove: false, more: true}).then(() => {
+                if (this.collection.total > this.collection.length + this.collection.lengthCorrection || this.collection.total === -1) {
                     this.fetchCategoriesList(callback);
                 } else {
                     this.setupTree();
