@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace Pim\Listeners;
 
 use Espo\Core\Exceptions\BadRequest;
-use Espo\Core\Utils\Util;
 use Espo\ORM\Entity;
+use Pim\Repositories\ProductAttributeValue;
 use Treo\Core\EventManager\Event;
 use Pim\Entities\Channel;
 
@@ -52,13 +52,11 @@ class ProductEntity extends AbstractEntityListener
             throw new BadRequest($this->exception('Product with such SKU already exist'));
         }
 
-        if ($entity->isAttributeChanged('catalogId')) {
-            // is product categories in selected catalog
-            $this->isProductCategoriesInSelectedCatalog($entity);
-        }
-
         if (!$entity->isNew() && $entity->isAttributeChanged('type')) {
             throw new BadRequest($this->exception('You can\'t change field of Type'));
+        }
+        if ($entity->isAttributeChanged('productFamilyId') && !$entity->isNew()) {
+            throw new BadRequest($this->exception('You can\'t change Product Family in Product'));
         }
     }
 
@@ -73,9 +71,10 @@ class ProductEntity extends AbstractEntityListener
         // get options
         $options = $event->getArgument('options');
 
-        $skipUpdate = empty($entity->skipUpdateProductAttributesByProductFamily) && empty($options['skipProductFamilyHook']);
+        $skipUpdate = empty($entity->skipUpdateProductAttributesByProductFamily)
+            && empty($options['skipProductFamilyHook']);
 
-        if ($skipUpdate && empty($entity->isDuplicate)) {
+        if ($skipUpdate && !empty($entity->get('productFamily'))) {
             $this->updateProductAttributesByProductFamily($entity, $options);
         }
     }
@@ -156,48 +155,6 @@ class ProductEntity extends AbstractEntityListener
 
     /**
      * @param Entity $entity
-     *
-     * @return bool
-     * @throws BadRequest
-     */
-    protected function isProductCategoriesInSelectedCatalog(Entity $entity): bool
-    {
-        // get product categories
-        $productCategories = $this
-            ->getEntityManager()
-            ->getRepository('ProductCategory')
-            ->where(['productId' => $entity->get('id')])
-            ->find();
-
-        if (count($productCategories) > 0) {
-            // get catalog categories ids
-            $catalogCategories = array_column($entity->get('catalog')->get('categories')->toArray(), 'id');
-
-            foreach ($productCategories as $productCategory) {
-                // get category
-                if (empty($category = $productCategory->get('category'))) {
-                    throw new BadRequest($this->exception("No such category"));
-                }
-
-                if (empty($category->get('categoryParent'))) {
-                    $root = $category->get('id');
-                } else {
-                    $tree = explode("|", (string)$category->get('categoryRoute'));
-                    $root = null;
-                    if (!empty($tree[1])) {
-                        $root = $tree[1];
-                    }
-                }
-                if (!in_array($root, $catalogCategories)) {
-                    throw new BadRequest($this->exception("Some category cannot be linked with selected catalog"));
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @param Entity $entity
      * @param array  $options
      *
      * @return bool
@@ -206,71 +163,53 @@ class ProductEntity extends AbstractEntityListener
      */
     protected function updateProductAttributesByProductFamily(Entity $entity, array $options): bool
     {
-        if (!$entity->isNew() && $entity->isAttributeChanged('productFamilyId')) {
-            // unlink attributes from old product family
-            $this
-                ->getEntityManager()
-                ->nativeQuery(
-                    "UPDATE product_attribute_value SET product_family_attribute_id=NULL WHERE product_id=:productId AND product_family_attribute_id IS NOT NULL AND deleted=0",
-                    ['productId' => $entity->get('id')]
-                );
-        }
-
-        if (empty($productFamily = $entity->get('productFamily'))) {
-            return true;
-        }
+        // get product family
+        $productFamily = $entity->get('productFamily');
 
         // get product family attributes
         $productFamilyAttributes = $productFamily->get('productFamilyAttributes');
 
-        if (count($productFamilyAttributes) > 0) {
-            /** @var \Pim\Repositories\ProductAttributeValue $repository */
-            $repository = $this->getEntityManager()->getRepository('ProductAttributeValue');
+        if ($entity->isNew()) {
+            if (count($productFamilyAttributes) > 0) {
+                /** @var ProductAttributeValue $repository */
+                $repository = $this->getEntityManager()->getRepository('ProductAttributeValue');
 
-            foreach ($productFamilyAttributes as $productFamilyAttribute) {
-                // create
-                $productAttributeValue = $repository->get();
-                $productAttributeValue->set(
-                    [
-                        'productId'                => $entity->get('id'),
-                        'attributeId'              => $productFamilyAttribute->get('attributeId'),
-                        'productFamilyAttributeId' => $productFamilyAttribute->get('id'),
-                        'isRequired'               => $productFamilyAttribute->get('isRequired'),
-                        'scope'                    => $productFamilyAttribute->get('scope')
-                    ]
-                );
+                foreach ($productFamilyAttributes as $productFamilyAttribute) {
+                    // create
+                    $productAttributeValue = $repository->get();
+                    $productAttributeValue->set(
+                        [
+                            'productId'                => $entity->get('id'),
+                            'attributeId'              => $productFamilyAttribute->get('attributeId'),
+                            'productFamilyAttributeId' => $productFamilyAttribute->get('id'),
+                            'isRequired'               => $productFamilyAttribute->get('isRequired'),
+                            'scope'                    => $productFamilyAttribute->get('scope'),
+                            'locale'                   => $productFamilyAttribute->get('locale'),
+                            'localeParentId'           => $repository->getLocaleParentId($productFamilyAttribute, $entity)
+                        ]
+                    );
+                    // save
+                    $this->getEntityManager()->saveEntity($productAttributeValue, ['skipValidation' => true]);
 
-                // relate channels if it needs
-                if ($productFamilyAttribute->get('scope') == 'Channel') {
-                    $channels = $productFamilyAttribute->get('channels');
-                    if (count($channels) > 0) {
-                        $productAttributeValue->set('channelsIds', array_column($channels->toArray(), 'id'));
-                    }
-                }
-
-                // save
-                try {
-                    $this->getEntityManager()->saveEntity($productAttributeValue);
-                } catch (BadRequest $e) {
-                    $message = sprintf('Such product attribute \'%s\' already exists', $productFamilyAttribute->get('attribute')->get('name'));
-                    if ($message == $e->getMessage()) {
-                        $copy = $repository->findCopy($productAttributeValue);
-                        $copy->set('productFamilyAttributeId', $productFamilyAttribute->get('id'));
-                        $copy->set('isRequired', $productAttributeValue->get('isRequired'));
-
-                        if ($productFamilyAttribute->get('scope') == 'Channel') {
-                            $copy->set('channelsIds', $productAttributeValue->get('channelsIds'));
+                    // relate channels if it needs
+                    if ($productFamilyAttribute->get('scope') == 'Channel') {
+                        $channels = $productFamilyAttribute->get('channels');
+                        if (count($channels) > 0) {
+                            foreach ($channels as $channel) {
+                                $this
+                                    ->getEntityManager()
+                                    ->getRepository('ProductAttributeValue')
+                                    ->relate($productAttributeValue, 'channels', $channel);
+                            }
                         }
-
-                        $copy->skipPfValidation = true;
-
-                        $this->getEntityManager()->saveEntity($copy);
                     }
                 }
             }
+
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**

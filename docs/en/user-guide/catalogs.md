@@ -1,14 +1,14 @@
 # CATALOGS
 
-**Catalog** – a container for your [products](./products.md) arranged by certain criteria, i.e. it is a set of data at a given time compiled to be transferred via certain [channels](./channels.md). Catalog's content may be modified whenever needed within the [TreoPIM system](./what-is-treopim.md).
+**Catalog** – a container for your [products](./products.md) arranged by certain criteria, i.e. it is a set of data at a given time compiled to be transferred via certain [channels](./channels.md). Catalog's content may be modified whenever needed within the [KennerPim system](./what-is-kennerpim.md).
 
 Catalogs, as well as channels, form the basis of the multichannel publication of your products data. They allow you to manage your range of products and carry out your multichannel strategy in the most flexible manner.
 
 With the help of catalogs you can create as many versions of your products as you need, preserving the ability to modify your data within your company exclusively and not worrying about possible changes made by your suppliers during the data transfer.
 
-The catalog structure can be different for each user, based on their needs. For instance, catalogs can be used to segment your range of products for further export of the product data to certain channels, as well as to store historical information about your products (e.g. "Winter jackets 2019" and "Winter jackets 2020").
+The catalog structure can be different for each user, based on their needs. For instance, catalogs can be used to segment your range of products for further [export](../../../../../../treocore/blob/master/docs/en/user-guide/export-core.md) of the product data to certain channels, as well as to store historical information about your products (e.g. "Winter jackets 2019" and "Winter jackets 2020").
 
-The multi-catalog function is beneficial both for manufacturers, wholesalers, and retailers due to its ability to meet all their specific needs and requirements. For instance, manufacturers can easily enlarge/shorten their range of products on the basis of their already existing catalog(s). At the same time, wholesalers or retailers get a powerful tool to organize and systematize all the product information collected from different sources into one proper master catalog (and then create as many versions of it as needed) in a very flexible manner. There is no need to spend much time on creating a brand new catalog from scratch – just edit what you already have with the help of the TreoPim multi-catalog feature!
+The multi-catalog function is beneficial both for manufacturers, wholesalers, and retailers due to its ability to meet all their specific needs and requirements. For instance, manufacturers can easily enlarge/shorten their range of products on the basis of their already existing catalog(s). At the same time, wholesalers or retailers get a powerful tool to organize and systematize all the product information collected from different sources into one proper master catalog (and then create as many versions of it as needed) in a very flexible manner. There is no need to spend much time on creating a brand new catalog from scratch – just edit what you already have with the help of the KennerPim multi-catalog feature!
 
 ## Catalog Fields
 
@@ -18,10 +18,10 @@ The catalog entity comes with the following preconfigured fields; mandatory are 
 |---------------------------|-----------------------------------|
 | Active					| Activity state of the catalog record          |
 | Name (multi-lang) *		| Catalog name                     |
-| Category *				| Category name this catalog must be assigned to            |
+| Code *					| Unique value used to identify the catalog. It can only consist of lowercase letters, digits and underscore symbols               |
 | Description (multi-lang)  | Description of the catalog usage    |
 
-If you want to make changes to the catalog entity (e.g. add new fields, or modify catalog views), please contact your administrator.
+> If the [multi-languages](https://treopim.com/store/multi-languages#module-configuration) settings are activated, but multilingual fields are missing for the catalog entity, or if you want to make changes to the catalog entity (e.g. add new fields, or modify catalog views), please, contact your administrator. 
 
 ## Creating 
 
@@ -39,7 +39,7 @@ If the catalog code is not unique, the error message will appear notifying you a
 
 The new record will be added to the catalogs list. You can configure it right away on the [detail view](./views-and-panels.md#detail-view) page that opens or return to it later.
 
-Alternatively, use the [quick create](./user-interface.md#quick-create) button on any TreoPIM page and fill in the required fields in the catalog creation pop-up that appears:
+Alternatively, use the [quick create](./user-interface.md#quick-create) button on any KennerPim page and fill in the required fields in the catalog creation pop-up that appears:
 
 ![Creation pop-up](../../_assets/catalogs/creation-popup.jpg)
 
@@ -58,7 +58,7 @@ By default, the following fields are displayed on the [list view](./views-and-pa
 
 To change the catalog records order in the list, click any sortable column title; this will sort the column either ascending or descending. 
 
-Catalog records can be searched and filtered according to your needs. For details on the search and filtering options, refer to the [**Search and Filtering**](./search-and-filtering.md) article in this user guide.
+Catalog records can be searched and filtered according to your needs. For details on these options, refer to the [**Search and Filtering**](./search-and-filtering.md) article in this user guide.
 
 To view some catalog record details, click the name field value of the corresponding record in the list of catalogs; the [detail view](./views-and-panels.md#detail-view) page will open showing the catalog records and the records of the related entities. Alternatively, use the `View` option from the single record actions menu to open the [quick detail](./views-and-panels.md#quick-detail-view-small-detail-view) pop-up.
 
@@ -75,6 +75,8 @@ The following mass actions are available for catalog records on the list view pa
 
 ![Catalogs mass actions](../../_assets/catalogs/catalogs-mass-actions.jpg)
 
+> If any option is missing in your mass actions menu, please, contact your administrator.
+
 For details on these actions, refer to the [**Mass Actions**](./views-and-panels.md#mass-actions) section of the **Views and Panels** article in this user guide.
 
 ### Single Record Actions
@@ -87,7 +89,9 @@ The following single record actions are available for catalog records on the lis
 
 ![Catalogs single record actions](../../_assets/catalogs/catalogs-single-actions.jpg)
 
-For details on these actions, please, refer to the [**Single Record Actions**](./views-and-panels.md#single-record-actions) section of the **Views and Panels** article in this user guide..
+> If any option is missing in your single record actions menu, please, contact your administrator.
+
+For details on these actions, please, refer to the [**Single Record Actions**](./views-and-panels.md#single-record-actions) section of the **Views and Panels** article in this user guide.
 
 ## Editing 
 
@@ -123,7 +127,7 @@ Click the `Remove` button to complete the operation or `Cancel` to abort it.
 
 ## Duplicating
 
-Use the `Duplicate` option from the actions menu to go to the catalog creation page and get all the values of the last chosen catalog record copied in the empty fields of the new catalog record to be created. Modifying the catalog code is required, as this value has to be unique.
+Use the `Duplicate` option from the actions menu to go to the catalog [creation page](#creating) and get all the values of the last chosen catalog record copied in the empty fields of the new catalog record to be created. Modifying the catalog code is required, as this value has to be unique.
 
 As a result, the catalog is 100% duplicated together with all its products.
 
@@ -145,7 +149,7 @@ Categories that are linked to the catalog record are shown on the `CATEGORIES` p
 
 On this panel, you can link categories to the given catalog record by selecting the existing ones or creating new category records.
 
-To create new category records, click the `+` button located in the upper right corner of the `CATEGORIES` panel and enter the necessary data in the category creation pop-up that appears:
+To create a new category record, click the `+` button located in the upper right corner of the `CATEGORIES` panel and enter the necessary data in the category creation pop-up that appears:
 
 ![Creating categories](../../_assets/catalogs/catalogs-create-category.jpg)
 
@@ -165,7 +169,7 @@ Categories linked to the given catalog record can be viewed, edited, unlinked, o
 
 ### Products
 
-Products that are linked to the catalog record are displayed on its detail view page on the `PRODUCTS` panel and include the following table columns:
+[Products](https://treopim.com/help/products) that are linked to the catalog record are displayed on its detail view page on the `PRODUCTS` panel and include the following table columns:
  - Name
  - SKU
  - Type

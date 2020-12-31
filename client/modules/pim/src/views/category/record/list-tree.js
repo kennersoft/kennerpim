@@ -90,21 +90,23 @@ Espo.define('pim:views/category/record/list-tree', ['view', 'lib!JsTree'], funct
             this.$el.on('tree.move', e => {
                 e.preventDefault();
                 let moveInfo = e.move_info;
-                let data = {
-                    _position: moveInfo.position,
-                    _target: moveInfo.target_node.id,
-                    categoryParentId: null,
-                    categoryParentName: null
-                };
-
+                let data = {};
                 if (moveInfo.position === 'inside') {
-                    data.categoryParentId = moveInfo.target_node.id;
-                    data.categoryParentName = moveInfo.target_node.name;
+                    data = {
+                        categoryParentId: moveInfo.target_node.id,
+                        categoryParentName: moveInfo.target_node.name
+                    };
                 } else if (moveInfo.target_node.parent.id) {
-                    data.categoryParentId = moveInfo.target_node.parent.id;
-                    data.categoryParentName = moveInfo.target_node.parent.name;
+                    data = {
+                        categoryParentId: moveInfo.target_node.parent.id,
+                        categoryParentName: moveInfo.target_node.parent.name,
+                    };
+                } else {
+                    data = {
+                        categoryParentId: null,
+                        categoryParentName: null,
+                    };
                 }
-
                 this.ajaxPatchRequest(`${this.collection.name}/${moveInfo.moved_node.id}`, data).then(response => {
                     moveInfo.do_move();
                 });
@@ -112,20 +114,7 @@ Espo.define('pim:views/category/record/list-tree', ['view', 'lib!JsTree'], funct
         },
 
         getCategoryTree(categoryList) {
-            let sorter = function (collection) {
-                collection.sort((a, b) => {
-                    if (a.sortOrder < b.sortOrder) {
-                        return -1;
-                    }
-                    if (a.sortOrder > b.sortOrder) {
-                        return 1;
-                    }
-                    return 0;
-                });
-            };
-
             let rootCategories = categoryList.filter(item => !item.categoryRoute);
-            sorter(rootCategories);
 
             let getParentsWithChildren = (parents) => {
                 if (parents.length) {
@@ -140,7 +129,15 @@ Espo.define('pim:views/category/record/list-tree', ['view', 'lib!JsTree'], funct
                         children = getParentsWithChildren(children);
                     }
 
-                    sorter(children);
+                    children.sort((a, b) => {
+                        if (a.children && !b.children) {
+                            return -1;
+                        }
+                        if (!a.children && b.children) {
+                            return 1;
+                        }
+                        return 0;
+                    });
 
                     children.forEach(child => {
                         let parent = parents.find(parent => parent.id === child.categoryParentId);

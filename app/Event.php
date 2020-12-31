@@ -168,8 +168,8 @@ class Event extends AbstractEvent
         $config->set('quickCreateList', $quickCreateList);
         $config->set('twoLevelTabList', $twoLevelTabList);
 
-        if ($config->get('applicationName') == 'TreoCore') {
-            $config->set('applicationName', 'TreoPIM');
+        if ($config->get('applicationName') == 'KennerCore') {
+            $config->set('applicationName', 'KennerPim');
         }
 
         // save

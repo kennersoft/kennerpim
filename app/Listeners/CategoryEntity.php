@@ -89,9 +89,10 @@ class CategoryEntity extends AbstractEntityListener
             throw new BadRequest($this->translate('Code is invalid', 'exceptions', 'Global'));
         }
 
-        if (!$entity->isNew() && $entity->isAttributeChanged('categoryParentId') && count($entity->getTreeProducts()) > 0) {
-            throw new BadRequest($this->exception('Category has linked products'));
-        }
+        // @todo change parent for category with products is disabled
+//        if (!$entity->isNew() && $entity->isAttributeChanged('categoryParentId') && count($entity->getTreeProducts()) > 0) {
+//            throw new BadRequest($this->exception('Category has linked products'));
+//        }
 
         if ((count($entity->get('catalogs')) > 0 || !empty($entity->get('catalogsIds')))
             && !empty($entity->get('categoryParent'))) {
@@ -143,16 +144,6 @@ class CategoryEntity extends AbstractEntityListener
 
     /**
      * @param Event $event
-     */
-    public function afterRemove(Event $event)
-    {
-        $this
-            ->getService('Category')
-            ->removeProductCategoryByCategory($event->getArgument('entity')->id);
-    }
-
-    /**
-     * @param Event $event
      *
      * @throws BadRequest
      */
@@ -161,6 +152,21 @@ class CategoryEntity extends AbstractEntityListener
         if ($event->getArgument('relationName') == 'catalogs'
             && !empty($event->getArgument('entity')->get('categoryParent'))) {
             throw new BadRequest($this->translate('Only root category can be linked with catalog', 'exceptions', 'Catalog'));
+        }
+    }
+
+    /**
+     * @param Event $event
+     *
+     * @throws BadRequest
+     */
+    public function beforeUnrelate(Event $event)
+    {
+        if ($event->getArgument('relationName') === 'productCategories') {
+            $productCategory = $event->getArgument('foreign');
+            if ($productCategory instanceof Entity) {
+                $this->getEntityManager()->removeEntity($productCategory);
+            }
         }
     }
 

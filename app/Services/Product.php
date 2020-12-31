@@ -152,95 +152,25 @@ class Product extends AbstractService
     }
 
     /**
-     * @param array $ids
-     * @param array $foreignIds
-     *
-     * @return bool
-     */
-    public function massRelateProductCategories(array $ids, array $foreignIds): bool
-    {
-        // prepare productCategory repository
-        $repository = $this->getEntityManager()->getRepository('ProductCategory');
-
-        // get exists productCategories
-        $productCategories = $repository
-            ->select(['productId', 'categoryId'])
-            ->where([
-                'productId' => $ids,
-                'categoryId' => $foreignIds,
-                'scope' => 'Global'
-            ])
-            ->find()
-            ->toArray();
-
-        $exists = [];
-
-        // prepare exists
-        if (!empty($productCategories)) {
-            foreach ($productCategories as $productCategory) {
-                if (isset($exists[$productCategory['productId']])) {
-                    $exists[$productCategory['productId']][] = $productCategory['categoryId'];
-                } else {
-                    $exists[$productCategory['productId']] = [$productCategory['categoryId']];
-                }
-            }
-        }
-
-        // create ProductCategory entity where needed
-        foreach ($ids as $productId) {
-            foreach ($foreignIds as $categoryId) {
-                if (!isset($exists[$productId]) || !in_array($categoryId, $exists[$productId])) {
-                    $category = $repository->get();
-                    $category->set([
-                        'productId' => $productId,
-                        'categoryId' => $categoryId,
-                        'scope' => 'Global'
-                    ]);
-
-                    $this->getEntityManager()->saveEntity($category);
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @param array $ids
-     * @param array $foreignIds
-     *
-     * @return bool
-     */
-    public function massUnrelateProductCategories(array $ids, array $foreignIds): bool
-    {
-        // get exists productCategories
-        $productCategories = $this
-            ->getEntityManager()
-            ->getRepository('ProductCategory')
-            ->where([
-                'productId' => $ids,
-                'categoryId' => $foreignIds,
-                'scope' => 'Global'
-            ])
-            ->find();
-
-        // remove related categories
-        if (count($productCategories) > 0) {
-            foreach ($productCategories as $productCategory) {
-                $this->getEntityManager()->removeEntity($productCategory);
-            }
-        }
-
-        return true;
-    }
-
-    /**
      * @param AssetRelation $assetRelation
+     *
      * @return bool
      */
     public static function isMainRole(AssetRelation $assetRelation): bool
     {
         return in_array('Main', (array)$assetRelation->get('role'));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function beforeUpdateEntity(Entity $entity, $data)
+    {
+        parent::beforeUpdateEntity($entity, $data);
+
+        if (isset($data->pcSorting) && isset($data->_id)) {
+            $this->updateSortOrder($data->_id, $entity);
+        }
     }
 
     /**
@@ -250,6 +180,8 @@ class Product extends AbstractService
     protected function duplicateProductAttributeValues(Entity $product, Entity $duplicatingProduct)
     {
         if ($duplicatingProduct->get('productFamilyId') == $product->get('productFamilyId')) {
+            $this->clearDuplicatedProductAttributes((string)$product->get('id'));
+
             // get data for duplicating
             $rows = $duplicatingProduct->get('productAttributeValues');
 
@@ -258,9 +190,10 @@ class Product extends AbstractService
                     $entity = $this->getEntityManager()->getEntity('ProductAttributeValue');
                     $entity->set($item->toArray());
                     $entity->id = Util::generateId();
+                    $entity->duplicated = true;
                     $entity->set('productId', $product->get('id'));
 
-                    $this->getEntityManager()->saveEntity($entity, ['skipProductAttributeValueHook' => true]);
+                    $this->getEntityManager()->saveEntity($entity, ['skipProductAttributeValueHook' => true, 'skipValidation' => true]);
 
                     // relate channels
                     if (count($item->get('channels')) > 0) {
@@ -277,23 +210,22 @@ class Product extends AbstractService
     }
 
     /**
-     * @param Entity $product
-     * @param Entity $duplicatingProduct
+     * @param string $productId
      */
-    protected function duplicateProductCategories(Entity $product, Entity $duplicatingProduct)
+    protected function clearDuplicatedProductAttributes(string $productId)
     {
-        // get data for duplicating
-        $rows = $duplicatingProduct->get('productCategories');
+        $ids = $this
+            ->getEntityManager()
+            ->nativeQuery("SELECT id FROM product_attribute_value WHERE product_id='$productId'")
+            ->fetchAll(\PDO::FETCH_ASSOC|\PDO::FETCH_COLUMN);
 
-        if (count($rows) > 0) {
-            $service = $this->getServiceFactory()->create('ProductCategory');
+        if (!empty($ids)) {
+            $ids = implode("','", $ids);
 
-            foreach ($rows as $item) {
-                $data = $service->getDuplicateAttributes($item->get('id'));
-                $data->productId = $product->get('id');
-
-                $service->createEntity($data);
-            }
+            $this->getEntityManager()->nativeQuery("
+                DELETE FROM product_attribute_value_channel WHERE product_attribute_value_id IN ('{$ids}');
+                DELETE FROM product_attribute_value WHERE id IN ('{$ids}');
+            ");
         }
     }
 
@@ -485,5 +417,48 @@ class Product extends AbstractService
     protected function getStringProductTypes(): string
     {
         return join("','", array_keys($this->getMetadata()->get('pim.productType')));
+    }
+
+    /**
+     * @param string $categoryId
+     * @param Entity $product
+     */
+    protected function updateSortOrder(string $categoryId, Entity $product): void
+    {
+        // create max
+        $max = $product->get('pcSorting');
+
+        // update current
+        $this
+            ->getEntityManager()
+            ->nativeQuery(
+                'UPDATE product_category_linker SET sorting=:sorting WHERE category_id=:categoryId AND product_id=:productId AND deleted=0',
+                ['sorting' => $max, 'categoryId' => $categoryId, 'productId' => $product->get('id')]
+            );
+
+        // get next records
+        $ids = $this
+            ->getEntityManager()
+            ->nativeQuery(
+                "SELECT id FROM product_category_linker WHERE sorting>=:sorting AND category_id=:categoryId AND deleted=0 AND product_id!=:productId ORDER BY sorting",
+                ['sorting' => $max, 'categoryId' => $categoryId, 'productId' => $product->get('id')]
+            )
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        // update next records
+        if (!empty($ids)) {
+            // prepare sql
+            $sql = '';
+            foreach ($ids as $id) {
+                // increase max
+                $max = $max + 10;
+
+                // prepare sql
+                $sql .= "UPDATE product_category_linker SET sorting='$max' WHERE id='$id';";
+            }
+
+            // execute sql
+            $this->getEntityManager()->nativeQuery($sql);
+        }
     }
 }

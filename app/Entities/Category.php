@@ -38,6 +38,18 @@ class Category extends \Espo\Core\Templates\Entities\Base
     protected $entityType = "Category";
 
     /**
+     * @inheritDoc
+     */
+    public function get($name, $params = [])
+    {
+        if ($name == 'products' && isset($params['additionalColumns']['pcSorting'])) {
+            unset($params['additionalColumns']['pcSorting']);
+        }
+
+        return parent::get($name, $params);
+    }
+
+    /**
      * @return bool
      * @throws Error
      */
@@ -68,36 +80,6 @@ class Category extends \Espo\Core\Templates\Entities\Base
             ->getEntityManager()
             ->getRepository('Category')
             ->where(['categoryRoute*' => "%|" . $this->get('id') . "|%"])
-            ->find();
-    }
-
-    /**
-     * @return EntityCollection
-     * @throws Error
-     */
-    public function getTreeProducts(): EntityCollection
-    {
-        // validation
-        $this->isEntity();
-
-        // prepare where
-        $where = [
-            'productCategories.categoryId' => [$this->get('id')]
-        ];
-
-        $categoryChildren = $this->getChildren();
-
-        if (count($categoryChildren) > 0) {
-            $where['productCategories.categoryId'] =
-                array_merge($where['productCategories.categoryId'], array_column($categoryChildren->toArray(), 'id'));
-        }
-
-        return $this
-            ->getEntityManager()
-            ->getRepository('Product')
-            ->distinct()
-            ->join('productCategories')
-            ->where($where)
             ->find();
     }
 

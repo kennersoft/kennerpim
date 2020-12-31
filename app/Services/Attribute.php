@@ -33,6 +33,11 @@ use Espo\ORM\Entity;
 class Attribute extends AbstractService
 {
     /**
+     * @var array
+     */
+    protected $mandatorySelectAttributeList = ['locale'];
+
+    /**
      * Get filters
      *
      * @return array
@@ -184,18 +189,22 @@ class Attribute extends AbstractService
             $this
                 ->getEntityManager()
                 ->getRepository('ProductFamilyAttribute')
-                ->where([
-                    'attributeId' => $ids
-                ])
+                ->where(
+                    [
+                        'attributeId' => $ids
+                    ]
+                )
                 ->removeCollection();
 
             // remove from products
             $this
                 ->getEntityManager()
                 ->getRepository('ProductAttributeValue')
-                ->where([
-                    'attributeId' => $ids
-                ])
+                ->where(
+                    [
+                        'attributeId' => $ids
+                    ]
+                )
                 ->removeCollection();
 
             // prepare result

@@ -22,7 +22,8 @@
     "withoutProductAttributes",
     "notLinkedWithProductSerie",
     "onlyCatalogProducts",
-    "linkedWithCategory"
+    "linkedWithCategory",
+    "notLinkedCategoryAndOnlyCatalogsProducts"
   ],
   "hiddenBoolFilterList": [
     "notEntity",
@@ -36,17 +37,12 @@
     "notLinkedWithPackaging",
     "notLinkedWithProductSerie",
     "onlyCatalogProducts",
-    "linkedWithCategory"
+    "linkedWithCategory",
+    "notLinkedCategoryAndOnlyCatalogsProducts"
   ],
   "disabledMassActions": [
     "merge"
   ],
-  "addRelationPipelines": {
-    "productCategories": [
-      "__APPEND__",
-      "pim:views/product-category/pipe/action-update-filters"
-    ]
-  },
   "views": {
     "list": "pim:views/product/list",
     "detail": "pim:views/product/detail",
@@ -61,11 +57,17 @@
   },
   "massRelationView": "pim:views/product/modals/select-entity-and-records",
   "relationshipPanels": {
+    "categories": {
+      "selectBoolFilterList": [
+        "allowedForProduct_{{id}}"
+      ]
+    },
     "productAttributeValues": {
       "createAction": "createRelatedConfigured",
       "selectAction": "selectRelatedEntity",
       "selectBoolFilterList": [
-        "notLinkedProductAttributeValues"
+        "notLinkedProductAttributeValues",
+        "notLocalesAttributes"
       ],
       "rowActionsView": "pim:views/product-attribute-value/record/row-actions/relationship-no-unlink-in-product",
       "view": "pim:views/product/record/panels/product-attribute-values",
@@ -77,22 +79,6 @@
       ],
       "sortBy": "attribute.sortOrder",
       "asc": true
-    },
-    "productCategories": {
-      "view": "pim:views/product/record/panels/product-categories",
-      "createAction": "createRelatedConfigured",
-      "selectAction": "selectRelatedEntity",
-      "selectBoolFilterList": [
-        "onlyActive",
-        "notLinkedProductCategories",
-        "onlyCatalogCategories"
-      ],
-      "rowActionsView": "views/record/row-actions/relationship-no-unlink",
-      "modalEditView": "pim:views/product-category/modals/edit-in-product",
-      "layout": "listForProductCategoriesInProduct",
-      "aclScopesList": [
-        "Category"
-      ]
     },
     "channels": {
       "view": "pim:views/product/record/panels/product-channels",
@@ -128,6 +114,29 @@
                   "attribute": "_duplicatingEntityId"
                 }
               ]
+            }
+          ]
+        }
+      },
+      "productFamily": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "isNotEmpty",
+              "attribute": "id"
+            }
+          ]
+        },
+        "required": {
+          "conditionGroup": [
+            {
+              "type": "notEquals",
+              "attribute": "type",
+              "value": "productVariant"
+            },
+            {
+              "type": "isEmpty",
+              "attribute": "id"
             }
           ]
         }

@@ -18,20 +18,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-Espo.define('pim:views/product-attribute-value/fields/attribute', 'views/fields/link',
+Espo.define('pim:views/product-attribute-value/fields/attribute', 'treo-core:views/fields/filtered-link',
     Dep => Dep.extend({
 
         createDisabled: true,
 
-        setup() {
-            this.mandatorySelectAttributeList = ['type', 'typeValue', 'isMultilang'];
-            let inputLanguageList = this.getConfig().get('inputLanguageList') || [];
-            if (this.getConfig().get('isMultilangActive') && inputLanguageList.length) {
-                this.typeValueFields = inputLanguageList.map(lang => {
-                    return lang.split('_').reduce((prev, curr) => prev + Espo.Utils.upperCaseFirst(curr.toLocaleLowerCase()), 'typeValue');
-                });
-                this.mandatorySelectAttributeList = this.mandatorySelectAttributeList.concat(this.typeValueFields);
+        selectBoolFilterList: ["notLocalesAttributes"],
+
+        boolFilterData: {
+            notLocalesAttributes() {
+                return true;
             }
+        },
+
+        setup() {
+            this.mandatorySelectAttributeList = ['type', 'typeValue'];
 
             Dep.prototype.setup.call(this);
         },
@@ -45,23 +46,11 @@ Espo.define('pim:views/product-attribute-value/fields/attribute', 'views/fields/
         setAttributeFieldsToModel(model) {
             let attributes = {
                 attributeType: model.get('type'),
-                typeValue: model.get('typeValue'),
-                attributeIsMultilang: model.get('isMultilang')
+                typeValue: model.get('typeValue')
             };
-            (this.typeValueFields || []).forEach(item => attributes[item] = model.get(item));
+
             this.model.set(attributes);
         },
-
-        clearLink() {
-            this.unsetAttributeFieldsInModel();
-
-            Dep.prototype.clearLink.call(this);
-        },
-
-        unsetAttributeFieldsInModel() {
-            ['attributeType', 'typeValue', 'attributeIsMultilang', ...(this.typeValueFields || [])]
-                .forEach(field => this.model.unset(field));
-        }
 
     })
 );
