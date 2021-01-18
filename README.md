@@ -38,20 +38,17 @@ KennerPim comes with a lot of features directly out of the box, including:
 - product series;
 - products;
 - attribute groups and attributes;
-- product and category images (available only when the [TreoDAM module](https://treodam.com) is also installed to your KennerPim system);
-- assets (available only when the [TreoDAM module](https://treodam.com) is also installed to your KennerPim system);  
 - portals;
 - and much more.
 
-Want to know more about KennerPim functions and its advantages for you? Please, visit [our website](https://kennerpim.de). Find out more about the TreoDAM module [here](https://treodam.com).
-
+Want to know more about KennerPim functions and its advantages for you? Please, visit [our website](https://kennerpim.com).
 ## Technology
 
 KennerPim is based on KennerPim and uses PHP7, backbone.js, composer and some Zend Framework 3 libraries.
 
 ![Technology_schem](docs/_assets/technologie_scheme_eng.png)
 
-Want to know more about KennerPim technology? Please, visit [our website](https://kennerpim.de)!
+Want to know more about KennerPim technology? Please, visit [our website](https://kennerpim.com)!
 
 ## Integrations
 
@@ -69,7 +66,7 @@ We offer following integrations:
 - OXID eShop 6
 - and others.
 
-Please, [ask](https://kennerpim.de/contact), if you want to know more.
+Please, [ask](https://kennerpim.com/contact), if you want to know more.
 
 ## Documentation
 
@@ -132,4 +129,4 @@ KennerPim basen on TreoPIM. TreoPIM is an open-source product information manage
 ## Support
 
 - KennerPim is developed and supported by [Kenner Soft Service GmbH](https://kennersoft.de).
-- To contact us, please visit [KennerPim Website](https://kennerpim.de).
+- To contact us, please visit [KennerPim Website](https://kennerpim.com).
