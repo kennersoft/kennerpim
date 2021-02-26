@@ -44,6 +44,10 @@ class ProductHandler extends AbstractHandler
     /**
      * @var array
      */
+    protected $productAttributes = [];
+    /**
+     * @var array
+     */
     protected $attributes = [];
 
     /**
@@ -159,7 +163,7 @@ class ProductHandler extends AbstractHandler
                 }
 
                 // prepare product attributes
-                $this->attributes = $entity->get('productAttributeValues');
+                $this->productAttributes = $entity->get('productAttributeValues');
 
                 foreach ($additionalFields as $value) {
                     if ($value['item']['name'] == 'productCategories') {
@@ -235,7 +239,7 @@ class ProductHandler extends AbstractHandler
         }
         $row = $data['row'];
 
-        foreach ($this->attributes as $item) {
+        foreach ($this->productAttributes as $item) {
             if ($item->get('attributeId') == $conf['attributeId'] && $item->get('scope') == $conf['scope']) {
                 if ($conf['scope'] == 'Global') {
                     $inputRow->id = $item->get('id');
