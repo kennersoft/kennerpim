@@ -21,6 +21,11 @@
 Espo.define('pim:views/product-attribute-value/record/detail', 'views/record/detail',
     Dep => Dep.extend({
 
+        pipelines: {
+            updateModelDefs: ['clientDefs', 'ProductAttributeValue', 'updateModelDefs'],
+            changeFieldsReadOnlyStatus: ['clientDefs', 'ProductAttributeValue', 'changeFieldsReadOnlyStatus']
+        },
+
         setup() {
             Dep.prototype.setup.call(this);
 
@@ -78,10 +83,14 @@ Espo.define('pim:views/product-attribute-value/record/detail', 'views/record/det
                     this.model.defs.fields.value = fieldDefs;
                 }
             }
+
+            this.runPipeline('updateModelDefs');
         },
 
         changeFieldsReadOnlyStatus(fields, condition) {
             fields.forEach(field => this.model.defs.fields[field].readOnly = condition);
+
+            this.runPipeline('changeFieldsReadOnlyStatus', fields);
         },
 
         fetch() {
