@@ -21,6 +21,8 @@
 Espo.define('pim:views/attribute/fields/type-value', 'views/fields/array',
     Dep => Dep.extend({
 
+        typeTemplates: {},
+
         setup() {
             Dep.prototype.setup.call(this);
 
@@ -36,10 +38,13 @@ Espo.define('pim:views/attribute/fields/type-value', 'views/fields/array',
             this.mode = mode;
 
             // prepare type
-            let type = (this.model.get('type') === 'unit') ? 'enum' : 'array';
+            const type = this.getPreparedFieldType();
 
             // set template
-            this.template = 'fields/' + Espo.Utils.camelCaseToHyphen(type) + '/' + this.mode;
+            const property = mode + 'Template';
+            const templates = (type && type in this.typeTemplates) ? this.typeTemplates[type] : {};
+            this.template = templates[property] || this[property]
+                || 'fields/' + Espo.Utils.camelCaseToHyphen(this.type) + '/' + this.mode;
         },
 
         data() {
@@ -49,6 +54,10 @@ Espo.define('pim:views/attribute/fields/type-value', 'views/fields/array',
             data = this.modifyDataByType(data);
 
             return data;
+        },
+
+        getPreparedFieldType() {
+            return (this.model.get('type') === 'unit') ? 'enum' : 'array';
         },
 
         fetch() {

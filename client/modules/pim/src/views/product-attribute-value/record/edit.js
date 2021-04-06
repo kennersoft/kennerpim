@@ -21,6 +21,11 @@
 Espo.define('pim:views/product-attribute-value/record/edit', ['pim:views/product-attribute-value/record/detail', 'views/record/edit'],
     (Detail, Dep) => Dep.extend({
 
+        pipelines: {
+            updateModelDefs: ['clientDefs', 'ProductAttributeValue', 'updateModelDefs'],
+            changeFieldsReadOnlyStatus: ['clientDefs', 'ProductAttributeValue', 'changeFieldsReadOnlyStatus']
+        },
+
         setup() {
             Dep.prototype.setup.call(this);
 
