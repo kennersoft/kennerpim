@@ -27,8 +27,14 @@ Espo.define('pim:views/product-attribute-value/fields/value-container', 'views/f
 
         editTemplate: 'pim:product-attribute-value/fields/base',
 
+        pipelines: {
+            setupValueContainer: ['clientDefs', 'ProductAttributeValue', 'setupValueContainer']
+        },
+
         setup() {
             this.name = this.options.name || this.defs.name;
+
+            this.runPipeline('setupValueContainer');
 
             this.getModelFactory().create(this.model.name, model => {
                 this.updateDataForValueField();
