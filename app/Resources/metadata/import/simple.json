@@ -3,6 +3,9 @@
     "enumMultiLang": {
       "converter": "\\Pim\\Import\\Types\\Simple\\FieldConverters\\EnumMultiLang"
     },
+    "float": {
+      "converter": "\\Pim\\Import\\Types\\Simple\\FieldConverters\\FloatValue"
+    },
     "unit": {
       "converter": "\\Pim\\Import\\Types\\Simple\\FieldConverters\\Unit"
     }
