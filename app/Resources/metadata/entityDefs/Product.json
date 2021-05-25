@@ -59,7 +59,8 @@
       "layoutMassUpdateDisabled": true,
       "options": [
         "simpleProduct"
-      ]
+      ],
+      "importDisabled": true
     },
     "amount": {
       "type": "float",
@@ -97,13 +98,6 @@
       "layoutListDisabled": true,
       "layoutMassUpdateDisabled": true,
       "layoutFiltersDisabled": true
-    },
-    "image": {
-      "type": "image",
-      "previewSize": "medium",
-      "readOnly": true,
-      "view": "pim:views/product/fields/image",
-      "importDisabled": true
     },
     "productStatus": {
       "type": "enum",
@@ -200,22 +194,6 @@
       "importDisabled": true,
       "noLoad": true
     },
-    "productCategories": {
-      "type": "linkMultiple",
-      "layoutDetailDisabled": true,
-      "layoutMassUpdateDisabled": true,
-      "layoutFiltersDisabled": true,
-      "noLoad": true,
-      "importMultipleField": true,
-      "exportMultipleField": true
-    },
-    "pimImages": {
-      "type": "linkMultiple",
-      "layoutDetailDisabled": true,
-      "layoutMassUpdateDisabled": true,
-      "noLoad": true,
-      "importDisabled": true
-    },
     "measuringUnit": {
       "type": "link",
       "required": false
@@ -227,6 +205,20 @@
     "packedAmount": {
       "type": "float",
       "default": 0
+    },
+    "categories": {
+      "type": "linkMultiple",
+      "layoutDetailDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "importDisabled": true,
+      "noLoad": true,
+      "columns": {
+        "pcSorting": "sorting"
+      }
+    },
+    "pcSorting": {
+      "type": "int",
+      "notStorable": true
     },
     "createdAt": {
       "type": "datetime",
@@ -308,11 +300,6 @@
       "type": "belongsTo",
       "entity": "Packaging"
     },
-    "image": {
-      "type": "belongsTo",
-      "entity": "Attachment",
-      "skipOrmDefs": true
-    },
     "calls": {
       "type": "hasChildren",
       "entity": "Call",
@@ -342,24 +329,20 @@
         }
       }
     },
-    "productCategories": {
-      "type": "hasMany",
-      "foreign": "product",
-      "entity": "ProductCategory",
-      "addRelationCustomDefs": {
-        "link": "productCategories",
-        "entity": "Category"
-      }
-    },
-    "pimImages": {
-      "type": "hasMany",
-      "foreign": "product",
-      "entity": "PimImage",
-      "disableMassRelation": true
-    },
     "measuringUnit": {
       "type": "belongsTo",
       "entity": "MeasuringUnit"
+    },
+    "categories": {
+      "type": "hasMany",
+      "relationName": "productCategoryLinker",
+      "foreign": "products",
+      "entity": "Category",
+      "additionalColumns": {
+        "sorting": {
+          "type": "int"
+        }
+      }
     },
     "createdBy": {
       "type": "belongsTo",

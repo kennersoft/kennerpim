@@ -20,10 +20,10 @@
     "withoutAssociatedProducts",
     "withoutAnyCategory",
     "withoutProductAttributes",
-    "withoutImageAssets",
     "notLinkedWithProductSerie",
     "onlyCatalogProducts",
-    "linkedWithCategory"
+    "linkedWithCategory",
+    "notLinkedCategoryAndOnlyCatalogsProducts"
   ],
   "hiddenBoolFilterList": [
     "notEntity",
@@ -37,17 +37,12 @@
     "notLinkedWithPackaging",
     "notLinkedWithProductSerie",
     "onlyCatalogProducts",
-    "linkedWithCategory"
+    "linkedWithCategory",
+    "notLinkedCategoryAndOnlyCatalogsProducts"
   ],
   "disabledMassActions": [
     "merge"
   ],
-  "addRelationPipelines": {
-    "productCategories": [
-      "__APPEND__",
-      "pim:views/product-category/pipe/action-update-filters"
-    ]
-  },
   "views": {
     "list": "pim:views/product/list",
     "detail": "pim:views/product/detail",
@@ -62,11 +57,17 @@
   },
   "massRelationView": "pim:views/product/modals/select-entity-and-records",
   "relationshipPanels": {
+    "categories": {
+      "selectBoolFilterList": [
+        "allowedForProduct_{{id}}"
+      ]
+    },
     "productAttributeValues": {
       "createAction": "createRelatedConfigured",
       "selectAction": "selectRelatedEntity",
       "selectBoolFilterList": [
-        "notLinkedProductAttributeValues"
+        "notLinkedProductAttributeValues",
+        "notLocalesAttributes"
       ],
       "rowActionsView": "pim:views/product-attribute-value/record/row-actions/relationship-no-unlink-in-product",
       "view": "pim:views/product/record/panels/product-attribute-values",
@@ -79,44 +80,12 @@
       "sortBy": "attribute.sortOrder",
       "asc": true
     },
-    "productCategories": {
-      "view": "pim:views/product/record/panels/product-categories",
-      "createAction": "createRelatedConfigured",
-      "selectAction": "selectRelatedEntity",
-      "selectBoolFilterList": [
-        "onlyActive",
-        "notLinkedProductCategories",
-        "onlyCatalogCategories"
-      ],
-      "rowActionsView": "views/record/row-actions/relationship-no-unlink",
-      "modalEditView": "pim:views/product-category/modals/edit-in-product",
-      "layout": "listForProductCategoriesInProduct",
-      "aclScopesList": [
-        "Category"
-      ]
-    },
     "channels": {
       "view": "pim:views/product/record/panels/product-channels",
       "recordListView": "pim:views/channel/record/list-in-product",
       "createAction": "createRelatedConfigured",
       "selectAction": "selectRelatedEntity",
       "layout": "listForChannelsInProduct"
-    },
-    "pimImages": {
-      "view": "pim:views/record/panels/pim-images",
-      "layout": "listSmallForRelate",
-      "rowActionsView": "views/record/row-actions/relationship-no-unlink",
-      "selectAction": "selectRelatedEntity",
-      "selectBoolFilterList": [
-        "pimImageRelation"
-      ],
-      "recordsPerPage": 200,
-      "dragDrop": {
-        "isActive": true,
-        "sortField": "sortOrder"
-      },
-      "sortBy": "sortOrder",
-      "asc": true
     },
     "associatedMainProducts": {
       "view": "pim:views/product/record/panels/associated-main-product",
@@ -128,51 +97,28 @@
       ]
     }
   },
-  "menu": {
-    "list": {
-      "buttons": [
-        {
-          "acl": "read",
-          "label": "",
-          "link": "#Product/list",
-          "style": "primary",
-          "title": "List",
-          "iconHtml": "<span class=\"fa fa-list\"></span>"
-        },
-        {
-          "acl": "read",
-          "label": "",
-          "link": "#Product/plate",
-          "style": "default",
-          "title": "Plate",
-          "iconHtml": "<span class=\"fa fa-th\"></span>"
-        }
-      ]
-    },
-    "plate": {
-      "buttons": [
-        {
-          "acl": "read",
-          "label": "",
-          "link": "#Product/list",
-          "style": "default",
-          "title": "List",
-          "iconHtml": "<span class=\"fa fa-list\"></span>"
-        },
-        {
-          "acl": "read",
-          "label": "",
-          "link": "#Product/plate",
-          "style": "primary",
-          "title": "Plate",
-          "iconHtml": "<span class=\"fa fa-th\"></span>"
-        }
-      ]
-    }
-  },
   "dynamicLogic": {
     "fields": {
       "type": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "or",
+              "value": [
+                {
+                  "type": "isNotEmpty",
+                  "attribute": "id"
+                },
+                {
+                  "type": "isNotEmpty",
+                  "attribute": "_duplicatingEntityId"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "productFamily": {
         "readOnly": {
           "conditionGroup": [
             {
@@ -180,9 +126,7 @@
               "attribute": "id"
             }
           ]
-        }
-      },
-      "productFamily": {
+        },
         "required": {
           "conditionGroup": [
             {

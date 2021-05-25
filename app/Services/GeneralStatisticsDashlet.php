@@ -69,13 +69,10 @@ class GeneralStatisticsDashlet extends AbstractProductDashletService
                 'id'     => 'productWithoutCategory',
                 'name'   => 'productWithoutCategory',
                 'amount' => $this->getAmountProductWithoutCategory()
-            ],
-            [
-                'id'     => 'productWithoutImage',
-                'name'   => 'productWithoutImage',
-                'amount' => $this->getAmountProductWithoutImage()
             ]
         ];
+
+        $this->addProductWithoutImage( $result['list']);
 
         $result['total'] = count($result['list']);
 
@@ -146,7 +143,7 @@ class GeneralStatisticsDashlet extends AbstractProductDashletService
 
         return "SELECT $select 
                 FROM product p 
-                LEFT JOIN product_category pc ON pc.product_id=p.id AND pc.deleted=0
+                LEFT JOIN product_category_linker pc ON pc.product_id=p.id AND pc.deleted=0
                 WHERE p.deleted=0 
                   AND p.type IN $types
                   AND pc.id IS NULL";
@@ -190,4 +187,19 @@ class GeneralStatisticsDashlet extends AbstractProductDashletService
 
         return (int)$sth->fetchColumn();
     }
+
+    /**
+     * @param $list
+     */
+    protected function addProductWithoutImage(&$list)
+    {
+        if (!empty( $this->getInjection('metadata')->get('entityDefs.Product.fields.image'))) {
+            $list[] =  [
+                'id'     => 'productWithoutImage',
+                'name'   => 'productWithoutImage',
+                'amount' => $this->getAmountProductWithoutImage()
+            ];
+        }
+    }
+
 }

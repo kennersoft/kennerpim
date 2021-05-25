@@ -40,8 +40,14 @@ class StreamController extends AbstractListener
     {
         $result = $event->getArgument('result');
 
-        $result = $this->prepareDataForUserStream($result);
-        $result = $this->injectAttributeType($result);
+        switch ($event->getArgument('params')['scope']) {
+            case 'User':
+                $result = $this->prepareDataForUserStream($result);
+                break;
+            case 'Product':
+                $result = $this->injectAttributeType($result);
+                break;
+        }
 
         $event->setArgument('result', $result);
     }
@@ -88,7 +94,7 @@ class StreamController extends AbstractListener
      */
     protected function prepareDataForUserStream(array $result): array
     {
-        if (!empty($result['list']) && isset($result['scope']) && $result['scope'] == 'User') {
+        if (!empty($result['list'])) {
             // prepare notes ids
             $noteIds = array_column($result['list'], 'id');
 

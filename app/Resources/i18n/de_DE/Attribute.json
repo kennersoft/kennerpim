@@ -7,7 +7,6 @@
     "isRequired": "Ist Erforderlich",
     "createdAt": "erstellt am",
     "createdBy": "erstellt von",
-    "isSystem": "Ist das System",
     "modifiedAt": "geändert am",
     "modifiedBy": "geändert von",
     "productAttributes": "Produktattribute",
@@ -16,7 +15,9 @@
     "typeValue": "Werttyp",
     "type": "Typ",
     "productFamilyAttributes": "Produktfamilie Attribute",
-    "isMultilang": "Mehrsprachig"
+    "isMultilang": "Mehrsprachig",
+    "locale": "Gebietsschema",
+    "parent": "Elternteil"
   },
   "options": {
     "type": {
@@ -58,11 +59,15 @@
   "filterLabels": {
     "All": "Alle"
   },
+  "queueManager": {
+    "Adding a locale '%s' for an attribute '%s'": "Hinzufügen des Gebietsschemas '%s' für das Attribut '%s'"
+  },
   "exceptions": {
     "You can not unlink product family attribute": "Sie können das Produktfamilienattribut nicht aufheben",
     "Attribute with such CODE already exist": "Das Attribut mit einem solchen CODE existiert bereits",
     "Attribute is used in product families. Please, update product families first": "Das Attribut wird in den Produktfamilien verwendet. Bitte aktualisieren Sie zuerst die Produktfamilien",
     "Attribute is used in products. Please, update products first": "Das Attribut wird in den Produkten verwendet. Bitte aktualisieren Sie zuerst die Produkte",
-    "You can't change field of Type in Attribute": "Sie können das Feld Typ im Attribut nicht ändern"
+    "You can't change field of Type in Attribute": "Sie können das Feld Typ im Attribut nicht ändern",
+    "The attribute already has a group": "Das Attribut hat bereits eine Gruppe"
   }
 }

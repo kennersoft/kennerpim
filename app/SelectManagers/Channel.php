@@ -60,26 +60,25 @@ class Channel extends AbstractSelectManager
     /**
      * @param array $result
      */
-    protected function boolFilterNotLinkedWithAttributesInProduct(array &$result)
+    protected function boolFilterNotAllowedForProduct(array &$result)
     {
-        $data = (array)$this->getSelectCondition('notLinkedWithAttributesInProduct');
+        $data = (array)$this->getSelectCondition('notAllowedForProduct');
 
         if (isset($data['productId']) && isset($data['attributeId'])) {
-            $channels = $this
+            $ids = $this
                 ->getEntityManager()
-                ->getRepository('Channel')
-                ->select(['id'])
-                ->distinct()
-                ->join(['productAttributeValues'])
-                ->where([
-                    'productAttributeValues.attributeId' => $data['attributeId'],
-                    'productAttributeValues.productId' => $data['productId']
-                ])
-                ->find()
-                ->toArray();
+                ->nativeQuery(
+                    "SELECT id
+                     FROM channel
+                     WHERE deleted=0
+                       AND id IN (SELECT channel_id FROM product_channel WHERE product_id=:productId AND deleted=0)
+                       AND id NOT IN (SELECT channel_id FROM product_attribute_value_channel WHERE deleted=0 AND product_attribute_value_id IN (SELECT id FROM product_attribute_value WHERE deleted=0 AND product_id=:productId AND attribute_id=:attributeId))",
+                    ['productId' => $data['productId'], 'attributeId' => $data['attributeId']]
+                )
+                ->fetchAll(\PDO::FETCH_COLUMN);
 
             $result['whereClause'][] = [
-                'id!=' => !empty($channels) ? array_column($channels, 'id') : []
+                'id' => $ids
             ];
         }
     }
@@ -107,33 +106,6 @@ class Channel extends AbstractSelectManager
 
             $result['whereClause'][] = [
                 'id!=' => !empty($channels) ? array_column($channels, 'id') : []
-            ];
-        }
-    }
-
-    /**
-     * @param $result
-     */
-    protected function boolFilterNotLinkedWithCategoriesInProduct(&$result)
-    {
-        $data = $this->getSelectCondition('notLinkedWithCategoriesInProduct');
-
-        $productCategories = $this
-            ->getEntityManager()
-            ->getRepository('Channel')
-            ->distinct()
-            ->join(['productCategories'])
-            ->select(['id'])
-            ->where([
-                'productCategories.productId' => $data['productId'],
-                'productCategories.categoryId' => $data['categoryId']
-            ])
-            ->find()
-            ->toArray();
-
-        if (count($productCategories) > 0) {
-            $result['whereClause'][] = [
-                'id!=' => array_column($productCategories, 'id')
             ];
         }
     }

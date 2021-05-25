@@ -7,18 +7,14 @@
     "notChildCategory",
     "notLinkedWithProduct",
     "linkedWithCatalog",
-    "onlyRootCategory",
-    "onlyCatalogCategories",
-    "notLinkedProductCategories"
+    "onlyRootCategory"
   ],
   "hiddenBoolFilterList": [
     "notEntity",
     "notChildCategory",
     "notLinkedWithProduct",
     "linkedWithCatalog",
-    "onlyRootCategory",
-    "onlyCatalogCategories",
-    "notLinkedProductCategories"
+    "onlyRootCategory"
   ],
   "disabledMassActions": [
     "merge"
@@ -33,40 +29,21 @@
     "detail": "pim:views/category/record/detail"
   },
   "relationshipPanels": {
-    "pimImages": {
-      "view": "pim:views/record/panels/pim-images",
-      "layout": "listSmallForRelate",
-      "rowActionsView": "views/record/row-actions/relationship-no-unlink",
-      "selectAction": "selectRelatedEntity",
-      "selectBoolFilterList": [
-        "pimImageRelation"
-      ],
-      "recordsPerPage": 200,
-      "dragDrop": {
-        "isActive": true,
-        "sortField": "sortOrder"
-      },
-      "sortBy": "sortOrder",
-      "asc": true
-    },
-    "productCategories": {
-      "layout": "listForProductCategoriesInCategory",
-      "rowActionsView": "views/record/row-actions/relationship-no-unlink",
-      "select": false,
-      "recordsPerPage": 200,
-      "dragDrop": {
-        "isActive": true,
-        "sortField": "sorting"
-      },
-      "sortBy": "sorting",
-      "asc": true
-    },
     "catalogs": {
       "selectAction": "selectRelatedEntity",
       "selectBoolFilterList": [
         "notEntity"
       ],
       "view": "pim:views/category/record/panels/catalogs"
+    },
+    "products": {
+      "selectBoolFilterList": [
+        "allowedForCategory_{{id}}"
+      ],
+      "dragDrop": {
+        "isActive": true,
+        "sortField": "pcSorting"
+      }
     }
   },
   "menu": {
@@ -99,6 +76,16 @@
             {
               "type": "isEmpty",
               "attribute": "categoryRouteName"
+            }
+          ]
+        }
+      },
+      "products": {
+        "visible": {
+          "conditionGroup": [
+            {
+              "type": "isFalse",
+              "attribute": "hasChildren"
             }
           ]
         }

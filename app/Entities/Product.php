@@ -79,6 +79,10 @@ class Product extends Base
      */
     public function get($name, $params = [])
     {
+        if ($name == 'categories' && isset($params['additionalColumns']['pcSorting'])) {
+            unset($params['additionalColumns']['pcSorting']);
+        }
+
         // for product attribute
         if (preg_match_all($this->attrMask, (string)$name, $parts)) {
             // parse key
@@ -215,27 +219,6 @@ class Product extends Base
         }
 
         return $value;
-    }
-
-    /**
-     * Get product categories
-     *
-     * @return EntityCollection
-     * @throws Error
-     */
-    public function getCategories(): EntityCollection
-    {
-        if (empty($this->get('id'))) {
-            throw new Error('No such Product');
-        }
-
-        return $this
-            ->getEntityManager()
-            ->getRepository('Category')
-            ->distinct()
-            ->join('productCategories')
-            ->where(['productCategories.productId' => $this->get('id')])
-            ->find();
     }
 
     /**

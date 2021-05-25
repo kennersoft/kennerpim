@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace Pim\Listeners;
 
 use Espo\ORM\Entity;
-use Espo\Core\ServiceFactory;
+use Treo\Core\ServiceFactory;
 use Treo\Listeners\AbstractListener;
 
 /**
@@ -37,7 +37,7 @@ abstract class AbstractEntityListener extends AbstractListener
     /**
      * @var string
      */
-    public static $codePattern = '/^[a-z0-9_]*$/';
+    public static $codePattern = '/^[\p{Ll}0-9_]*$/u';
 
     /**
      * Create service

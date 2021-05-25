@@ -22,7 +22,12 @@
   "relationshipPanels": {
     "attributes": {
       "view": "pim:views/attribute-group/record/panels/attributes",
+      "selectAction": "selectRelatedEntity",
+      "modalSelectRecordView": "pim:views/attribute/modals/select-records-in-attribute-group",
       "layout": "listAttributesInAttrGroup",
+      "selectBoolFilterList": [
+        "notLocalesAttributes"
+      ],
       "dragDrop": {
         "isActive": true,
         "sortField": "sortOrder"

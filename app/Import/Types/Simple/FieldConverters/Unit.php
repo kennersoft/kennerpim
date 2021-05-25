@@ -57,7 +57,7 @@ class Unit extends DefaultUnit
         $value = str_replace($decimalMark, '.', $value);
         if (isset($config['attributeId'])) {
             // prepare input row for attribute
-            $inputRow->{$config['name']} = $value;
+            $inputRow->{$config['name']} = (float)$value;
             $inputRow->data = (object)['unit' => $unit];
         } else {
             // set values to input row

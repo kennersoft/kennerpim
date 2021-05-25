@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace Pim;
 
 use Treo\Core\ModuleManager\AbstractEvent;
+use DamCommon\Services\MigrationPimImage;
 
 /**
  * Class Event
@@ -74,6 +75,8 @@ class Event extends AbstractEvent
 
         // add menu items
         $this->addMenuItems();
+        //for Pim
+        $this->migratePimImageToDam();
     }
 
     /**
@@ -165,8 +168,8 @@ class Event extends AbstractEvent
         $config->set('quickCreateList', $quickCreateList);
         $config->set('twoLevelTabList', $twoLevelTabList);
 
-        if ($config->get('applicationName') == 'TreoCore') {
-            $config->set('applicationName', 'TreoPIM');
+        if ($config->get('applicationName') == 'KennerCore') {
+            $config->set('applicationName', 'KennerPim');
         }
 
         // save
@@ -210,5 +213,26 @@ class Event extends AbstractEvent
 
         // save
         $config->save();
+    }
+
+    /**
+     * @throws \Espo\Core\Exceptions\Error
+     */
+    protected function migratePimImageToDam(): void
+    {
+        $config = $this->getContainer()->get('config');
+
+        if (!empty($config->get('isInstalled'))
+            && $config->get('pimAndDamInstalled') === false
+            && $this->getContainer()->get('metadata')->isModuleInstalled('Dam')) {
+            //migration pimImage
+            $migrationPimImage = new MigrationPimImage();
+            $migrationPimImage->setContainer($this->getContainer());
+            $migrationPimImage->run();
+
+            //set flag about installed Pim and Image
+            $config->set('pimAndDamInstalled', true);
+            $config->save();
+        }
     }
 }

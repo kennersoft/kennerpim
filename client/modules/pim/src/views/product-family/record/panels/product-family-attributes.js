@@ -206,7 +206,7 @@ Espo.define('pim:views/product-family/record/panels/product-family-attributes', 
                 this.listenTo(collection, 'change:isRequired', model => {
                     if (!model.hasChanged('modifiedAt')) {
                         this.notify('Saving...');
-                        model.save().then(() => {
+                        model.save({isRequired: model.get('isRequired')}, {patch: true}).then(() => {
                             this.notify('Saved', 'success');
                         });
                     }
@@ -531,7 +531,7 @@ Espo.define('pim:views/product-family/record/panels/product-family-attributes', 
             // prepare ids
             let ids = [];
             group.rowList.forEach(id => {
-                if (!this.collection.get(id).get('isInherited')){
+                if (!this.collection.get(id).get('isInherited') && this.collection.get(id).get('locale') === null){
                     ids.push(id);
                 }
             });

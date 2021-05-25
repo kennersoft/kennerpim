@@ -48,6 +48,16 @@ class Attribute extends AbstractSelectManager
     }
 
     /**
+     * @param array $result
+     */
+    protected function boolFilterNotLocalesAttributes(&$result)
+    {
+        $result['whereClause'][] = [
+            'locale' => null
+        ];
+    }
+
+    /**
      * NotLinkedWithProduct filter
      *
      * @param array $result
@@ -78,10 +88,12 @@ class Attribute extends AbstractSelectManager
                 ->getEntityManager()
                 ->getRepository('ProductAttributeValue')
                 ->select(['attributeId'])
-                ->where([
-                    'productId' => $data['productId'],
-                    'scope' => $data['scope']
-                ])
+                ->where(
+                    [
+                        'productId' => $data['productId'],
+                        'scope'     => $data['scope']
+                    ]
+                )
                 ->find()
                 ->toArray();
 
@@ -115,15 +127,17 @@ class Attribute extends AbstractSelectManager
             ->getEntityManager()
             ->getRepository('Attribute')
             ->select(['id'])
-            ->where([
-                'type' => 'unit'
-            ])
+            ->where(
+                [
+                    'type' => 'unit'
+                ]
+            )
             ->find()
             ->toArray();
 
         if (count($unitAttributes) > 0) {
             $result['whereClause'][] = [
-                'id!=' =>  array_column($unitAttributes, 'id')
+                'id!=' => array_column($unitAttributes, 'id')
             ];
         }
     }

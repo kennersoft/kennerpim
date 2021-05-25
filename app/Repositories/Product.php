@@ -23,15 +23,18 @@ declare(strict_types=1);
 
 namespace Pim\Repositories;
 
+use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Exceptions\Error;
 use Espo\ORM\Entity;
 use Espo\Core\Utils\Util;
+use Espo\Core\Templates\Repositories\Base;
 
 /**
  * Class Product
  *
  * @author r.ratsun@treolabs.com
  */
-class Product extends AbstractRepository
+class Product extends Base
 {
     /**
      * @return array
@@ -39,6 +42,47 @@ class Product extends AbstractRepository
     public function getInputLanguageList(): array
     {
         return $this->getConfig()->get('inputLanguageList', []);
+    }
+
+    /**
+     * @param string $productId
+     *
+     * @return array
+     */
+    public function getCategoriesIdsThatCanBeRelatedWithProduct(string $productId): array
+    {
+        // get trees
+        $trees = $this
+            ->getEntityManager()
+            ->nativeQuery(
+                "SELECT category_id FROM catalog_category WHERE catalog_id=(SELECT catalog_id FROM product WHERE id=:product_id AND deleted=0) ANd deleted=0",
+                ['product_id' => $productId]
+            )
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (empty($trees)) {
+            return [];
+        }
+
+        $whereTree = [];
+        foreach ($trees as $tree) {
+            $whereTree[] = "(c.category_route LIKE '%|$tree|%' OR c.id='$tree')";
+        }
+        $whereTree = implode(' OR ', $whereTree);
+
+        return $this
+            ->getEntityManager()
+            ->nativeQuery(
+                "SELECT DISTINCT c.id
+                 FROM category c
+                   LEFT JOIN category c1 ON c1.category_parent_id=c.id AND c1.deleted=0
+                 WHERE c.deleted=0
+                   AND c1.id IS NULL
+                   AND c.id NOT IN (SELECT category_id FROM product_category_linker WHERE product_id=:product_id AND deleted=0)
+                   AND ($whereTree)",
+                ['product_id' => $productId]
+            )
+            ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**
@@ -54,9 +98,53 @@ class Product extends AbstractRepository
     }
 
     /**
+     * @inheritDoc
+     *
+     * @throws BadRequest
+     */
+    protected function beforeRelate(Entity $entity, $relationName, $foreign, $data = null, array $options = [])
+    {
+        /** @var string $foreignId */
+        $foreignId = is_string($foreign) ? $foreign : (string)$foreign->get('id');
+
+        if ($relationName == 'categories' && !in_array($foreignId, $this->getCategoriesIdsThatCanBeRelatedWithProduct((string)$entity->get('id')))) {
+            throw new BadRequest("Such category can't be related with current product");
+        }
+
+        parent::beforeRelate($entity, $relationName, $foreign, $data, $options);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function afterRelate(Entity $entity, $relationName, $foreign, $data = null, array $options = [])
+    {
+        if ($relationName == 'categories') {
+            $this->getEntityManager()->getRepository('Category')->updateCategoryProductSorting();
+        }
+
+        parent::afterRelate($entity, $relationName, $foreign, $data, $options);
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @throws BadRequest
+     */
+    protected function beforeMassRelate(Entity $entity, $relationName, array $params = [], array $options = [])
+    {
+        if ($relationName == 'categories') {
+            throw new BadRequest('Action is unavailable');
+        }
+
+        parent::beforeMassRelate($entity, $relationName, $params, $options);
+    }
+
+    /**
      * @param Entity $entity
      *
      * @return bool
+     * @throws Error
      */
     protected function saveAttributes(Entity $product): bool
     {

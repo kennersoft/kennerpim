@@ -27,9 +27,7 @@
     "ProductPrice": "Product Price",
     "Tax": "Tax",
     "ProductSerie": "Product Serie",
-    "ProductCategory": "Product Category",
-    "ProductFamilyAttribute": "Product Family Attribute",
-    "PimImage": "Image"
+    "ProductFamilyAttribute": "Product Family Attribute"
   },
   "scopeNamesPlural": {
     "Association": "Associations",
@@ -49,9 +47,7 @@
     "ProductPrice": "Product Prices",
     "Tax": "Taxes",
     "ProductSerie": "Product Series",
-    "ProductCategory": "Product Categories",
-    "ProductFamilyAttribute": "Product Family Attributes",
-    "PimImage": "Images"
+    "ProductFamilyAttribute": "Product Family Attributes"
   },
   "options": {
     "channelsFilter": {
@@ -77,12 +73,16 @@
     "amount": "Amount",
     "mpn": "MPN",
     "productSerie": "Product Serie",
-    "scope": "Scope"
+    "channels": "Channels",
+    "scope": "Scope",
+    "role": "Role"
   },
   "labels": {
     "Add Field": "Add Filter",
     "removeExplain": "Select this to unlink attribute from other Entities before removing",
-    "removeHint": "When removing the Catalog, the Products belonging to it are deleted."
+    "removeHint": "When removing the Catalog, the Products belonging to it are deleted.",
+    "Category Preview": "Category Preview",
+    "Product Preview": "Product Preview"
   },
   "dashlets": {
     "GeneralStatistics": "General Statistics",

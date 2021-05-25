@@ -1,6 +1,6 @@
 # Channels
 
-**Channel** – a destination point for your product data, which can be synced with third-party systems as well as exported in certain formats. Generally, a channel is a place, where your product information should appear; for example, your online shop, mobile app or print catalog.
+**Channel** – a destination point for your product data, which can be synced with third-party systems as well as [exported](../../../../../../treocore/blob/master/docs/en/user-guide/export-core.md) in certain formats. Generally, a channel is a place, where your product information should appear; for example, your online shop, mobile app or print catalog.
 
 Using channels allows you to implement your multichannel or omni-channel strategy in a more efficient way.
 
@@ -14,9 +14,9 @@ The channel entity comes with the following preconfigured fields; mandatory are 
 | Name (multi-lang) *	   | Channel name                   |
 | Code *                   | Unique value used to identify the channel. It can only consist of lowercase letters, digits and underscore symbols     |
 | Currencies *			   | Multiselect-list of currencies. The prices in the defined currency (or currencies) will be transferred via the given channel  |
-| Description			   | Description of the channel usage    |
+| Description (multi-lang)	| Description of the channel usage    |
 
-If you want to make changes to the channel entity, e.g. add new fields, or modify channel views, please contact your administrator.
+> If the [multi-languages](https://treopim.com/store/multi-languages#module-configuration) settings are activated, but multilingual fields are missing for the channel entity, or if you want to make changes to the channel entity (e.g. add new fields, or modify channel views), please, contact your administrator. 
 
 ## Creating
 
@@ -24,15 +24,19 @@ To create a new channel record, click `Channels` in the navigation menu to get t
 
 ![Channel creation](../../_assets/channels/channels-create.jpg)
 
-Here enter the desired name for the channel record being created and activate it, if needed. Its code is automatically generated based on the entered name, but you can change it via the keyboard. Define the currencies to be used in prices for the given channel using the corresponding drop-down list. The channel description is an optional field and can be left empty.
+Here enter the desired name for the channel record being created and activate it, if needed. Its code is automatically generated based on the entered name, but you can change it via the keyboard. Define the currencies to be used in prices for the given channel using the corresponding drop-down list. The channel description is an optional field and can be left empty. 
 
-*Please, note that the `Currencies` list is set up by the administrator.*
+If the ["Multi-Languages" module](https://treopim.com/store/multi-languages) is enabled and configured, it is also possible to define separate locale(s) to be used in the channel being created by choosing the desired option(s) from the `Locales` list:
+
+![Channel creation, locales](../../_assets/channels/channels-create-locales.jpg)
+
+> Please, note that the `Currencies` and `Locales` lists are set up by the administrator.
 
 Click the `Save` button to finish the channel record creation or `Cancel` to abort the process.
 
 If the channel code is not unique, the error message will appear notifying you about it.
 
-Alternatively, use the [quick create](./user-interface.md#quick-create) button on any TreoPIM page and fill in the required fields in the channel creation pop-up that appears:
+Alternatively, use the [quick create](./user-interface.md#quick-create) button on any KennerPim page and fill in the required fields in the channel creation pop-up that appears:
 
 ![Creation pop-up](../../_assets/channels/creation-popup.jpg)
 
@@ -45,11 +49,12 @@ To open the list of channel records available in the system, click the `Channels
 By default, the following fields are displayed on the [list view](./views-and-panels.md#list-view) page for channel records:
  - Name
  - Code
+ - Locales
  - Active
 
 To change the channel records order in the list, click any sortable column title; this will sort the column either ascending or descending. 
 
-Channel records can be searched and filtered according to your needs. For details on the search and filtering options, refer to the [**Search and Filtering**](./search-and-filtering.md) article in this user guide.
+Channel records can be searched and filtered according to your needs. For details on these options, refer to the [**Search and Filtering**](./search-and-filtering.md) article in this user guide.
 
 To view some channel record details, click the name field value of the corresponding record in the list of channels; the [detail view](./views-and-panels.md#detail-view) page will open showing the channel records and the records of the related entities. Alternatively, use the `View` option from the single record actions menu to open the [quick detail](./views-and-panels.md#quick-detail-view-small-detail-view) pop-up.
 
@@ -65,6 +70,8 @@ The following mass actions are available for channel records on the list view pa
 
 ![Channels mass actions](../../_assets/channels/channels-mass-actions.jpg)
 
+> If any option is missing in your mass actions menu, please, contact your administrator.
+
 For details on these actions, refer to the [**Mass Actions**](./views-and-panels.md#mass-actions) section of the **Views and Panels** article in this user guide.
 
 ### Single Record Actions
@@ -76,6 +83,8 @@ The following single record actions are available for channel records on the lis
 - Remove
 
 ![Сhannels single record actions](../../_assets/channels/channels-single-actions.jpg)
+
+> If any option is missing in your single record actions menu, please, contact your administrator.
 
 For details on these actions, please, refer to the [**Single Record Actions**](./views-and-panels.md#single-record-actions) section of the **Views and Panels** article in this user guide.
 
@@ -103,6 +112,10 @@ or from the single record actions menu on the channels list view page:
 
 ![Remove2](../../_assets/channels/remove-list.jpg)
 
+The record removal operation has to be confirmed in the pop-up that appears:
+
+![Channel removal confirmation](../../_assets/channels/channel-remove-confirm.jpg)
+
 ## Duplicating
 
 Use the `Duplicate` option from the actions menu to go to the channel creation page and get all the values of the last chosen channel record copied in the empty fields of the new channel record to be created. Modifying the channel code is required, as this value has to be unique.
@@ -123,15 +136,10 @@ To create a new product record for the given channel, use the `+` button located
 
 ![Creating products](../../_assets/channels/channels-create-product.jpg)
 
-To link the already existing product records with the given channel, use the `Select` option from the actions menu located in the upper right corner of the `PRODUCTS` panel. Then in the "Products" pop-up window choose one or several products you would like to assign to this channel and click the `Select` button.
+To link the already existing product records with the given channel, use the `Select` option from the actions menu located in the upper right corner of the `PRODUCTS` panel. Then in the "Products" pop-up window choose one or several products you would like to assign to this channel and click the `Select` button:
 
-To see all product records linked to the given channel, use the `Show full list` option:
+![Selecting products](../../_assets/channels/channel-select-products.jpg)
 
-![Channel products](../../_assets/channels/show-full-option.jpg)
-
-Then the "Products" page opens, where all product records [filtered](./search-and-filtering.md) by the given channel are displayed:
-
-![Products full list](../../_assets/channels/products-full-list.jpg)
 
 To view the channel related product record, click its name in the products list or select the `View` option from the single record actions menu for the appropriate record:
 
@@ -145,6 +153,6 @@ Use the `Unlink` option from the single record actions menu to unlink the desire
 
 To remove the product, select the `Remove` option from the single record actions drop-down list for the appropriate record.
 
-To view the channel related product record from the `PRODUCTS` panel, click its name in the products list. The [detail view](./views-and-panels.md#detail-view) page of the given product will open, where you can perform further actions according to your access rights, configured by the administrator. 
+To view the channel related product record from the `PRODUCTS` panel, click its name in the products list. The [detail view](./views-and-panels.md#detail-view) page of the given product record will open, where you can perform further actions according to your access rights, configured by the administrator. 
 
-*Please, note that the **"Pricing"** module greatly extends the channels functionality. To learn more about the module and its features, please, visit our [store](https://treopim.com/store/pricing).*
+*Please, note that you can get additional modules (e.g. ["Pricing"](https://treopim.com/store/pricing), ["Completeness"](https://treopim.com/store/completeness), ["Export Feeds"](https://treopim.com/store/export-feeds), ["Import Feeds"](https://treopim.com/store/import-feeds), etc.) to your KennerPim system to extend the channels functionality. To learn more about the modules and their features available for you, please, visit [our store](https://treopim.com/store).*

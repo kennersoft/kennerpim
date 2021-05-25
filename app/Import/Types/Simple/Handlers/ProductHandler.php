@@ -55,7 +55,6 @@ class ProductHandler extends AbstractHandler
      */
     protected $saved = false;
 
-
     /**
      * @param array $fileData
      * @param array $data
@@ -188,6 +187,8 @@ class ProductHandler extends AbstractHandler
                     // push log
                     $this->log($entityType, $importResultId, $action, (string)$fileRow, (string)$entity->get('id'));
                 }
+
+                $this->saved = false;
 
                 $this->getEntityManager()->getPDO()->commit();
             } catch (\Throwable $e) {
@@ -463,7 +464,6 @@ class ProductHandler extends AbstractHandler
             // update entity
             $entity = $this->updateEntity($service, $exist->get('id'), $input);
 
-            // save restore row
             if ($entity->isSaved()) {
                 // save restore row
                 $this->saveRestoreRow('updated', $entityType, [$exist->get('id') => $restore]);
