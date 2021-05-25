@@ -36,28 +36,33 @@ class Unit extends DefaultUnit
     /**
      * @inheritDoc
      */
-    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter)
+    public function convert(\stdClass $inputRow, string $entityType, array $config, array $row, string $delimiter, string $decimalMark = '.')
     {
+        // prepare values
+        $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
+        $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
+
+        $name = isset($config['attributeId']) ? $config['attribute']->get('name') : $config['name'];
+
+        // validate unit float value
+        if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT, ["options" => ["default" => $decimalMark]]) === false) {
+            throw new \Exception("Incorrect value for attribute '$name'");
+        }
+
+        // validate measuring unit
+        if (!$this->validateUnit($unit, $entityType, $config)) {
+            throw new \Exception("Incorrect measuring unit for attribute '$name'");
+        }
+
+        $value = str_replace($decimalMark, '.', $value);
         if (isset($config['attributeId'])) {
-            // prepare values
-            $value = (!empty($config['column']) && $row[$config['column']] != '') ? $row[$config['column']] : $config['default'];
-            $unit = (!empty($config['columnUnit']) && $row[$config['columnUnit']] != '') ? $row[$config['columnUnit']] : $config['defaultUnit'];
-
-            // validate unit float value
-            if (!is_null($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
-                throw new \Exception("Incorrect value for attribute '{$config['attribute']->get('name')}'");
-            }
-
-            // validate measuring unit
-            if (!$this->validateUnit($unit, $entityType, $config)) {
-                throw new \Exception("Incorrect measuring unit for attribute '{$config['attribute']->get('name')}'");
-            }
-
             // prepare input row for attribute
             $inputRow->{$config['name']} = (float)$value;
             $inputRow->data = (object)['unit' => $unit];
         } else {
-            parent::convert($inputRow, $entityType, $config, $row, $delimiter);
+            // set values to input row
+            $inputRow->{$config['name']} = (float)$value;
+            $inputRow->{$config['name'] . 'Unit'} = $unit;
         }
     }
 
