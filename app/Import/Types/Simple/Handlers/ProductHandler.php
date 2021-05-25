@@ -72,6 +72,9 @@ class ProductHandler extends AbstractHandler
         // prepare field value delimiter
         $delimiter = $data['data']['delimiter'];
 
+        // prepare decimal mark delimiter
+        $decimalMark = $data['decimalMark'];
+
         // create service
         $service = $this->getServiceFactory()->create($entityType);
 
@@ -133,7 +136,7 @@ class ProductHandler extends AbstractHandler
 
                         continue;
                     } else {
-                        $this->convertItem($input, $entityType, $item, $row, $delimiter);
+                        $this->convertItem($input, $entityType, $item, $row, $delimiter, $decimalMark);
                     }
 
                     if (!empty($entity)) {
@@ -170,7 +173,7 @@ class ProductHandler extends AbstractHandler
                         $this->importCategories($entity, $value, $delimiter);
                     } elseif (isset($value['item']['attributeId'])) {
                         // import attributes
-                        $this->importAttribute($entity, $value, $delimiter);
+                        $this->importAttribute($entity, $value, $delimiter, $decimalMark);
                     } elseif (isset($value['item']['pimImage'])) {
                         // import product images
                         $this->importImages($entity, $value);
@@ -221,7 +224,7 @@ class ProductHandler extends AbstractHandler
      * @param array $data
      * @param string $delimiter
      */
-    protected function importAttribute(Entity $product, array $data, string $delimiter)
+    protected function importAttribute(Entity $product, array $data, string $delimiter, string $decimalMark)
     {
         $attribute = null;
         $entityType = 'ProductAttributeValue';
@@ -267,7 +270,7 @@ class ProductHandler extends AbstractHandler
         $conf['attribute'] = $attribute;
 
         // convert attribute value
-        $this->convertItem($inputRow, $entityType, $conf, $row, $delimiter);
+        $this->convertItem($inputRow, $entityType, $conf, $row, $delimiter, $decimalMark);
 
         if (!isset($inputRow->id)) {
             $inputRow->productId = $product->get('id');
