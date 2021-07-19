@@ -271,6 +271,7 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
             });
             Promise.all(promises).then(() => {
                 this.notify('Linked', 'success');
+                this.model.trigger('after:relate', 'productAttributeValues');
                 this.actionRefresh();
             });
         },
