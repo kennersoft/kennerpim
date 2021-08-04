@@ -124,7 +124,7 @@ To create your new KennerPim application, first make sure you are using PHP 7.1 
 ## License
 
 KennerPim is published under the GNU GPLv3 [license](LICENSE.txt).
-KennerPim basen on TreoPIM. TreoPIM is an open-source product information management system (PIM), developed by TreoLabs GmbH, which is based on TreoCore software platform and is developed by TreoLabs GmbH.
+KennerPim based on TreoPIM. TreoPIM is an open-source product information management system (PIM), developed by TreoLabs GmbH, which is based on TreoCore software platform and is developed by TreoLabs GmbH.
 
 ## Support
 
