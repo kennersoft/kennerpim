@@ -166,7 +166,8 @@ class ProductEntity extends AbstractEntityListener
             $this
                 ->getEntityManager()
                 ->nativeQuery(
-                    "UPDATE product_attribute_value SET product_family_attribute_id=NULL WHERE product_id=:productId AND product_family_attribute_id IS NOT NULL AND deleted=0",
+                    "UPDATE product_attribute_value SET product_family_attribute_id=NULL, is_required=0
+                        WHERE product_id=:productId AND product_family_attribute_id IS NOT NULL AND deleted=0",
                     ['productId' => $entity->get('id')]
                 );
         }
@@ -246,7 +247,8 @@ class ProductEntity extends AbstractEntityListener
                             ->getEntityManager()
                             ->nativeQuery("UPDATE product_attribute_value
                             SET product_family_attribute_id=:productFamilyAttributeId
-                            where product_id=:productId AND attribute_id=:attributeId AND is_required=:isRequired AND scope=:scope, :locale, :localeParentId",
+                            WHERE product_id=:productId AND attribute_id=:attributeId AND is_required=:isRequired
+                             AND scope=:scope, locale=:locale, locale_parent_id:localeParentId",
                                 $productAttributeValueData);
                     } else {
                         if ($productFamilyAttribute->get('scope') == 'Channel' && count($channels) > 0) {
@@ -271,7 +273,7 @@ class ProductEntity extends AbstractEntityListener
                             $this
                                 ->getEntityManager()
                                 ->nativeQuery("INSERT INTO product_attribute_value 
-                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope)
+                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope, locale, locale_parent_id)
                                 VALUES ('" . Util::generateId() . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope, :locale, :localeParentId)",
                                     $productAttributeValueData);
                         }
