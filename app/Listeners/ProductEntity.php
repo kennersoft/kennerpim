@@ -28,6 +28,7 @@ use Espo\ORM\Entity;
 use Pim\Repositories\ProductAttributeValue;
 use Treo\Core\EventManager\Event;
 use Pim\Entities\Channel;
+use Treo\Core\Utils\Util;
 
 /**
  * Class ProductEntity
@@ -71,7 +72,7 @@ class ProductEntity extends AbstractEntityListener
         $skipUpdate = empty($entity->skipUpdateProductAttributesByProductFamily)
             && empty($options['skipProductFamilyHook']);
 
-        if ($skipUpdate && empty($entity->isDuplicate)) {
+        if ($skipUpdate && empty($entity->isDuplicate) && $entity->isAttributeChanged('productFamilyId')) {
             $this->updateProductAttributesByProductFamily($entity, $options);
         }
     }
@@ -182,44 +183,99 @@ class ProductEntity extends AbstractEntityListener
             $repository = $this->getEntityManager()->getRepository('ProductAttributeValue');
 
             foreach ($productFamilyAttributes as $productFamilyAttribute) {
-                // create
-                $productAttributeValue = $repository->get();
-                $productAttributeValue->set(
-                    [
-                        'productId'                => $entity->get('id'),
-                        'attributeId'              => $productFamilyAttribute->get('attributeId'),
-                        'productFamilyAttributeId' => $productFamilyAttribute->get('id'),
-                        'isRequired'               => $productFamilyAttribute->get('isRequired'),
-                        'scope'                    => $productFamilyAttribute->get('scope')
-                    ]
-                );
+                // base fields
+                $productAttributeValueData = [
+                    'productId'                => $entity->get('id'),
+                    'attributeId'              => $productFamilyAttribute->get('attributeId'),
+                    'productFamilyAttributeId' => $productFamilyAttribute->get('id'),
+                    'isRequired'               => (int)$productFamilyAttribute->get('isRequired'),
+                    'scope'                    => $productFamilyAttribute->get('scope')
+                ];
 
-                // relate channels if it needs
+                // searching with channels
+                $channels = $channelsIds = [];
                 if ($productFamilyAttribute->get('scope') == 'Channel') {
                     $channels = $productFamilyAttribute->get('channels');
                     if (count($channels) > 0) {
-                        $productAttributeValue->set('channelsIds', array_column($channels->toArray(), 'id'));
+                        $channelsIds = array_column($channels->toArray(), 'id');
+
+                        $productAttributeValue = $this
+                            ->getEntityManager()
+                            ->nativeQuery("SELECT *
+                            FROM product_attribute_value as pav
+                            INNER JOIN product_attribute_value_channel as pavc
+                            ON pav.id = pavc.product_attribute_value_id
+                            WHERE pav.product_id=:productId AND pav.attribute_id=:attributeId AND is_required=:isRequired 
+                              AND pav.scope=:scope AND pav.deleted=0 
+                              AND pavc.channel_id in ('" . implode(',', $channelsIds) . "')",
+                                [
+                                    'productId'   => $entity->get('id'),
+                                    'attributeId' => $productFamilyAttribute->get('attributeId'),
+                                    'isRequired'  => (int)$productFamilyAttribute->get('isRequired'),
+                                    'scope'       => $productFamilyAttribute->get('scope')
+                                ])
+                            ->fetchAll(\PDO::FETCH_ASSOC);
                     }
+                } else {
+                    //Global scope
+                    $productAttributeValue = $this
+                        ->getEntityManager()
+                        ->nativeQuery("SELECT *
+                            FROM product_attribute_value
+                            WHERE product_id=:productId AND attribute_id=:attributeId
+                              AND is_required=:isRequired AND scope=:scope AND deleted=0",
+                            [
+                                'productId'       => $entity->get('id'),
+                                'attributeId'     => $productFamilyAttribute->get('attributeId'),
+                                'isRequired'      => (int)$productFamilyAttribute->get('isRequired'),
+                                'scope'           => $productFamilyAttribute->get('scope')
+                            ])
+                        ->fetch(\PDO::FETCH_ASSOC);
                 }
 
                 // save
                 try {
-                    $this->getEntityManager()->saveEntity($productAttributeValue);
-                } catch (BadRequest $e) {
-                    $message = sprintf('Such product attribute \'%s\' already exists', $productFamilyAttribute->get('attribute')->get('name'));
-                    if ($message == $e->getMessage()) {
-                        $copy = $repository->findCopy($productAttributeValue);
-                        $copy->set('productFamilyAttributeId', $productFamilyAttribute->get('id'));
-                        $copy->set('isRequired', $productAttributeValue->get('isRequired'));
+                    if (
+                        !empty($productAttributeValue) && count($productAttributeValue) > 0
+                        && ($productFamilyAttribute->get('scope') != 'Channel' || count($productAttributeValue) == count($channels))
+                    ) {
+                        //update
+                        $this
+                            ->getEntityManager()
+                            ->nativeQuery("UPDATE product_attribute_value
+                            SET product_family_attribute_id=:productFamilyAttributeId
+                            where product_id=:productId AND attribute_id=:attributeId AND is_required=:isRequired AND scope=:scope",
+                                $productAttributeValueData);
+                    } else {
+                        if ($productFamilyAttribute->get('scope') == 'Channel' && count($channels) > 0) {
+                            //create with channels
+                            $pav_id = Util::generateId();
+                            $this
+                                ->getEntityManager()
+                                ->nativeQuery("INSERT INTO product_attribute_value 
+                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope)
+                                VALUES ('" . $pav_id . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope)",
+                                    $productAttributeValueData);
 
-                        if ($productFamilyAttribute->get('scope') == 'Channel') {
-                            $copy->set('channelsIds', $productAttributeValue->get('channelsIds'));
+                            foreach ($channelsIds as $channelsId) {
+                                $this
+                                    ->getEntityManager()
+                                    ->nativeQuery("INSERT INTO product_attribute_value_channel
+                                (channel_id, product_attribute_value_id)
+                                VALUES ('" . $channelsId . "', '" . $pav_id . "')");
+                            }
+                        } else {
+                            //create without channels
+                            $this
+                                ->getEntityManager()
+                                ->nativeQuery("INSERT INTO product_attribute_value 
+                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope)
+                                VALUES ('" . Util::generateId() . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope)",
+                                    $productAttributeValueData);
                         }
-
-                        $copy->skipPfValidation = true;
-
-                        $this->getEntityManager()->saveEntity($copy);
                     }
+                } catch (BadRequest $e) {
+                    $GLOBALS['log']->error('BadRequest: ' . $e->getMessage());
                 }
             }
         }
