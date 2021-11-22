@@ -189,7 +189,9 @@ class ProductEntity extends AbstractEntityListener
                     'attributeId'              => $productFamilyAttribute->get('attributeId'),
                     'productFamilyAttributeId' => $productFamilyAttribute->get('id'),
                     'isRequired'               => (int)$productFamilyAttribute->get('isRequired'),
-                    'scope'                    => $productFamilyAttribute->get('scope')
+                    'scope'                    => $productFamilyAttribute->get('scope'),
+                    'locale'                   => $productFamilyAttribute->get('locale'),
+                    'localeParentId'           => $repository->getLocaleParentId($productFamilyAttribute, $entity)
                 ];
 
                 // searching with channels
@@ -244,7 +246,7 @@ class ProductEntity extends AbstractEntityListener
                             ->getEntityManager()
                             ->nativeQuery("UPDATE product_attribute_value
                             SET product_family_attribute_id=:productFamilyAttributeId
-                            where product_id=:productId AND attribute_id=:attributeId AND is_required=:isRequired AND scope=:scope",
+                            where product_id=:productId AND attribute_id=:attributeId AND is_required=:isRequired AND scope=:scope, :locale, :localeParentId",
                                 $productAttributeValueData);
                     } else {
                         if ($productFamilyAttribute->get('scope') == 'Channel' && count($channels) > 0) {
@@ -253,8 +255,8 @@ class ProductEntity extends AbstractEntityListener
                             $this
                                 ->getEntityManager()
                                 ->nativeQuery("INSERT INTO product_attribute_value 
-                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope)
-                                VALUES ('" . $pav_id . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope)",
+                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope, locale, locale_parent_id)
+                                VALUES ('" . $pav_id . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope, :locale, :localeParentId)",
                                     $productAttributeValueData);
 
                             foreach ($channelsIds as $channelsId) {
@@ -270,7 +272,7 @@ class ProductEntity extends AbstractEntityListener
                                 ->getEntityManager()
                                 ->nativeQuery("INSERT INTO product_attribute_value 
                                 (id, product_id, attribute_id, product_family_attribute_id, is_required, scope)
-                                VALUES ('" . Util::generateId() . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope)",
+                                VALUES ('" . Util::generateId() . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope, :locale, :localeParentId)",
                                     $productAttributeValueData);
                         }
                     }
