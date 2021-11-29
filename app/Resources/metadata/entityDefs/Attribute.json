@@ -40,7 +40,6 @@
     },
     "attributeGroup": {
       "type": "link",
-      "view": "pim:views/attribute/fields/attribute-group",
       "required": false,
       "audited": false,
       "readOnly": false,
