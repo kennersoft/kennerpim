@@ -251,16 +251,28 @@ class ProductEntity extends AbstractEntityListener
                              AND scope=:scope, locale=:locale, locale_parent_id:localeParentId",
                                 $productAttributeValueData);
                     } else {
-                        if ($productFamilyAttribute->get('scope') == 'Channel' && count($channels) > 0) {
-                            //create with channels
-                            $pav_id = Util::generateId();
-                            $this
-                                ->getEntityManager()
-                                ->nativeQuery("INSERT INTO product_attribute_value 
-                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope, locale, locale_parent_id)
-                                VALUES ('" . $pav_id . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope, :locale, :localeParentId)",
-                                    $productAttributeValueData);
+                        //create without channels
+                        $pav_id = Util::generateId();
 
+                        $attribute = $this->getEntityManager()->getEntity('Attribute', $productFamilyAttribute->get('attributeId'));
+                        if (!empty($attribute)) {
+                            $attributeType = $attribute->get('type');
+                        }
+                        $attributeType = $attributeType ?? $this->getMetadata()->get("entityDefs.Attribute.fields.type.default");
+
+                        $date = date('Y-m-d H:i:s', time());
+
+                        $this
+                            ->getEntityManager()
+                            ->nativeQuery("INSERT INTO product_attribute_value 
+                            (id, attribute_type, product_id, attribute_id, product_family_attribute_id, 
+                                is_required, scope, locale, locale_parent_id, created_at, modified_at)
+                            VALUES ('" . $pav_id . "', '" . $attributeType . "', :productId, :attributeId,
+                                :productFamilyAttributeId, :isRequired, :scope, :locale, :localeParentId, '".$date."', '".$date."')",
+                                $productAttributeValueData);
+
+                        //create with channels
+                        if ($productFamilyAttribute->get('scope') == 'Channel' && count($channels) > 0) {
                             foreach ($channelsIds as $channelsId) {
                                 $this
                                     ->getEntityManager()
@@ -268,14 +280,6 @@ class ProductEntity extends AbstractEntityListener
                                 (channel_id, product_attribute_value_id)
                                 VALUES ('" . $channelsId . "', '" . $pav_id . "')");
                             }
-                        } else {
-                            //create without channels
-                            $this
-                                ->getEntityManager()
-                                ->nativeQuery("INSERT INTO product_attribute_value 
-                                (id, product_id, attribute_id, product_family_attribute_id, is_required, scope, locale, locale_parent_id)
-                                VALUES ('" . Util::generateId() . "', :productId, :attributeId, :productFamilyAttributeId, :isRequired, :scope, :locale, :localeParentId)",
-                                    $productAttributeValueData);
                         }
                     }
                 } catch (BadRequest $e) {
