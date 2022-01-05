@@ -237,6 +237,12 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
         },
 
         updateBaseSelectFields() {
+            (this.defs.baseSelectFields || []).forEach(field => {
+                if (!this.baseSelectFields.includes(field)) {
+                    this.baseSelectFields.push(field);
+                }
+            });
+
             let inputLanguageList = this.getConfig().get('inputLanguageList') || [];
             if (this.getConfig().get('isMultilangActive') && inputLanguageList.length) {
                 inputLanguageList.forEach(lang => {
