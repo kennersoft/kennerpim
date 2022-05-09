@@ -166,7 +166,7 @@ class ProductEntity extends AbstractEntityListener
             $this
                 ->getEntityManager()
                 ->nativeQuery(
-                    "UPDATE product_attribute_value SET product_family_attribute_id=NULL, is_required=0
+                    "UPDATE product_attribute_value SET product_family_attribute_id=NULL
                         WHERE product_id=:productId AND product_family_attribute_id IS NOT NULL AND deleted=0",
                     ['productId' => $entity->get('id')]
                 );
@@ -248,7 +248,7 @@ class ProductEntity extends AbstractEntityListener
                             ->nativeQuery("UPDATE product_attribute_value
                             SET product_family_attribute_id=:productFamilyAttributeId
                             WHERE product_id=:productId AND attribute_id=:attributeId AND is_required=:isRequired
-                             AND scope=:scope, locale=:locale, locale_parent_id:localeParentId",
+                            AND scope=:scope AND locale=:locale AND locale_parent_id=:localeParentId",
                                 $productAttributeValueData);
                     } else {
                         //create without channels
