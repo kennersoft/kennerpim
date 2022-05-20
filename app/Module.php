@@ -493,7 +493,6 @@ class Module extends AbstractModule
                 ]
             ];
             $data['clientDefs']['Product']['boolFilterList'][] = 'withoutImageAssets';
-            $data['clientDefs']['Product']['boolFilterList'][] = 'withoutImageAssets';
         }
 
         return $data;
