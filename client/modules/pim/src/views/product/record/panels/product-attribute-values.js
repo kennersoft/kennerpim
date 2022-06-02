@@ -680,7 +680,7 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
                 return;
             }
 
-            let group = this.groups.find(group => group.id === id);
+            let group = this.groups.find(group => group.id == id);
             if (!group || !group.rowList) {
                 return;
             }
