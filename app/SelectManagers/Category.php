@@ -35,18 +35,6 @@ class Category extends AbstractSelectManager
     /**
      * @inheritDoc
      */
-    public function applyBoolFilter($filterName, &$result)
-    {
-        parent::applyBoolFilter($filterName, $result);
-
-        if (preg_match_all('/^allowedForProduct_(.*)$/', $filterName, $matches)) {
-            $this->boolAdvancedFilterAllowedForProduct((string)$matches[1][0], $result);
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function applyAdditional(array &$result, array $params)
     {
         // prepare additional select columns
@@ -89,10 +77,12 @@ class Category extends AbstractSelectManager
      * @param string $id
      * @param array  $result
      */
-    protected function boolAdvancedFilterAllowedForProduct(string $id, array &$result)
+    protected function boolFilterAllowedForProduct(array &$result)
     {
-        // get allowed ids
-        $ids = $this->getEntityManager()->getRepository('Product')->getCategoriesIdsThatCanBeRelatedWithProduct($id);
+        // prepare product id
+        $productId = (string)$this->getSelectCondition('allowedForProduct');
+
+        $ids = $this->getEntityManager()->getRepository('Product')->getCategoriesIdsThatCanBeRelatedWithProduct($productId);
 
         $result['whereClause'][] = [
             'id' => empty($ids) ? ['no-such-id'] : $ids

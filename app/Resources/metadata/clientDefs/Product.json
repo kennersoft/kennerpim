@@ -58,9 +58,11 @@
   "massRelationView": "pim:views/product/modals/select-entity-and-records",
   "relationshipPanels": {
     "categories": {
+      "selectAction": "selectRelatedEntity",
       "selectBoolFilterList": [
-        "allowedForProduct_{{id}}"
-      ]
+        "allowedForProduct"
+      ],
+      "view": "pim:views/product/record/panels/categories"
     },
     "productAttributeValues": {
       "createAction": "createRelatedConfigured",
