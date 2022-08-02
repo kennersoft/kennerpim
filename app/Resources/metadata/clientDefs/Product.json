@@ -23,7 +23,8 @@
     "notLinkedWithProductSerie",
     "onlyCatalogProducts",
     "linkedWithCategory",
-    "notLinkedCategoryAndOnlyCatalogsProducts"
+    "notLinkedCategoryAndOnlyCatalogsProducts",
+    "onlyOneProductFamily"
   ],
   "hiddenBoolFilterList": [
     "notEntity",
@@ -38,7 +39,8 @@
     "notLinkedWithProductSerie",
     "onlyCatalogProducts",
     "linkedWithCategory",
-    "notLinkedCategoryAndOnlyCatalogsProducts"
+    "notLinkedCategoryAndOnlyCatalogsProducts",
+    "onlyOneProductFamily"
   ],
   "disabledMassActions": [
     "merge"

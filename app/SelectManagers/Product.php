@@ -319,6 +319,40 @@ class Product extends AbstractSelectManager
     }
 
     /**
+     * OnlySimple filter
+     *
+     * @param array $result
+     */
+    protected function boolFilterOnlyOneProductFamily(&$result)
+    {
+        // prepare ids
+        $ids = ['-1'];
+
+        $pfId = (string)$this->getSelectCondition('onlyOneProductFamily');
+
+        if (!empty($pfId)) {
+            $productsIds = $this
+                ->getEntityManager()
+                ->getRepository('Product')
+                ->select(['id'])
+                ->where([
+                    'productFamilyId' => $pfId
+                ])
+                ->find()
+                ->toArray();
+
+            if (!empty($productsIds)) {
+                $ids = array_column($productsIds, 'id');
+            }
+        }
+
+        // prepare where
+        $result['whereClause'][] = [
+            'id' => $ids
+        ];
+    }
+
+    /**
      * Get assiciated products
      *
      * @param string $associationId
