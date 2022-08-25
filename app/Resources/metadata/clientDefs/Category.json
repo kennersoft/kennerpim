@@ -39,9 +39,11 @@
       "view": "pim:views/category/record/panels/catalogs"
     },
     "products": {
+      "selectAction": "selectRelatedEntity",
       "selectBoolFilterList": [
-        "allowedForCategory_{{id}}"
+        "allowedForCategory"
       ],
+      "view": "pim:views/category/record/panels/products",
       "dragDrop": {
         "isActive": true,
         "sortField": "pcSorting"
@@ -78,16 +80,6 @@
             {
               "type": "isEmpty",
               "attribute": "categoryRouteName"
-            }
-          ]
-        }
-      },
-      "products": {
-        "visible": {
-          "conditionGroup": [
-            {
-              "type": "isFalse",
-              "attribute": "hasChildren"
             }
           ]
         }

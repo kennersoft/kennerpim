@@ -79,7 +79,7 @@ class Product extends Base
                  WHERE c.deleted=0
                    AND c1.id IS NULL
                    AND c.id NOT IN (SELECT category_id FROM product_category_linker WHERE product_id=:product_id AND deleted=0)
-                   AND ($whereTree)",
+                   AND $whereTree",
                 ['product_id' => $productId]
             )
             ->fetchAll(\PDO::FETCH_COLUMN);

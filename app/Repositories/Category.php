@@ -92,10 +92,6 @@ class Category extends Base
             /** @var string $foreignId */
             $foreignId = is_string($foreign) ? $foreign : (string)$foreign->get('id');
 
-            if ($this->hasChild((string)$entity->get('id'))) {
-                throw new BadRequest("Any product can't be related to category if category has child category");
-            }
-
             if (!in_array($foreignId, $this->getProductsIdsThatCanBeRelatedWithCategory((string)$entity->get('id')))) {
                 throw new BadRequest("Such product can't be related with current category");
             }

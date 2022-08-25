@@ -24,7 +24,8 @@
     "onlyCatalogProducts",
     "linkedWithCategory",
     "notLinkedCategoryAndOnlyCatalogsProducts",
-    "onlyOneProductFamily"
+    "onlyOneProductFamily",
+    "allowedForCategory"
   ],
   "hiddenBoolFilterList": [
     "notEntity",
@@ -40,7 +41,8 @@
     "onlyCatalogProducts",
     "linkedWithCategory",
     "notLinkedCategoryAndOnlyCatalogsProducts",
-    "onlyOneProductFamily"
+    "onlyOneProductFamily",
+    "allowedForCategory"
   ],
   "disabledMassActions": [
     "merge"
