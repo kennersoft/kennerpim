@@ -98,18 +98,6 @@ class CategoryEntity extends AbstractEntityListener
             && !empty($entity->get('categoryParent'))) {
             throw new BadRequest($this->translate('Only root category can be linked with catalog', 'exceptions', 'Catalog'));
         }
-
-        if (!empty($parent = $entity->get('categoryParent'))
-            && !empty($parent->get('products'))
-            && !empty(count($parent->get('products')))) {
-            throw new BadRequest(
-                $this->translate(
-                    'Parent category has products',
-                    'exceptions',
-                    'Category'
-                )
-            );
-        }
     }
 
     /**

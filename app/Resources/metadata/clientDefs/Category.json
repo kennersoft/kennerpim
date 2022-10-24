@@ -43,11 +43,7 @@
       "selectBoolFilterList": [
         "allowedForCategory"
       ],
-      "view": "pim:views/category/record/panels/products",
-      "dragDrop": {
-        "isActive": true,
-        "sortField": "pcSorting"
-      }
+      "view": "pim:views/category/record/panels/products"
     }
   },
   "menu": {
