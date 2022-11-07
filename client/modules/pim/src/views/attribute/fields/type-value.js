@@ -43,8 +43,7 @@ Espo.define('pim:views/attribute/fields/type-value', 'views/fields/array',
             // set template
             const property = mode + 'Template';
             const templates = (type && type in this.typeTemplates) ? this.typeTemplates[type] : {};
-            this.template = templates[property] || this[property]
-                || 'fields/' + Espo.Utils.camelCaseToHyphen(this.type) + '/' + this.mode;
+            this.template = templates[property] || 'fields/' + Espo.Utils.camelCaseToHyphen(type) + '/' + this.mode;
         },
 
         data() {
