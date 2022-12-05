@@ -39,7 +39,8 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
             }
 
             if (!this.isWide && this.type !== 'editSmall' && this.type !== 'detailSmall'
-                && this.getAcl().check('Catalog', 'read') && this.getAcl().check('Category', 'read')) {
+                && this.getAcl().check('Catalog', 'read') && this.getAcl().check('Category', 'read')
+                && this.getMetadata().get(['scopes', 'Product', 'catalogTreePanelActive'])) {
                 this.isCatalogTreePanel = true;
                 this.setupCatalogTreePanel();
             }

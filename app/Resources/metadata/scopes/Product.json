@@ -26,5 +26,6 @@
   },
   "completeness": {
     "service": "Completeness\\Services\\ProductCompleteness"
-  }
+  },
+  "catalogTreePanelActive": true
 }

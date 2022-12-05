@@ -23,10 +23,14 @@ Espo.define('pim:views/product/list', ['pim:views/list', 'search-manager'],
 
         template: 'pim:product/list',
 
+        isCatalogTreePanel: false,
+
         setup() {
             Dep.prototype.setup.call(this);
 
-            if (this.getAcl().check('Catalog', 'read') && this.getAcl().check('Category', 'read')) {
+            if (this.getAcl().check('Catalog', 'read') && this.getAcl().check('Category', 'read')
+                && this.getMetadata().get(['scopes', 'Product', 'catalogTreePanelActive'])) {
+                this.isCatalogTreePanel = true;
                 this.setupCatalogTreePanel();
             }
         },
@@ -62,7 +66,7 @@ Espo.define('pim:views/product/list', ['pim:views/list', 'search-manager'],
 
         data() {
             return {
-                isCatalogTreePanel: this.getAcl().check('Catalog', 'read') && this.getAcl().check('Category', 'read')
+                isCatalogTreePanel: this.isCatalogTreePanel
             }
         },
 
