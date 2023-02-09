@@ -159,7 +159,7 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
                 let viewsFields = this.getFieldViews();
                 Object.keys(viewsFields).forEach(item => {
                     if (viewsFields[item].mode === "edit" ) {
-                        viewsFields[item].inlineEditSave();                        
+                        viewsFields[item].inlineEditSave();
                     }
                 });
             }
@@ -185,8 +185,9 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
             let panels = this.getBottomPanels();
             if (panels) {
                 for (let panel in panels) {
-                    if (typeof panels[panel].setListMode === 'function') {
-                        panels[panel].setListMode();
+                    const view = panels[panel];
+                    if (typeof view.setListMode === 'function' && (!view.mode || view.mode === 'edit')) {
+                        view.setListMode();
                     }
                 }
             }
@@ -197,8 +198,9 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
             let panels = this.getBottomPanels();
             if (panels) {
                 for (let panel in panels) {
-                    if (typeof panels[panel].setEditMode === 'function') {
-                        panels[panel].setEditMode();
+                    const view = panels[panel];
+                    if (typeof view.setEditMode === 'function' && view.mode !== 'edit') {
+                        view.setEditMode();
                     }
                 }
             }
@@ -209,8 +211,9 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
             let panels = this.getBottomPanels();
             if (panels) {
                 for (let panel in panels) {
-                    if (typeof panels[panel].cancelEdit === 'function') {
-                        panels[panel].cancelEdit();
+                    const view = panels[panel];
+                    if (typeof view.cancelEdit === 'function' && view.mode === 'edit') {
+                        view.cancelEdit();
                     }
                 }
             }
@@ -222,8 +225,9 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
             let panels = this.getBottomPanels();
             if (panels) {
                 for (let panel in panels) {
-                    if (typeof panels[panel].panelFetch === 'function') {
-                        changes = panels[panel].panelFetch() || changes;
+                    const view = panels[panel];
+                    if (typeof view.panelFetch === 'function' && view.mode === 'edit') {
+                        changes = view.panelFetch() || changes;
                     }
                 }
             }
@@ -235,8 +239,9 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
             let panels = this.getBottomPanels();
             if (panels) {
                 for (let panel in panels) {
-                    if (typeof panels[panel].validate === 'function') {
-                        notValid = panels[panel].validate() || notValid;
+                    const view = panels[panel];
+                    if (typeof view.validate === 'function' && view.mode === 'edit') {
+                        notValid = view.validate() || notValid;
                     }
                 }
             }
@@ -247,8 +252,9 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
             let panels = this.getBottomPanels();
             if (panels) {
                 for (let panel in panels) {
-                    if (typeof panels[panel].save === 'function') {
-                        panels[panel].save();
+                    const view = panels[panel];
+                    if (typeof view.save === 'function' && view.mode === 'edit') {
+                        view.save();
                     }
                 }
             }
@@ -335,7 +341,9 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
                 packageView.save();
             }
 
-            this.handlePanelsSave();
+            if (panelsChanges) {
+                this.handlePanelsSave();
+            }
 
             if (!attrs) {
                 this.afterNotModified(gridPackages || panelsChanges);
