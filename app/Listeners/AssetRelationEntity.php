@@ -68,7 +68,7 @@ class AssetRelationEntity extends AbstractListener
             if ($isGalleryImage) {
                 $this->updateMainImage($assetRelation, $asset);
             }
-        } elseif (!$this->hasMainImageEntity($assetRelation, $isGalleryImage)) {
+        } elseif ($isGalleryImage && !$this->hasMainImageEntity($assetRelation)) {
             $this->updateMainImage($assetRelation, null);
         }
     }
@@ -268,9 +268,8 @@ class AssetRelationEntity extends AbstractListener
      * @param bool $isGalleryImage
      * @return bool
      */
-    protected function hasMainImageEntity(AssetRelation $assetRelation, bool $isGalleryImage): bool
+    protected function hasMainImageEntity(AssetRelation $assetRelation): bool
     {
-        return $isGalleryImage
-                && $this->countRelation($assetRelation, 'Gallery Image', 'Main', 'Global') > 0;
+        return $this->countRelation($assetRelation, 'Gallery Image', 'Main', 'Global') > 0;
     }
 }
