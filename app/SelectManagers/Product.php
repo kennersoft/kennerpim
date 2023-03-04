@@ -70,18 +70,6 @@ class Product extends AbstractSelectManager
     /**
      * @inheritDoc
      */
-    public function applyBoolFilter($filterName, &$result)
-    {
-        parent::applyBoolFilter($filterName, $result);
-
-        if (preg_match_all('/^allowedForCategory_(.*)$/', $filterName, $matches)) {
-            $this->boolAdvancedFilterAllowedForCategory((string)$matches[1][0], $result);
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
     protected function textFilter($textFilter, &$result)
     {
         // call parent
@@ -926,8 +914,11 @@ class Product extends AbstractSelectManager
      * @param string $id
      * @param array  $result
      */
-    protected function boolAdvancedFilterAllowedForCategory(string $id, array &$result)
+    protected function boolFilterAllowedForCategory(array &$result)
     {
+        // prepare product id
+        $id = (string)$this->getSelectCondition('allowedForCategory');
+
         // get allowed ids
         $ids = $this->getEntityManager()->getRepository('Category')->getProductsIdsThatCanBeRelatedWithCategory($id);
 
