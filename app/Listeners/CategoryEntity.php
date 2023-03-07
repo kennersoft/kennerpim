@@ -210,8 +210,10 @@ class CategoryEntity extends AbstractEntityListener
         if (empty($entity->categoryListener) && $isActivate && !$entity->isNew()) {
             // update all parents
             foreach ($this->getEntityParents($entity, []) as $parent) {
-                $parent->set('isActive', true);
-                $this->saveEntity($parent);
+                if (!$parent->get('isActive')) {
+                    $parent->set('isActive', true);
+                    $this->saveEntity($parent);
+                }
             }
         }
     }
@@ -230,8 +232,10 @@ class CategoryEntity extends AbstractEntityListener
             // update all children
             $children = $this->getEntityChildren($entity->get('categories'), []);
             foreach ($children as $child) {
-                $child->set('isActive', false);
-                $this->saveEntity($child);
+                if ($child->get('isActive')) {
+                    $child->set('isActive', false);
+                    $this->saveEntity($child);
+                }
             }
         }
     }
