@@ -776,18 +776,22 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
             let data = false;
             this.groups.forEach(group => {
                 const groupView = this.getView(group.key);
-                (groupView.rowList || []).forEach(id => {
-                    const row = groupView.getView(id);
-                    const value = row.getView('valueField');
-                    if (value.mode === 'edit') {
-                        const fetchedData = value.fetch();
-                        const initialData = this.initialAttributes[id];
-                        value.model.set(fetchedData);
-                        if (this.equalityValueCheck(fetchedData, initialData)) {
-                            data = _.extend(data || {}, {[id]: fetchedData});
+                if (groupView) {
+                    (groupView.rowList || []).forEach(id => {
+                        const row = groupView.getView(id);
+                        if (row) {
+                            const value = row.getView('valueField');
+                            if (value && value.mode === 'edit') {
+                                const fetchedData = value.fetch();
+                                const initialData = this.initialAttributes[id];
+                                value.model.set(fetchedData);
+                                if (this.equalityValueCheck(fetchedData, initialData)) {
+                                    data = _.extend(data || {}, {[id]: fetchedData});
+                                }
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
             return data;
         },
