@@ -36,14 +36,16 @@
       "selectBoolFilterList": [
         "notEntity"
       ],
-      "view": "pim:views/category/record/panels/catalogs"
+      "view": "pim:views/category/record/panels/catalogs",
+      "rowActionsView": "views/record/row-actions/relationship-no-remove"
     },
     "products": {
       "selectAction": "selectRelatedEntity",
       "selectBoolFilterList": [
         "allowedForCategory"
       ],
-      "view": "pim:views/category/record/panels/products"
+      "view": "pim:views/category/record/panels/products",
+      "rowActionsView": "views/record/row-actions/relationship-no-remove"
     }
   },
   "menu": {
