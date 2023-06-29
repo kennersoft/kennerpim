@@ -51,4 +51,37 @@ class AssetEntity extends AbstractListener
                 ->nativeQuery('UPDATE '. $table .' SET image_id = null WHERE image_id = :id', ['id' => $fileId]);
         }
     }
+
+    /**
+     * @param Event $event
+     */
+    public function afterSave(Event $event): void
+    {
+        $entity = $event->getArgument('entity');
+
+        if ($entity->isAttributeChanged("fileId") && !$entity->isNew()) {
+            $fileId = $entity->get('fileId');
+            foreach ($this->hasMainImage as $table) {
+                $assetRelations = $this
+                    ->getEntityManager()
+                    ->getRepository('AssetRelation')
+                    ->select(['id', 'assetId', 'entityId'])
+                    ->where([
+                        "entityName" => $table,
+                        "assetId" => $entity->id,
+                        'role' => '["Main"]'
+                    ])
+                    ->find();
+
+                if (count($assetRelations)) {
+                    foreach ($assetRelations as $assetRelation) {
+                        $entityId = $assetRelation->get('entityId');
+                        $this
+                            ->getEntityManager()
+                            ->nativeQuery("UPDATE ".Util::toCamelCase($table)." SET image_id = '$fileId' WHERE id = '$entityId'");
+                    }
+                }
+            }
+        }
+    }
 }
