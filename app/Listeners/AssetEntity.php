@@ -65,7 +65,7 @@ class AssetEntity extends AbstractListener
                 $assetRelations = $this
                     ->getEntityManager()
                     ->getRepository('AssetRelation')
-                    ->select(['id', 'assetId', 'entityId'])
+                    ->select(['id', 'entityName', 'entityId'])
                     ->where([
                         "entityName" => $table,
                         "assetId" => $entity->id,
@@ -75,10 +75,15 @@ class AssetEntity extends AbstractListener
 
                 if (count($assetRelations)) {
                     foreach ($assetRelations as $assetRelation) {
-                        $entityId = $assetRelation->get('entityId');
-                        $this
+                        $foreign = $this
                             ->getEntityManager()
-                            ->nativeQuery("UPDATE ".Util::toCamelCase($table)." SET image_id = '$fileId' WHERE id = '$entityId'");
+                            ->getEntity($assetRelation->get('entityName'), $assetRelation->get('entityId'));
+                        // update main image if it needs
+                        if (!empty($foreign) && $fileId != $foreign->get('imageId')) {
+                            $foreign->set('imageId', $fileId);
+                            $foreign->keepAttachment = true;
+                            $this->getEntityManager()->saveEntity($foreign, ['skipAfterSave' => true]);
+                        }
                     }
                 }
             }
