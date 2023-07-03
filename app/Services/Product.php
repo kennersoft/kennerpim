@@ -191,9 +191,14 @@ class Product extends AbstractService
                     $entity->set($item->toArray());
                     $entity->id = Util::generateId();
                     $entity->duplicated = true;
+                    $entity->skipProcessFileFieldsSave = true;
                     $entity->set('productId', $product->get('id'));
 
-                    $this->getEntityManager()->saveEntity($entity, ['skipProductAttributeValueHook' => true, 'skipValidation' => true]);
+                    try {
+                        $this->getEntityManager()->saveEntity($entity, ['skipProductAttributeValueHook' => true, 'skipValidation' => true]);
+                    } catch (\Throwable $e) {
+                        $GLOBALS['log']->error($e->getMessage());
+                    }
 
                     // relate channels
                     if (count($item->get('channels')) > 0) {
