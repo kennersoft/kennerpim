@@ -33,6 +33,29 @@ Espo.define('pim:views/attribute/fields/type-value', 'views/fields/array',
             });
         },
 
+        afterRender: function () {
+            Dep.prototype.afterRender.call(this);
+
+            if (this.mode === 'edit') {
+                if (!this.params.options) {
+                    this.$select.off('keypress');
+                    this.$select.on('keypress', function (e) {
+                        if (e.keyCode === 13) {
+                            let value = this.$select.val().toString();
+                            if (this.noEmptyString) {
+                                if (value === '') {
+                                    return;
+                                }
+                            }
+                            value = value.trim();
+                            this.addValue(value);
+                            this.$select.val('');
+                        }
+                    }.bind(this));
+                }
+            }
+        },
+
         setMode: function (mode) {
             // prepare mode
             this.mode = mode;
