@@ -29,7 +29,7 @@ Espo.define('pim:views/dashlets/fields/varchar-with-url', 'views/fields/varchar'
                 event.preventDefault();
                 let hash = event.currentTarget.hash;
                 let name = this.model.get(this.name);
-                let options = ((this.model.getFieldParam(this.name, 'urlMap') || {})[name] || {}).options;
+                let options = ((this.model.getFieldParam(this.name, 'urlMap') || {})[name] || {}).options || {};
                 this.getStorage().set('listSearch', hash.substr(1), {
                     textFilter: '',
                     primary: null,
