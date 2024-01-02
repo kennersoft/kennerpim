@@ -30,8 +30,18 @@ Espo.define('pim:views/dashlets/fields/varchar-with-url', 'views/fields/varchar'
                 let hash = event.currentTarget.hash;
                 let name = this.model.get(this.name);
                 let options = ((this.model.getFieldParam(this.name, 'urlMap') || {})[name] || {}).options;
+                this.getStorage().set('listSearch', hash.substr(1), {
+                    textFilter: '',
+                    primary: null,
+                    presetName: null,
+                    bool: (options.boolFilterList || []).reduce((acc, curr) => {
+                        acc[curr] = true;
+                        return acc;
+                    }, {}),
+                    advanced: options.advanced || {}
+                });
                 this.getRouter().navigate(hash, {trigger: false});
-                this.getRouter().dispatch(hash.substr(1), 'list', options);
+                this.getRouter().dispatch(hash.substr(1), 'list', {});
             }
         },
 
