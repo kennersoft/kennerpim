@@ -59,14 +59,11 @@ class TreoCleanupJob extends AbstractListener
         $this->execute("DELETE FROM catalog WHERE deleted=1");
 
         // category
-        $ids = $this->fetchIds("SELECT id FROM category WHERE deleted=1");
-        $this->execute("UPDATE product_category SET deleted=1 WHERE category_id IN ('$ids')");
         $this->execute("DELETE FROM category WHERE deleted=1");
 
         // channel
         $ids = $this->fetchIds("SELECT id FROM channel WHERE deleted=1");
         $this->execute("UPDATE product_attribute_value_channel SET deleted=1 WHERE channel_id IN ('$ids')");
-        $this->execute("UPDATE product_category_channel SET deleted=1 WHERE channel_id IN ('$ids')");
         $this->execute("UPDATE product_family_attribute_channel SET deleted=1 WHERE channel_id IN ('$ids')");
         $this->execute("DELETE FROM channel WHERE deleted=1");
 
@@ -82,7 +79,6 @@ class TreoCleanupJob extends AbstractListener
         // product
         $ids = $this->fetchIds("SELECT id FROM product WHERE deleted=1");
         $this->execute("UPDATE product_attribute_value SET deleted=1 WHERE product_id IN ('$ids')");
-        $this->execute("UPDATE product_category SET deleted=1 WHERE product_id IN ('$ids')");
         $this->execute("UPDATE associated_product SET deleted=1 WHERE main_product_id IN ('$ids')");
         $this->execute("UPDATE associated_product SET deleted=1 WHERE related_product_id IN ('$ids')");
         $this->execute("DELETE FROM product WHERE deleted=1");
@@ -94,14 +90,6 @@ class TreoCleanupJob extends AbstractListener
 
         // product_attribute_value_channel
         $this->execute("DELETE FROM product_attribute_value_channel WHERE deleted=1");
-
-        // product_category
-        $ids = $this->fetchIds("SELECT id FROM product_category WHERE deleted=1 AND scope='Channel'");
-        $this->execute("UPDATE product_category_channel SET deleted=1 WHERE product_category_id IN ('$ids')");
-        $this->execute("DELETE FROM product_category WHERE deleted=1");
-
-        // product_category_channel
-        $this->execute("DELETE FROM product_category_channel WHERE deleted=1");
 
         // product_family
         $ids = $this->fetchIds("SELECT id FROM product_family WHERE deleted=1");
