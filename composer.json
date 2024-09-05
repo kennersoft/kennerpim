@@ -4,7 +4,7 @@
   "homepage": "https://kennerpim.de",
   "license": "GPL-3.0-only",
   "require": {
-    "kennersoft/kennercore": "~3.25.15",
+    "kennersoft/kennercore": "~3.25.68",
     "kennersoft/colored-fields": "~1.7.13",
     "kennersoft/multi-languages": "~1.14.0",
     "kennersoft/import-feeds-common": "~1.4.0",

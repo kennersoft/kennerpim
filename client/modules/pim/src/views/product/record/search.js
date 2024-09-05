@@ -202,17 +202,6 @@ Espo.define('pim:views/product/record/search', ['views/record/search', 'search-m
             }
         },
 
-        updateCollection() {
-            const defaultFilters = this.searchManager.get();
-            const catalogTreeData = this.getCatalogTreeData();
-            let extendedFilters = _.extend(Espo.Utils.cloneDeep(defaultFilters), catalogTreeData);
-            this.searchManager.set(extendedFilters);
-
-            Dep.prototype.updateCollection.call(this);
-
-            this.searchManager.set(defaultFilters);
-        },
-
         getCatalogTreeData() {
             let result = {};
             const list = this.getParentView();
@@ -381,29 +370,6 @@ Espo.define('pim:views/product/record/search', ['views/record/search', 'search-m
                 }
                 view.render();
             }.bind(this));
-        },
-
-        selectPreset: function (presetName, forceClearAdvancedFilters) {
-            var wasPreset = !(this.primary == this.presetName);
-
-            this.presetName = presetName;
-
-            var advanced = this.getPresetData();
-            this.primary = this.getPrimaryFilterName();
-
-            var isPreset = !(this.primary === this.presetName);
-
-            if (forceClearAdvancedFilters || wasPreset || isPreset || Object.keys(advanced).length) {
-                this.removeFilters();
-                this.advanced = advanced;
-            }
-
-            this.updateSearch();
-            this.manageLabels();
-
-            this.createFilters();
-            this.reRender();
-            this.updateCollection();
         },
 
         updateCollection() {
