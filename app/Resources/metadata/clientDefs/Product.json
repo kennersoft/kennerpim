@@ -64,7 +64,8 @@
     "categories": {
       "selectAction": "selectRelatedEntity",
       "selectBoolFilterList": [
-        "allowedForProduct"
+        "allowedForProduct",
+        "notEntity"
       ],
       "view": "pim:views/product/record/panels/categories"
     },
