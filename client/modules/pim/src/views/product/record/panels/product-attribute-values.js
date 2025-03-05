@@ -807,13 +807,13 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
         save() {
             const data = this.panelFetch();
             if (data) {
-                const promises = [];
+                const attributes = {};
                 $.each(data, (id, attrs) => {
                     this.collection.get(id).set(attrs, {silent: true});
-                    promises.push(this.ajaxPutRequest(`${this.collection.name}/${id}`, attrs))
+                    attributes[id] = attrs;
                 });
                 this.notify('Saving...');
-                Promise.all(promises)
+                this.ajaxPostRequest('ProductAttributeValue/action/savePAVs', {attributes: attributes})
                     .then(response => {
                         this.notify('Saved', 'success');
                         this.model.trigger('after:attributesSave');
