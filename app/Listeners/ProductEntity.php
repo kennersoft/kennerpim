@@ -75,6 +75,8 @@ class ProductEntity extends AbstractEntityListener
         if ($skipUpdate && empty($entity->isDuplicate) && $entity->isAttributeChanged('productFamilyId')) {
             $this->updateProductAttributesByProductFamily($entity, $options);
         }
+
+        $this->getServiceFactory()->create('Product')->runUpdateVariantsAfterProductSave($entity);
     }
 
     /**
@@ -108,6 +110,23 @@ class ProductEntity extends AbstractEntityListener
     {
         $id = $event->getArgument('entity')->id;
         $this->removeProductAttributeValue($id);
+    }
+
+    /**
+     * Before action delete
+     *
+     * @param Event $event
+     * @throws BadRequest
+     */
+    public function beforeRemove(Event $event)
+    {
+        $entity = $event->getArgument('entity');
+
+        if (!empty($entity) && empty($entity->get('parentProductId'))) {
+            if ($entity->get('productVariants')->count() > 0) {
+                throw new BadRequest($this->exception('cantRemoveProductWithVariants'));
+            }
+        }
     }
 
     /**

@@ -27,6 +27,9 @@ use Dam\Entities\AssetRelation;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\ORM\Entity;
 use Espo\Core\Utils\Util;
+use Pim\Helpers\Product\ProductVariantSkuGenerator;
+use Pim\Jobs\UpdateProductVariantsJob;
+use Treo\Core\QueueManager;
 
 /**
  * Service of Product
@@ -159,6 +162,39 @@ class Product extends AbstractService
     public static function isMainRole(AssetRelation $assetRelation): bool
     {
         return in_array('Main', (array)$assetRelation->get('role'));
+    }
+
+    public function createProductVariantFromProduct(string $parentProductId): array
+    {
+        $productData = $this->getDuplicateAttributes($parentProductId);
+        $productData->parentProductId = $parentProductId;
+
+        $skuGenerator = new ProductVariantSkuGenerator($this->getEntityManager());
+        $productData->sku = $skuGenerator->generateNewSku($parentProductId, $productData->sku);
+
+        $createdVariant = $this->createEntity($productData);
+
+        return [
+            'id' => $createdVariant->id
+        ];
+    }
+
+    public function runUpdateVariantsAfterProductSave(\Pim\Entities\Product $product): void
+    {
+        if (!empty($product->get('parentProductId'))) {
+            return;
+        }
+
+        /**
+         * @var QueueManager $qm
+         */
+        $qm = $this->getInjection('queueManager');
+
+        $qm->push(
+                sprintf('QueueManagerUpdateProductVariants-%s', $product->get('id')),
+                'QueueManagerUpdateProductVariants',
+                [QueueManagerUpdateProductVariants::DATA_KEY_PRODUCT_ID => $product->get('id')]
+            );
     }
 
     /**
@@ -465,5 +501,12 @@ class Product extends AbstractService
             // execute sql
             $this->getEntityManager()->nativeQuery($sql);
         }
+    }
+
+    protected function init()
+    {
+        parent::init();
+
+        $this->addDependency('queueManager');
     }
 }

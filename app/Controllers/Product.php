@@ -25,6 +25,7 @@ namespace Pim\Controllers;
 
 use Espo\Core\Exceptions;
 use Slim\Http\Request;
+use stdClass;
 
 /**
  * Product controller
@@ -85,5 +86,34 @@ class Product extends AbstractController
         }
 
         return $this->getRecordService()->removeAssociateProducts($data);
+    }
+
+    /**
+     * Create product variant from main product
+     *
+     * @param array     $params
+     * @param stdClass  $data
+     * @param Request   $request
+     *
+     * @return array
+     *
+     * @throws Exceptions\BadRequest
+     * @throws Exceptions\Forbidden
+     */
+    public function actionCreateVariantFromProduct(array $params, stdClass $data, Request $request): array
+    {
+        if (!$request->isPost()) {
+            throw new Exceptions\BadRequest();
+        }
+
+        if (empty($data->parent_product_id)) {
+            throw new Exceptions\BadRequest("Bad parent_product_id");
+        }
+
+        if (!$this->getAcl()->check('Product', 'edit')) {
+            throw new Exceptions\Forbidden();
+        }
+
+        return $this->getRecordService()->createProductVariantFromProduct($data->parent_product_id);
     }
 }

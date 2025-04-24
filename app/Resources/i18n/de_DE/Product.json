@@ -36,7 +36,9 @@
     "channels": "Kanale",
     "measuringUnit": "Maßeinheit",
     "basePriceAmount": "Grundpreis Betrag",
-    "packedAmount": "Gepackte Menge"
+    "packedAmount": "Gepackte Menge",
+    "productVariants": "Product Variants",
+    "parentProduct": "Parent Product"
   },
   "links": {
     "categories": "Kategorien",
@@ -56,7 +58,9 @@
     "productTypeConfigurables": "konfigurierbarer Produkttyp",
     "catalog": "Katalog",
     "channels": "Kanale",
-    "measuringUnit": "Messeinheit"
+    "measuringUnit": "Messeinheit",
+    "productVariants": "Product Variants",
+    "parentProduct": "Parent Product"
   },
   "labels": {
     "There is no valid attributes for channel": "Es gibt keine gültigen Attribute für Kanal",
@@ -95,11 +99,17 @@
     "withoutAnyCategory": "ohne Kategorie",
     "withoutAssociatedProducts": "ohne zugehörige Produkte",
     "withoutImageAssets": "ohne Bildassets",
-    "withoutProductAttributes": "ohne Produktattribute"
+    "withoutProductAttributes": "ohne Produktattribute",
+    "Product": "Produkt",
+    "ProductVariant": "Produktvariante"
   },
   "exceptions": {
     "Product with such SKU already exist": "Produkt mit einer solchen Artikelnummer existiert bereits",
     "You can't change Product Family in Product": "Sie können die Produktfamilie in Product nicht ändern",
-    "You can't change field of Type in Product": "Sie können das Feld Typ in Produkt nicht ändern"
+    "You can't change field of Type in Product": "Sie können das Feld Typ in Produkt nicht ändern",
+    "cantRemoveProductWithVariants": "Sie können kein Produkt entfernen, das Varianten hat"
+  },
+  "messages": {
+    "createVariantAction": "Produktvariante erstellen"
   }
 }

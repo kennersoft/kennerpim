@@ -22,6 +22,7 @@
 namespace Pim\Core\SelectManagers;
 
 use Espo\Core\Services\Base as BaseService;
+use PDO;
 
 /**
  * Class of AbstractSelectManager
@@ -165,5 +166,15 @@ abstract class AbstractSelectManager extends \Treo\Core\SelectManagers\Base
             ->getContainer()
             ->get('serviceFactory')
             ->create($name);
+    }
+
+    protected function fetchColumn(string $sql): array
+    {
+        $pdo = $this->getEntityManager()->getPDO();
+
+        $sth = $pdo->prepare($sql);
+        $sth->execute();
+
+        return $sth->fetchAll(PDO::FETCH_COLUMN);
     }
 }
