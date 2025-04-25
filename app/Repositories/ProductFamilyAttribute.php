@@ -294,7 +294,7 @@ class ProductFamilyAttribute extends Base
             $teamsIds = (array)$entity->get('teamsIds');
 
             foreach ($productsIds as $productId) {
-                if (in_array($productId, $skipToCreate)) {
+                if (in_array($productId, $skipToCreate) || $this->skipVariantAttributeForProduct($productId, $attributeId)) {
                     continue 1;
                 }
 
@@ -458,5 +458,28 @@ class ProductFamilyAttribute extends Base
             ->getEntityManager()
             ->nativeQuery($sql, ['attributeId' => $entity->get('attributeId')])
             ->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    private function skipVariantAttributeForProduct(string $productId, string $attributeId): bool
+    {
+        $productSql = <<<SQL
+SELECT parent_product_id
+FROM product
+WHERE id = :productId;
+SQL;
+
+        $attributeSql = <<<SQL
+SELECT is_variant_attribute
+FROM attribute
+WHERE id = :attributeId;
+SQL;
+
+
+        $parentProductId = $this->entityManager->nativeQuery($productSql, ['productId' => $productId])
+            ->fetchColumn();
+        $isVariantAttribute = (bool)$this->entityManager->nativeQuery($attributeSql, ['attributeId' => $attributeId])
+            ->fetchColumn();
+
+        return $isVariantAttribute && empty($parentProductId);
     }
 }
