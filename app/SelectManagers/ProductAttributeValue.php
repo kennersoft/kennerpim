@@ -88,6 +88,7 @@ class ProductAttributeValue extends AbstractSelectManager
         $result['customJoin'] .= " LEFT JOIN attribute_group AS ag1 ON ag1.id=attribute.attribute_group_id AND ag1.deleted=0";
 
         $result['additionalSelectColumns']['attribute.type_value'] = 'typeValue';
+        $result['additionalSelectColumns']['attribute.is_variant_attribute'] = 'isVariantAttribute';
         $result['additionalSelectColumns']['ag1.id'] = 'attributeGroupId';
         $result['additionalSelectColumns']['ag1.name'] = 'attributeGroupName';
     }

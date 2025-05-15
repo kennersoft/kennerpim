@@ -31,6 +31,7 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
             'attributeGroupName',
             'attributeId',
             'attributeName',
+            'inheritedFromParent',
             'isRequired',
             'productFamilyAttributeId',
             'scope',
@@ -454,7 +455,7 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
         setGroup(params, model, groups) {
             let group = groups.find(item => item.key === params.key);
             if (group) {
-                group.editable = group.editable && model.get('isCustom');
+                group.editable = group.editable && model.get('isCustom') && !model.get('inheritedFromParent');
                 group.rowList.push(model.id);
                 group.rowList.sort((a, b) => this.collection.get(a).get('sortOrder') - this.collection.get(b).get('sortOrder'));
             } else {
@@ -463,7 +464,7 @@ Espo.define('pim:views/product/record/panels/product-attribute-values', ['views/
                     id: !this.groupsWithoutId.includes(params.key) ? params.key : null,
                     label: params.label,
                     rowList: [model.id],
-                    editable: model.get('isCustom')
+                    editable: model.get('isCustom') && !model.get('inheritedFromParent')
                 });
             }
         },

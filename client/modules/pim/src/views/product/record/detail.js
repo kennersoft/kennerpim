@@ -32,7 +32,7 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
         isCreatingVariant: false,
 
         setup() {
-            if (!this.model.get('parentProductId')) {
+            if (this.isVariantAllowed()) {
                 this.dropdownItemList.push({
                     'label': this.translate('createVariantAction', 'messages', 'Product'),
                     'name': 'createProductVariant'
@@ -53,6 +53,10 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
                 this.isCatalogTreePanel = true;
                 this.setupCatalogTreePanel();
             }
+        },
+
+        isVariantAllowed() {
+            return !this.model.get('parentProductId') && this.getConfig().get('variantsEnabled');
         },
 
         setupCatalogTreePanel() {
@@ -435,7 +439,7 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
                 .then(response => {
                     this.notify('Success', 'success');
                     window.location.href = `/#Product/view/${response.id}`;
-                }).catch(e => {
+                }, e => {
                     this.notify('Error', 'error');
                     this.isCreatingVariant = false;
                 });

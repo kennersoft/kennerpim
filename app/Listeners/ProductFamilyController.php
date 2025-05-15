@@ -55,6 +55,7 @@ class ProductFamilyController extends AbstractListener
                             // add to attribute group to result
                             $data['result']['list'][$key]->attributeGroupId = $attribute->get('attributeGroupId');
                             $data['result']['list'][$key]->attributeGroupName = $attribute->get('attributeGroupName');
+                            $data['result']['list'][$key]->isVariantAttribute = $attribute->get('isVariantAttribute');
 
                             // add sort order
                             $data['result']['list'][$key]->sortOrder = $attribute->get('sortOrder');

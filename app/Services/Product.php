@@ -222,9 +222,20 @@ class Product extends AbstractService
             $rows = $duplicatingProduct->get('productAttributeValues');
 
             if (count($rows) > 0) {
+                $isVariant = [];
+                if (!empty($product->get('parentProductId'))) {
+                    $attributes = $this
+                        ->getEntityManager()
+                        ->getRepository('Attribute')
+                        ->select(['id', 'isVariantAttribute'])
+                        ->where(['id' => array_column($rows->toArray(), 'attributeId')])
+                        ->find();
+                    $isVariant = array_column($attributes->toArray(), 'isVariantAttribute', 'id');
+                }
                 foreach ($rows as $item) {
                     $entity = $this->getEntityManager()->getEntity('ProductAttributeValue');
                     $entity->set($item->toArray());
+                    $entity->set(['inheritedFromParent' => (!empty($product->get('parentProductId')) && $isVariant[$item->get('attributeId')])]);
                     $entity->id = Util::generateId();
                     $entity->duplicated = true;
                     $entity->skipProcessFileFieldsSave = true;
