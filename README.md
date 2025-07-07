@@ -120,6 +120,7 @@ To create your new KennerPim application, first make sure you are using PHP 7.1 
       ```      
 
 4. Install KennerPim following the installation wizard in the web interface. Go to http://YOUR_PROJECT/
+5. If you need the functionality of product variants, add `'variantsEnabled' => true` to your config.php 
      
 ## License
 
