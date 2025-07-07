@@ -926,4 +926,44 @@ class Product extends AbstractSelectManager
             'id' => empty($ids) ? ['no-such-id'] : $ids
         ];
     }
+
+    /**
+     * @param array $result
+     */
+    protected function boolFilterProductVariant(array &$result)
+    {
+        /**
+         * @noinspection SqlNoDataSourceInspection
+         */
+        $sql = <<<SQL
+SELECT id
+FROM product
+WHERE deleted = 0
+AND parent_product_id IS NOT NULL
+SQL;
+
+        $result['whereClause'][] = [
+            'id' => $this->fetchColumn($sql)
+        ];
+    }
+
+    /**
+     * @param array $result
+     */
+    protected function boolFilterProduct(array &$result)
+    {
+        /**
+         * @noinspection SqlNoDataSourceInspection
+         */
+        $sql = <<<SQL
+SELECT id
+FROM product
+WHERE deleted = 0
+AND parent_product_id IS NULL
+SQL;
+
+        $result['whereClause'][] = [
+            'id' => $this->fetchColumn($sql)
+        ];
+    }
 }

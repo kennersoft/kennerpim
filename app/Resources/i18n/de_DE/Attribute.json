@@ -17,7 +17,8 @@
     "productFamilyAttributes": "Produktfamilie Attribute",
     "isMultilang": "Mehrsprachig",
     "locale": "Gebietsschema",
-    "parent": "Elternteil"
+    "parent": "Elternteil",
+    "isVariantAttribute": "Variant attribute"
   },
   "options": {
     "type": {

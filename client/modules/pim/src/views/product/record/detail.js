@@ -29,7 +29,16 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
 
         isCatalogTreePanel: false,
 
+        isCreatingVariant: false,
+
         setup() {
+            if (this.isVariantAllowed()) {
+                this.dropdownItemList.push({
+                    'label': this.translate('createVariantAction', 'messages', 'Product'),
+                    'name': 'createProductVariant'
+                });
+            }
+
             Dep.prototype.setup.call(this);
 
             if (!this.model.isNew() && (this.type === 'detail' || this.type === 'edit') && this.getMetadata().get(['scopes', this.scope, 'advancedFilters'])) {
@@ -44,6 +53,10 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
                 this.isCatalogTreePanel = true;
                 this.setupCatalogTreePanel();
             }
+        },
+
+        isVariantAllowed() {
+            return !this.model.get('parentProductId') && this.getConfig().get('variantsEnabled');
         },
 
         setupCatalogTreePanel() {
@@ -412,6 +425,24 @@ Espo.define('pim:views/product/record/detail', 'pim:views/record/detail',
                 patch: !model.isNew()
             });
             return true;
+        },
+
+        actionCreateProductVariant() {
+            if (this.isCreatingVariant) {
+                return;
+            }
+
+            this.isCreatingVariant = true;
+
+            this.notify('Processing...');
+            this.ajaxPostRequest('Product/action/CreateVariantFromProduct', {parent_product_id: this.model.id})
+                .then(response => {
+                    this.notify('Success', 'success');
+                    window.location.href = `/#Product/view/${response.id}`;
+                }, e => {
+                    this.notify('Error', 'error');
+                    this.isCreatingVariant = false;
+                });
         }
     })
 );

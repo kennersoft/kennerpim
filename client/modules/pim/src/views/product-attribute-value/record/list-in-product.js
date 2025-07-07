@@ -71,7 +71,7 @@ Espo.define('pim:views/product-attribute-value/record/list-in-product', 'views/r
                 if (rowView) {
                     let fieldView = rowView.getView('valueField');
                     if (fieldView && fieldView.model && !fieldView.model.getFieldParam(fieldView.name, 'readOnly')
-                        && typeof fieldView.setMode === 'function') {
+                        && typeof fieldView.setMode === 'function' && !fieldView.model.get('inheritedFromParent')) {
                         fieldView.setMode(mode);
                         fieldView.reRender();
                     }

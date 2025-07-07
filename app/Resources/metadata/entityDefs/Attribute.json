@@ -153,6 +153,10 @@
       "layoutFiltersDisabled": true,
       "noLoad": true,
       "importDisabled": true
+    },
+    "isVariantAttribute": {
+      "type": "bool",
+      "default": false
     }
   },
   "links": {

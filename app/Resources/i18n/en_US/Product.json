@@ -32,7 +32,9 @@
     "channels": "Channels",
     "measuringUnit": "Measuring Unit",
     "basePriceAmount": "Base Price Amount",
-    "packedAmount": "Packed Amount"
+    "packedAmount": "Packed Amount",
+    "productVariants": "Product Variants",
+    "parentProduct": "Parent Product"
   },
   "links": {
     "categories": "Categories",
@@ -48,7 +50,9 @@
     "tax": "Tax",
     "packaging": "Packaging",
     "catalog": "Catalog",
-    "channels": "Channels"
+    "channels": "Channels",
+    "productVariants": "Product Variants",
+    "parentProduct": "Parent Product"
   },
   "labels": {
     "Create Product": "Create Product",
@@ -89,11 +93,17 @@
     "withoutAssociatedProducts": "Without Associated Products",
     "withoutAnyCategory": "Without Any Category",
     "withoutProductAttributes": "Without Product Attributes",
-    "withoutImageAssets": "Without Image Assets"
+    "withoutImageAssets": "Without Image Assets",
+    "Product": "Product",
+    "ProductVariant": "Product variant"
   },
   "exceptions": {
     "Product with such SKU already exist": "Product with such SKU already exist",
     "You can't change Product Family in Product": "You can't change Product Family in Product",
-    "You can't change field of Type in Product": "You can't change field of Type in Product"
+    "You can't change field of Type in Product": "You can't change field of Type in Product",
+    "cantRemoveProductWithVariants": "You can't remove product that has variants"
+  },
+  "messages": {
+    "createVariantAction": "Create product variant"
   }
 }

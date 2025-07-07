@@ -12,7 +12,8 @@
     "productFamilyAttributes": "Product Family Attributes",
     "isMultilang": "Multi-Language",
     "locale": "Locale",
-    "parent": "Parent"
+    "parent": "Parent",
+    "isVariantAttribute": "Variant attribute"
   },
   "options": {
     "type": {

@@ -116,6 +116,9 @@ class ProductAttributeValueEntity extends AbstractListener
             $this->createNote($entity);
         }
 
+        //Update attribute values in variants
+        $this->getService('Product')->runUpdateVariantsAfterProductSave($entity->get('product'));
+
         return true;
     }
 

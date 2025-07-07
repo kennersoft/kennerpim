@@ -27,6 +27,9 @@ use Dam\Entities\AssetRelation;
 use Espo\Core\Exceptions\Forbidden;
 use Espo\ORM\Entity;
 use Espo\Core\Utils\Util;
+use Pim\Helpers\Product\ProductVariantSkuGenerator;
+use Pim\Jobs\UpdateProductVariantsJob;
+use Treo\Core\QueueManager;
 
 /**
  * Service of Product
@@ -161,6 +164,39 @@ class Product extends AbstractService
         return in_array('Main', (array)$assetRelation->get('role'));
     }
 
+    public function createProductVariantFromProduct(string $parentProductId): array
+    {
+        $productData = $this->getDuplicateAttributes($parentProductId);
+        $productData->parentProductId = $parentProductId;
+
+        $skuGenerator = new ProductVariantSkuGenerator($this->getEntityManager());
+        $productData->sku = $skuGenerator->generateNewSku($parentProductId, $productData->sku);
+
+        $createdVariant = $this->createEntity($productData);
+
+        return [
+            'id' => $createdVariant->id
+        ];
+    }
+
+    public function runUpdateVariantsAfterProductSave(\Pim\Entities\Product $product): void
+    {
+        if (!empty($product->get('parentProductId'))) {
+            return;
+        }
+
+        /**
+         * @var QueueManager $qm
+         */
+        $qm = $this->getInjection('queueManager');
+
+        $qm->push(
+                sprintf('QueueManagerUpdateProductVariants-%s', $product->get('id')),
+                'QueueManagerUpdateProductVariants',
+                [QueueManagerUpdateProductVariants::DATA_KEY_PRODUCT_ID => $product->get('id')]
+            );
+    }
+
     /**
      * @inheritDoc
      */
@@ -186,9 +222,20 @@ class Product extends AbstractService
             $rows = $duplicatingProduct->get('productAttributeValues');
 
             if (count($rows) > 0) {
+                $isVariant = [];
+                if (!empty($product->get('parentProductId'))) {
+                    $attributes = $this
+                        ->getEntityManager()
+                        ->getRepository('Attribute')
+                        ->select(['id', 'isVariantAttribute'])
+                        ->where(['id' => array_column($rows->toArray(), 'attributeId')])
+                        ->find();
+                    $isVariant = array_column($attributes->toArray(), 'isVariantAttribute', 'id');
+                }
                 foreach ($rows as $item) {
                     $entity = $this->getEntityManager()->getEntity('ProductAttributeValue');
                     $entity->set($item->toArray());
+                    $entity->set(['inheritedFromParent' => (!empty($product->get('parentProductId')) && $isVariant[$item->get('attributeId')])]);
                     $entity->id = Util::generateId();
                     $entity->duplicated = true;
                     $entity->skipProcessFileFieldsSave = true;
@@ -465,5 +512,12 @@ class Product extends AbstractService
             // execute sql
             $this->getEntityManager()->nativeQuery($sql);
         }
+    }
+
+    protected function init()
+    {
+        parent::init();
+
+        $this->addDependency('queueManager');
     }
 }

@@ -4,6 +4,7 @@
   "homepage": "https://kennerpim.de",
   "license": "GPL-3.0-only",
   "require": {
+    "ext-pdo": "*",
     "kennersoft/kennercore": "~3.25.68",
     "kennersoft/colored-fields": "~1.7.13",
     "kennersoft/multi-languages": "~1.14.0",
@@ -26,5 +27,15 @@
     "description": {
       "default": "PIM module for KennerCORE."
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.kennersoft.de/packages.json?id=public"
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.kennersoft.de/packages.json?id=cc64ea64af05212eb6a17"
+    }
+  ]
 }

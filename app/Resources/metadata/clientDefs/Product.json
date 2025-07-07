@@ -25,7 +25,9 @@
     "linkedWithCategory",
     "notLinkedCategoryAndOnlyCatalogsProducts",
     "onlyOneProductFamily",
-    "allowedForCategory"
+    "allowedForCategory",
+    "ProductVariant",
+    "Product"
   ],
   "hiddenBoolFilterList": [
     "notEntity",
@@ -102,6 +104,11 @@
       "aclScopesList": [
         "Association"
       ]
+    },
+    "productVariants": {
+      "select": false,
+      "create": false,
+      "rowActionsView": "views/record/row-actions/empty"
     }
   },
   "dynamicLogic": {
@@ -119,6 +126,21 @@
                 {
                   "type": "isNotEmpty",
                   "attribute": "_duplicatingEntityId"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "parentProduct": {
+        "readOnly": {
+          "conditionGroup": [
+            {
+              "type": "and",
+              "value": [
+                {
+                  "type": "isNotEmpty",
+                  "attribute": "id"
                 }
               ]
             }

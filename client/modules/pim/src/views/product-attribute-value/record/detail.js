@@ -58,7 +58,7 @@ Espo.define('pim:views/product-attribute-value/record/detail', 'views/record/det
 
         updateModelDefs() {
             // readOnly
-            this.changeFieldsReadOnlyStatus(['attribute', 'channels', 'product', 'scope'], !this.model.get('isCustom'));
+            this.changeFieldsReadOnlyStatus(['attribute', 'channels', 'product', 'scope'], !this.model.get('isCustom') || this.model.get('inheritedFromParent'));
 
             if (this.model.get('attributeId')) {
                 // prepare data
@@ -71,7 +71,8 @@ Espo.define('pim:views/product-attribute-value/record/detail', 'views/record/det
                         type: type,
                         options: typeValue,
                         view: type !== 'bool' ? this.getFieldManager().getViewName(type) : 'pim:views/fields/bool-required',
-                        required: !!this.model.get('isRequired')
+                        required: !!this.model.get('isRequired'),
+                        readOnly: this.model.get('inheritedFromParent')
                     };
 
                     // for unit

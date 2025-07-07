@@ -252,6 +252,18 @@
     "teams": {
       "type": "linkMultiple",
       "view": "views/fields/teams"
+    },
+    "productVariants": {
+      "type": "linkMultiple",
+      "layoutDetailDisabled": true,
+      "layoutMassUpdateDisabled": true,
+      "noLoad": true,
+      "importDisabled": true,
+      "isCustom": true,
+      "readOnly": true
+    },
+    "parentProduct": {
+      "type": "link"
     }
   },
   "links": {
@@ -366,6 +378,20 @@
       "entity": "Team",
       "relationName": "EntityTeam",
       "layoutRelationshipsDisabled": true
+    },
+    "productVariants": {
+      "type": "hasMany",
+      "foreign": "parentProduct",
+      "entity": "Product",
+      "audited": false,
+      "isCustom": true
+    },
+    "parentProduct": {
+      "type": "belongsTo",
+      "foreign": "productVariants",
+      "entity": "Product",
+      "audited": false,
+      "isCustom": true
     }
   },
   "collection": {

@@ -34,7 +34,7 @@ Espo.define('pim:views/product-attribute-value/record/row-actions/relationship-n
                 },
                 link: '#' + this.model.name + '/view/' + this.model.id
             }];
-            if (this.options.acl.edit) {
+            if (this.options.acl.edit && !this.model.get('inheritedFromParent')) {
                 list = list.concat([
                     {
                         action: 'quickEdit',
@@ -47,7 +47,7 @@ Espo.define('pim:views/product-attribute-value/record/row-actions/relationship-n
                 ]);
             }
 
-            if (this.options.acl.delete && this.model.get('isCustom') && this.model.get('locale') === null) {
+            if (this.options.acl.delete && this.model.get('isCustom') && this.model.get('locale') === null && !this.model.get('inheritedFromParent')) {
                 list.push({
                     action: 'removeRelated',
                     label: 'Remove',
