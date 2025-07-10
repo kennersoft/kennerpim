@@ -235,7 +235,7 @@ class Product extends AbstractService
                 foreach ($rows as $item) {
                     $entity = $this->getEntityManager()->getEntity('ProductAttributeValue');
                     $entity->set($item->toArray());
-                    $entity->set(['inheritedFromParent' => (!empty($product->get('parentProductId')) && $isVariant[$item->get('attributeId')])]);
+                    $entity->set(['inheritedFromParent' => (!empty($product->get('parentProductId')) && !$isVariant[$item->get('attributeId')])]);
                     $entity->id = Util::generateId();
                     $entity->duplicated = true;
                     $entity->skipProcessFileFieldsSave = true;
